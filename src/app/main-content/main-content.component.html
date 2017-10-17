@@ -1,0 +1,29 @@
+
+<div fxLayout="column" class="app-container">
+
+  <!-- <div fxFlex="initial">
+      <app-toolbar class="mat-elevation-z6" (sideNavToggle)="toggleSideNav()" ></app-toolbar>
+  </div> -->
+
+ 
+  <mat-sidenav-container (backdropClick)="onSidenavBackdropClick()" >
+
+        <mat-sidenav *ngIf="!(isLoginPage$ | async)" [mode]="sidenavMode$ | async"  [opened]="isSidenavOpen$ | async"  align="start" class="sidebar-panel"> 
+          <app-sidenav></app-sidenav>
+        </mat-sidenav>
+
+       
+        <app-toolbar *ngIf="!(isLoginPage$ | async)" class="mat-elevation-z6"  ></app-toolbar>
+        <app-breadcrumb *ngIf="!(isLoginPage$ | async)" class="mat-elevation-z6"></app-breadcrumb>
+        
+        <!-- Body -->
+        <!-- This is where the routable content be injected -->
+        <div [ngClass]="{ 'feature-container' : !(isLoginPage$ | async), 'login-container' : (isLoginPage$ | async)  }" [@fadeInAnimation]="prepRouteState(routerOutletChild)">
+          <router-outlet #routerOutletChild="outlet"></router-outlet>
+        </div>
+        <!-- End of Body -->
+  </mat-sidenav-container>
+ 
+  
+
+</div>

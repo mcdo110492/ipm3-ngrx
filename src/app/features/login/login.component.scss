@@ -1,0 +1,32 @@
+
+
+
+
+.login-card-container {
+    position: relative;
+    width : 350px;
+}
+
+.login-button {
+    width: 330px;
+}
+
+
+.full-width {
+    width: 100%;
+}
+
+.logo {
+    width: 200px;
+    height: 90px;
+}
+
+@media screen and (max-width : 600px) {
+    .login-card-container {
+        width: 300px;
+    }
+
+    .login-button {
+        width: 290px;
+    }
+}

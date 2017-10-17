@@ -1,0 +1,31 @@
+<div class="navigation no-scroll">
+    
+    <div class="logo-container" fxLayout="row" fxLayoutAlign="center center">
+        <img src="assets/ipm-logo.png" class="app-logo" alt="">
+    </div>
+
+    <div class="overflow-content">
+        <div class="user">
+            <div class="user-photo">
+                <img src="assets/default.jpg" alt="">
+            </div>
+            <span class="user-name">
+                <mat-icon class="icon-small">lock</mat-icon>
+                John Doe
+            </span>
+        </div>   
+    
+           
+        <mat-nav-list>
+            <div *ngFor="let link of links$ | async" >
+                <h2 *ngIf="link.isHeader" class="list-header">{{ link.title | uppercase }}</h2>
+
+                <mat-list-item *ngIf="!link.isHeader">
+                    <mat-icon matListIcon>{{link.icon}}</mat-icon>
+                    <a class="list-item" href="/{{link.link}}">{{ link.title | uppercase }}</a>
+                </mat-list-item>
+            </div>
+        </mat-nav-list> 
+
+    </div>
+</div>
