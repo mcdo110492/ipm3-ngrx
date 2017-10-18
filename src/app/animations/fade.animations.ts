@@ -9,16 +9,21 @@ export const fadeInAnimation =
             ], 
             { optional: true }
             ),
-
-
             query(':enter', 
                 [
                     style({ opacity: 0}),
                     animate('.5s', style({ opacity: 1 }))
                 ], 
                 { optional: true }
-            )
+            ),
+            
             ]),
+        transition('login => *', [
+            query(':enter', [
+                style({ opacity :1 })
+            ], { optional : true })
+           
+        ]),
         transition('* <=> *', [
         // Initial state of new route
         query(':enter',[

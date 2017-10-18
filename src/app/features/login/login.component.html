@@ -1,4 +1,4 @@
-<div class="login-card-container">
+<div class="login-card-container" *ngIf="isLoginPage | async">
   <form action="">
     <mat-card fxLayout="column" fxLayoutAlign="start center">
       <mat-card-header >
@@ -18,7 +18,7 @@
 
       </mat-card-content>
       <mat-card-actions >
-          <button type="button" (click)="loginPage()" mat-raised-button color="primary" routerLink="/main2" class="login-button">LOGIN</button>
+          <button type="button" (click)="loginPage()" mat-raised-button color="primary" routerLink="/table" class="login-button">LOGIN</button>
       </mat-card-actions>
     </mat-card>
   </form>

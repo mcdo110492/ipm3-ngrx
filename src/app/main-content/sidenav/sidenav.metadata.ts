@@ -3,28 +3,8 @@
 
 export const sidenavMetaData  = [
     { title : 'Master Data' , isHeader : true},
-    { title : 'Dashboard' , link : '', icon : 'menu', isHeader : false },
-    { title : 'Dashboard' , link : '', icon : 'menu', isHeader : false },
-    { title : 'Dashboard' , link : '', icon : 'menu', isHeader : false },
-    { title : 'Dashboard' , link : '', icon : 'menu', isHeader : false },
-    { title : 'Dashboard' , link : '', icon : 'menu', isHeader : false },
-    { title : 'Dashboard' , link : '', icon : 'menu', isHeader : false },
-    { title : 'Dashboard' , link : '', icon : 'menu', isHeader : false },
-    { title : 'Dashboard' , link : '', icon : 'menu', isHeader : false },
-    { title : 'Dashboard' , link : '', icon : 'menu', isHeader : false },
-    { title : 'Dashboard' , link : '', icon : 'menu', isHeader : false },
-    { title : 'Dashboard' , link : '', icon : 'menu', isHeader : false },
-    { title : 'Dashboard' , link : '', icon : 'menu', isHeader : false },
-    { title : 'Dashboard' , link : '', icon : 'menu', isHeader : false },
-    { title : 'Master Data 2' , isHeader : true},
-    { title : 'Dashboard' , link : '', icon : 'menu', isHeader : false },
-    { title : 'Dashboard' , link : '', icon : 'menu', isHeader : false },
-    { title : 'Dashboard' , link : '', icon : 'menu', isHeader : false },
-    { title : 'Dashboard' , link : '', icon : 'menu', isHeader : false },
-    { title : 'Dashboard' , link : '', icon : 'menu', isHeader : false },
-    { title : 'Dashboard' , link : '', icon : 'menu', isHeader : false },
-    { title : 'Dashboard' , link : '', icon : 'menu', isHeader : false },
-    { title : 'Dashboard' , link : '', icon : 'menu', isHeader : false }
+    { title : 'Table' , link : 'table', icon : 'table', isHeader : false },
+    { title : 'Dashboard' , link : 'main2', icon : 'dashboard', isHeader : false }
 ];
 
 
