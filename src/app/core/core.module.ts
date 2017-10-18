@@ -1,6 +1,9 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+//Authentication Guard for Routes
+import { AuthenticationGuard } from "./services/authentication.guard";
+
 /* Only Import Some Global/Core Services that will be use in the entire applications */
 /* CoreModule must only be import once in the root AppModule in order to avoid some difficult bug */
 @NgModule({
@@ -8,7 +11,7 @@ import { CommonModule } from '@angular/common';
     CommonModule
   ],
   declarations: [],
-  providers:[]
+  providers:[AuthenticationGuard]
 })
 export class CoreModule {
 

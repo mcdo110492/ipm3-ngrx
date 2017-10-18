@@ -1,81 +1,55 @@
-<div fxLayout="row" fxLayoutGap="10px">
 
-  <div fxFlex>
 
-  
 
-   
-    <mat-card>
+<div class="datatable-container mat-elevation-z8" >
 
-      <mat-card-header fxLayout="column" >
+  <div fxLayout="row" >
 
-        <mat-card-title fxFlex  >
-          
-          <div fxLayoutAlign="end">
-            <button mat-raised-button color="accent" >Create</button>
-          </div>
-        </mat-card-title>
+    <div fxFlex fxLayoutAlign="start">
+      <app-search-bar></app-search-bar>
+    </div>
 
-        <mat-card-subtitle fxFlex>
-            <app-search-bar></app-search-bar>
-        </mat-card-subtitle>
-
-      </mat-card-header>
-
-      <mat-card-content>
-
-          <div class="datatable-container mat-elevation-z8">
-              <mat-table #table [dataSource]="dataSource">
-            
-                <!--- Note that these columns can be defined in any order.
-                      The actual rendered columns are set as a property on the row definition" -->
-            
-                <!-- Position Column -->
-                <ng-container matColumnDef="position">
-                  <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
-                </ng-container>
-            
-                <!-- Name Column -->
-                <ng-container matColumnDef="name">
-                  <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
-                </ng-container>
-            
-                <!-- Weight Column -->
-                <ng-container matColumnDef="weight">
-                  <mat-header-cell *matHeaderCellDef> Weight </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
-                </ng-container>
-            
-                <!-- Color Column -->
-                <ng-container matColumnDef="symbol">
-                  <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
-                </ng-container>
-            
-                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-              </mat-table>
-              <mat-paginator 
-                [length]="100"
-                [pageSize]="10"
-                [pageSizeOptions]="[5, 10, 25, 100]">
-              </mat-paginator>
-          </div>
-
-      </mat-card-content>
-      
-    </mat-card>
-
+    <div fxFlex fxLayoutAlign="end" class="action-buttons">
+        <button type="button" mat-raised-button color="accent" >Create</button>
+    </div>
+    
   </div>
 
-  <!-- <div fxFlex>
-    <mat-card>
-      <mat-card-content>
-        
-      </mat-card-content>
-    </mat-card>
-  </div> -->
-
+    <mat-table #table [dataSource]="dataSource">
+  
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+  
+      <!-- Position Column -->
+      <ng-container matColumnDef="position">
+        <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+      </ng-container>
+  
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      </ng-container>
+  
+      <!-- Weight Column -->
+      <ng-container matColumnDef="weight">
+        <mat-header-cell *matHeaderCellDef> Weight </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
+      </ng-container>
+  
+      <!-- Color Column -->
+      <ng-container matColumnDef="symbol">
+        <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+      </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator 
+      [length]="100"
+      [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
 </div>
