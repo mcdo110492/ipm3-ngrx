@@ -1,5 +1,3 @@
 <div class="search-container">
-  <form [formGroup]="searchForm">
-    <input type="text" name="search" formControlName="search" placeholder="Search..." >
-  </form>
+    <input type="text" name="search" [value]="query"  (keyup)="search.emit($event.target.value)" placeholder="Search..." > 
 </div>

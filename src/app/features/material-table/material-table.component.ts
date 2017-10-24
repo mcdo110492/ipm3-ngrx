@@ -3,6 +3,10 @@ import { DataSource } from '@angular/cdk/collections';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
+import { Store } from "@ngrx/store";
+import * as matActions from './actions/material-table.actions';
+import * as fromRoot from './reducers';
+import { Element } from "./models/material-table.model";
 
 @Component({
   selector: 'app-material-table',
@@ -10,11 +14,19 @@ import 'rxjs/add/observable/of';
   styleUrls: ['./material-table.component.scss']
 })
 export class MaterialTableComponent implements OnInit {
+  pageLength : number = 100;
+  pageSize : number = 10;
+  pageSizeOptions : number[] = [5, 10, 20, 30, 50, 100];
   displayedColumns = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new ExampleDataSource();
-  constructor() { }
+  collections$ : Observable<Element[]>;
+  dataSource : ExampleDataSource | null;
+  constructor(private _store : Store<fromRoot.State>) { 
+    this.collections$ = this._store.select(fromRoot.getCollectionElements);
+  }
 
   ngOnInit() {
+    this._store.dispatch(new matActions.LoadElements());
+    this.dataSource = new ExampleDataSource(this.collections$);
   }
 
 }
@@ -49,10 +61,13 @@ const data: Element[] = [
   {position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca'},
 ];
 
-export class ExampleDataSource extends DataSource<any> {
+export class ExampleDataSource extends DataSource<Element> {
+  constructor(public collections$ : Observable<Element[]>){
+    super()
+  }
   /** Connect function called by the table to retrieve one stream containing the data to render. */
   connect(): Observable<Element[]> {
-    return Observable.of(data);
+    return this.collections$;
   }
 
   disconnect() {}

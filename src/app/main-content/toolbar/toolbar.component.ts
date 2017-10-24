@@ -19,7 +19,6 @@ export class ToolbarComponent {
   }
 
   logout() {
-    this._store.dispatch( new mainActions.IsLoginPage(true) );
     this._router.navigateByUrl('login');
   }
 

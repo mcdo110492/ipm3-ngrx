@@ -1,6 +1,6 @@
 
 
-<app-search-bar (searchEvent)="searchBar($event)" [searchText]="searchText" ></app-search-bar>
+<app-search-bar (search)="searchBar($event)" ></app-search-bar>
 
 <div fxLayout="row" fxLayoutWrap fxLayoutGap="10px">
     <mat-card fxFlex>
@@ -16,7 +16,7 @@
             <button mat-button routerLink="/main3" >navigate</button>
             <button mat-button routerLink="/main2">main</button>
             <button mat-button routerLink="/login" (click)="loginPage()">login</button>
-            <button mat-raised-button (click)="changeLinks1()" >Loader</button>
+            <button mat-raised-button  >Loader</button>
             </mat-card-actions>
     </mat-card>
 
@@ -33,7 +33,7 @@
             <button mat-button routerLink="/main3" >navigate</button>
             <button mat-button routerLink="/main2">main</button>
             <button mat-button routerLink="/login" (click)="loginPage()">login</button>
-            <button mat-raised-button (click)="changeLinks1()" >Loader</button>
+            <button mat-raised-button >Loader</button>
             </mat-card-actions>
     </mat-card>
 

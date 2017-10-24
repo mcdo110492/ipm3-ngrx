@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { RouterModule } from "@angular/router";
+import { HttpClientModule } from "@angular/common/http";
 
 import { SharedModule } from "./shared/shared.module";
 
@@ -28,6 +29,7 @@ import { environment } from "./../environments/environment";
   imports: [
     BrowserModule,
     RouterModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     SharedModule,
     /**
