@@ -1,5 +1,5 @@
 <mat-toolbar-row  class="breadcrumb-box">
   <ul class="breadcrumb">
-      <li>Dashboard</li>
+      <li *ngFor="let breadcrumb of breadcrumbs | slice:1">{{ breadcrumb | titlecase}}</li>
   </ul>
 </mat-toolbar-row>

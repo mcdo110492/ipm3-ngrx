@@ -10,7 +10,6 @@ export const initialState: MainContent = {
     isSidenavOpen   :   true,
     sidenavMode     :   'side',
     isToolbarLoader :   false,
-    isLoaderSpinner :   false,
     isLoginPage     :   false
 }
 
@@ -28,14 +27,6 @@ export function reducer(state: MainContent = initialState, action: mainActions.A
 
         case mainActions.TOOLBAR_LOADER : {
             return { ...state , isToolbarLoader : action.payload };
-        }
-
-        case mainActions.OPEN_LOADER_SPINNER : {
-            return { ...state , isLoaderSpinner : true };
-        }
-
-        case mainActions.CLOSE_LOADER_SPINNER : {
-            return { ...state , isLoaderSpinner : false };
         }
 
         case mainActions.IS_LOGIN_PAGE : {
@@ -62,3 +53,4 @@ export const getSidenavMode = createSelector(getMainContent, (state : MainConten
 export const getIsToolbarLoader = createSelector(getMainContent, (state : MainContent) => state.isToolbarLoader );
 
 export const getIsLoginPage  = createSelector(getMainContent, (state : MainContent) => state.isLoginPage);
+

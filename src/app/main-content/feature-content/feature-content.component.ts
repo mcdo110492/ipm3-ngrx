@@ -20,13 +20,7 @@ export class FeatureContentComponent implements OnInit {
   ngOnInit() {
   }
 
-  changeLinks1(){
-    this._store.dispatch(new mainActions.OpenLoaderSpinner() );
-    this.searchText = 'search click';
-    setTimeout(() => {
-      this._store.dispatch(new mainActions.CloseLoaderSpinner() );
-    },5000);
-  }
+ 
 
   loginPage(){
     this._store.dispatch( new mainActions.IsLoginPage(true) );

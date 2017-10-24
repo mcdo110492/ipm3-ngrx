@@ -38,7 +38,7 @@ export class MainContentComponent implements OnInit, OnDestroy {
 
   /* Angular LifeCycle Hooks */
   ngOnInit() {
-    //Watches every changes in media breakpoint of flex-layout for changing the settings of sidenav for mobile or desktop
+    //Watches every changes in media breakpoint of angular/flex-layout for changing the settings of sidenav for mobile or desktop
     this.watcher = this._media.subscribe((change: MediaChange) => {
       
         if( change.mqAlias === 'xs' || change.mqAlias === 'sm' ){

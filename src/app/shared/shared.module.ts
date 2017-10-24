@@ -64,7 +64,6 @@ const ANGULAR_MATERIAL_MODULES: any[] = [
 
 import { SearchBarComponent } from "./search-bar/search-bar.component";
 
-
 @NgModule({
   imports: [
     ReactiveFormsModule
