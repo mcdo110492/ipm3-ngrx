@@ -50,6 +50,7 @@ app-root {
   flex-direction: column;
   max-height: 600px;
   width: 100%;
+  margin: 5px 5px 0 0;
 }
 //Material Table with auto scrolling
 .mat-table {
@@ -58,7 +59,27 @@ app-root {
 }
 //Action Buttons for the Material Table at the left side of the .datatable-container
 .action-buttons {
-  padding: 10px;
+  padding: 5px;
+}
+// Add a top and right margin for every mat-card to avoid stick to each other
+.mat-card {
+  margin: 5px 5px 0 0;
+}
+
+.avatar-photo {
+  width: 72px;
+  margin: 0 auto 8px;
+  height: 72px;
+  box-sizing: border-box;
+  border: 1px solid hsla(210,8%,51%,.13);
+  padding: 4px;
+  border-radius: 50%;
+}
+
+.avatar-photo img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
 }
 
 // Free Spinner From http://tobiasahlin.com/spinkit
