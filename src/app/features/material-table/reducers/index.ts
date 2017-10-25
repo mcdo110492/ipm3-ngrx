@@ -1,4 +1,4 @@
-import { createSelector, createFeatureSelector } from "@ngrx/store";
+import { createSelector, createFeatureSelector, ActionReducerMap } from "@ngrx/store";
 import * as fromSearch from './material-table-search.reducer';
 import * as fromCollection from './material-table-collection.reducer';
 import * as fromPaginate from './material-table-paginate.reducer';
@@ -14,7 +14,7 @@ export interface State extends fromRoot.State {
     'elements' : MaterialTableState
 }
 
-export const reducers = {
+export const reducers : ActionReducerMap<MaterialTableState> = {
     search      :   fromSearch.reducer,
     collection  :   fromCollection.reducer,
     paginate    :   fromPaginate.reducer
