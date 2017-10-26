@@ -1,5 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewContainerRef } from '@angular/core';
 import { Router } from "@angular/router";
+
+import { ToastsManager } from "ng2-toastr/ng2-toastr";
 
 import { Subscription } from "rxjs/Subscription";
 import { ToolbarLoaderService } from "./main-content/services";
@@ -34,7 +36,7 @@ export class AppComponent  implements OnInit, OnDestroy {
    */
   routerState : Observable<any>;
 
-  constructor(private _store : Store<fromMain.State>, private _router : Router, private _toolbarLoader : ToolbarLoaderService, private _routerStore : Store<any>){
+  constructor(private _store : Store<fromMain.State>, private _router : Router, private _toolbarLoader : ToolbarLoaderService, private _routerStore : Store<any>, private _toastr : ToastsManager, private _vcr : ViewContainerRef){
     /**
      * A slice of state for toolbar loader from mainContent
      */
@@ -44,6 +46,11 @@ export class AppComponent  implements OnInit, OnDestroy {
      * A slice of state for router from routerReducer
      */
     this.routerState = this._routerStore.select('routerReducer');
+
+    /**
+     * Set the ViewContainerRef of the ng2-toastr
+     */
+    this._toastr.setRootViewContainerRef(this._vcr);
   }
 
   ngOnInit(){
@@ -84,6 +91,6 @@ export class AppComponent  implements OnInit, OnDestroy {
   }
 
 
-
+  
 
 }

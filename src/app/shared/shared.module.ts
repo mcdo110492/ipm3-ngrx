@@ -64,11 +64,13 @@ const ANGULAR_MATERIAL_MODULES: any[] = [
 
 import { SearchBarComponent } from "./search-bar/search-bar.component";
 
+import { UniqueValidatorsDirective } from "./unique-validators.directive";
+
 @NgModule({
   imports: [
     ReactiveFormsModule
   ],
-  declarations: [SearchBarComponent],
+  declarations: [SearchBarComponent,UniqueValidatorsDirective],
   exports:[
     ANGULAR_MODULES,
     ANGULAR_MATERIAL_MODULES,

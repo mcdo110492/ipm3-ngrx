@@ -13,6 +13,7 @@ import { ProjectsService } from "./projects.service";
 import { reducers } from "./reducers";
 import { ProjectsTableEffects } from "./effects/projects-table.effects";
 import { ProjectsTableComponent } from './projects-table/projects-table.component';
+import { ProjectsFormComponent } from './projects-form/projects-form.component';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import { ProjectsTableComponent } from './projects-table/projects-table.componen
     StoreModule.forFeature('featureProjects',reducers),
     EffectsModule.forFeature([ProjectsTableEffects])
   ],
-  declarations: [ProjectsComponent, ProjectsTableComponent],
+  declarations: [ProjectsComponent, ProjectsTableComponent , ProjectsFormComponent],
+  entryComponents: [ProjectsFormComponent],
   providers:[ProjectsService]
 })
 export class ProjectsModule { }

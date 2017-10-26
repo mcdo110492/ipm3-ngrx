@@ -8,40 +8,48 @@ export interface State {
  sortField      : string;
  sortDirection  : string;
  searchQuery    : string;
- collections    : Projects[],
- selectedProject: Projects;
+ collections    : Projects[];
+ selectedProject: Projects; 
  error          : any;  
+ isLoading      : boolean;
+ isSaveLoading  : boolean;
 }
 
 export const initialState: State = {
     pageLength      : 0,
     pageSize        : 5,
     pageIndex       : 0,
-    sortField       : 'projectName',
+    sortField       : 'projectCode',
     sortDirection   : 'asc',
     searchQuery     : '',  
     collections     : null,
     selectedProject : null,
-    error           : null
+    error           : null,
+    isLoading       : false,
+    isSaveLoading   : false
 }
 
 
 export function reducer(state: State = initialState, action: projectActions.Actions): State {
     switch (action.type) {
 
+        case projectActions.LOAD : {
+            return { ...state, isLoading : true };
+        }
+
         case projectActions.LOAD_SUCCESS : {
 
-            return { ...state, collections : action.payload, pageLength : action.count };
+            return { ...state, collections : action.payload, pageLength : action.count, isLoading : false };
         }
 
         case projectActions.LOAD_ERROR : {
             
-            return { ...state, error : action.payload };
+            return { ...state, error : action.payload, isLoading: false, isSaveLoading : false };
         }
 
         case projectActions.SEARCH : {
 
-            return { ...state, searchQuery : action.payload };
+            return { ...state, searchQuery : action.payload, isLoading : true };
 
         }
 
@@ -56,6 +64,31 @@ export function reducer(state: State = initialState, action: projectActions.Acti
             return { ...state, sortField : action.sortField, sortDirection : action.sortDirection };
 
         }
+
+        case projectActions.SELECT_PROJECT : {
+
+            return { ...state, selectedProject : action.payload };
+
+        }
+
+        case projectActions.CLEAR_SELECT_PROJECT : {
+
+            return { ...state, selectedProject : null };
+        }
+
+        case projectActions.SAVE_PROJECT  : {
+
+            return { ...state, isSaveLoading : true };
+
+        }
+
+
+        case projectActions.SAVE_SUCCESS : {
+
+            return { ...state, isSaveLoading : true};
+
+        }
+
 
         default:
             return state;
@@ -83,3 +116,9 @@ export const getSearchQuery = (state : State) => state.searchQuery;
 export const getCollections = (state: State) => state.collections;
 
 export const getError = (state: State) => state.error;
+
+export const getIsLoading = (state : State) => state.isLoading;
+
+export const getSelectedProject = (state : State) => state.selectedProject;
+
+export const getisSaveLoading = (state : State) => state.isSaveLoading;

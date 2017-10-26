@@ -10,7 +10,6 @@ import { Component, Output, EventEmitter, Input, ChangeDetectionStrategy } from 
 })
 export class SearchBarComponent {
   @Input() query = '';
-  @Input() searching = false;
   @Output() search : EventEmitter<string> = new EventEmitter<string>();
 
 }

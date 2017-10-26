@@ -36,3 +36,9 @@ export const getCollectionSearchQuery = createSelector(getCollectionState , from
 export const getCollectionData = createSelector(getCollectionState, fromProjects.getCollections);
 
 export const getCollectionError = createSelector(getCollectionState, fromProjects.getError);
+
+export const getCollectionIsLoading = createSelector(getCollectionState, fromProjects.getIsLoading);
+
+export const getCollectionSelectedProject = createSelector(getCollectionState, fromProjects.getSelectedProject);
+
+export const getCollectionIsSaveLoading = createSelector(getCollectionState, fromProjects.getisSaveLoading);

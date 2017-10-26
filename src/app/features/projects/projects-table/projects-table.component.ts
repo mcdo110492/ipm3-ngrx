@@ -10,6 +10,7 @@ import * as fromRootProjects from './../reducers';
 import { Projects } from "./../models/projects.model";
 
 import { ProjectsTableDatasource } from "./projects-table.datasource";
+import { ProjectsService } from "./../projects.service";
 
 @Component({
   selector: 'app-projects-table',
@@ -27,14 +28,16 @@ export class ProjectsTableComponent implements OnInit {
   pageIndex$    : Observable<number>;
   pageSizeOptions = [2,5,10,15,30,50,100];
 
-  searchQuery : Observable<string>;
+  searchQuery$ : Observable<string>;
+  isLoading$   : Observable<boolean>;
 
-  constructor(private _store$ : Store<fromRootProjects.State>) {
+  constructor(private _store$ : Store<fromRootProjects.State>, private _service : ProjectsService) {
     this.pageLength$   = this._store$.select(fromRootProjects.getCollectionPageLength);
     this.pageSize$     = this._store$.select(fromRootProjects.getCollectionPageSize);
     this.pageIndex$    = this._store$.select(fromRootProjects.getCollectionPageIndex);
     this.collections$  = this._store$.select(fromRootProjects.getCollectionData);
-    this.searchQuery   = this._store$.select(fromRootProjects.getCollectionSearchQuery);
+    this.searchQuery$   = this._store$.select(fromRootProjects.getCollectionSearchQuery);
+    this.isLoading$     = this._store$.select(fromRootProjects.getCollectionIsLoading);
   }
 
   ngOnInit() {
@@ -62,6 +65,20 @@ export class ProjectsTableComponent implements OnInit {
   search(ev : string){
 
     this._store$.dispatch( new projectActions.Search(ev) );
+
+  }
+
+  openDialogForm(){
+
+    this._service.openFormDialog();
+
+  }
+
+  openUpdateDialogForm(project : Projects){
+
+    this._store$.dispatch( new projectActions.SelectProject(project) );
+
+    this._service.openFormDialog();
 
   }
 

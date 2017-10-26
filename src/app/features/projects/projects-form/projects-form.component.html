@@ -1,0 +1,30 @@
+<form [formGroup]="projectForm">
+
+    <h2 align="center" mat-dialog-title>Project</h2>
+    <mat-dialog-content>
+
+        <mat-form-field>
+        <input matInput formControlName="projectCode" placeholder="Code" required>
+        <mat-error>
+            Project Code is Required
+        </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput formControlName="projectName" placeholder="Name" required>
+            <mat-error>
+                Project Name is Required
+            </mat-error>
+        </mat-form-field>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+        <mat-progress-bar *ngIf="(isSaveLoading$ | async)" color="primary" mode="indeterminate" ></mat-progress-bar>
+        <div *ngIf="!(isSaveLoading$ | async)" >
+            <button mat-raised-button (click)="submitForm()" color="accent">Save</button>
+            <button mat-raised-button (click)="closeDialog()" color="warn">Cancel</button>
+        </div>
+    </mat-dialog-actions>
+
+</form>
+

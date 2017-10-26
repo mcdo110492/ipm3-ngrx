@@ -60,5 +60,14 @@ export class ProjectsTableEffects {
             .catch(err => of(new projectActions.LoadError(err) ))
 
         });
+
+    @Effect()
+        save$ : Observable<Action> = this._actions$
+        .ofType<projectActions.SaveProject>(projectActions.SAVE_PROJECT)
+        .map( (action) => action.payload)
+        .switchMap((payload) => {
+            console.log(payload);
+            return of( new projectActions.SaveSuccess('success') );
+        });
   
 }

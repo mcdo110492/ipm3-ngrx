@@ -5,19 +5,19 @@
         <div fxLayout="row" >
     
           <div fxFlex fxLayoutAlign="start">
-            <app-search-bar [query]="searchQuery | async" (search)="search($event)" ></app-search-bar>
+            <app-search-bar [query]="searchQuery$ | async" (search)="search($event)" ></app-search-bar>
           </div>
     
           <div fxFlex fxLayoutAlign="end" class="action-buttons">
-            
-              <button type="button" mat-raised-button color="accent" matTooltip="Click to create new data" matTooltipPosition="above" >
+        
+              <button type="button" class="" mat-raised-button (click)="openDialogForm()" color="accent" matTooltip="Click to create new data" matTooltipPosition="above" >
                 <mat-icon>add</mat-icon>
                 Create
               </button>
           </div>
           
         </div>
-    
+          <mat-progress-bar *ngIf="isLoading$ | async"  color="primary" mode="indeterminate"></mat-progress-bar>
           <mat-table #table [dataSource]="dataSource" matSort (matSortChange)="sortEvent($event)">
         
             <!--- Note that these columns can be defined in any order.
@@ -39,7 +39,7 @@
             <ng-container matColumnDef="actions">
               <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
               <mat-cell *matCellDef="let row"> 
-                <button mat-raised-button color="accent">UPDATE</button>
+                <button mat-raised-button color="accent" (click)="openUpdateDialogForm(row)">UPDATE</button>
               </mat-cell>
             </ng-container>
         

@@ -5,6 +5,7 @@ import { RouterModule } from "@angular/router";
 import { HttpClientModule } from "@angular/common/http";
 
 import { SharedModule } from "./shared/shared.module";
+import { ToastModule } from "ng2-toastr/ng2-toastr";
 
 import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
@@ -32,6 +33,7 @@ import { environment } from "./../environments/environment";
     HttpClientModule,
     BrowserAnimationsModule,
     SharedModule,
+    ToastModule.forRoot(),
     /**
      * CoreModule is imported once in the app root module and do not import it to any other feature modules or it will throw an error and difficult to debug.
      * CoreModule provides some core providers that your entire application uses
