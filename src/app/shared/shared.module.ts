@@ -75,7 +75,8 @@ import { UniqueValidatorsDirective } from "./unique-validators.directive";
     ANGULAR_MODULES,
     ANGULAR_MATERIAL_MODULES,
     FlexLayoutModule,
-    SearchBarComponent
+    SearchBarComponent,
+    UniqueValidatorsDirective
   ]
 })
 export class SharedModule { }

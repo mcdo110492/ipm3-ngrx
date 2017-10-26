@@ -10,7 +10,7 @@ import { MainContentComponent } from './main-content.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 
-import { ToolbarLoaderService ,LoaderSpinnerComponent, LoaderSpinnerService } from './services';
+import { ToolbarLoaderService ,LoaderSpinnerComponent, LoaderSpinnerService, ToastrService } from './services';
 import { BreadcrumbComponent } from "./breadcrumb/breadcrumb.component";
 
 import { FeatureContentComponent } from './feature-content/feature-content.component';
@@ -28,6 +28,6 @@ import { FeatureContentComponent } from './feature-content/feature-content.compo
     LoaderSpinnerComponent
   ],
   exports:[MainContentComponent],
-  providers:[ToolbarLoaderService,LoaderSpinnerService]
+  providers:[ToolbarLoaderService,LoaderSpinnerService,ToastrService]
 })
 export class MainContentModule { }

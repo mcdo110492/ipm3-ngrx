@@ -1,29 +1,32 @@
+
 <form [formGroup]="projectForm">
 
     <h2 align="center" mat-dialog-title>Project</h2>
     <mat-dialog-content>
 
         <mat-form-field>
-        <input matInput formControlName="projectCode" placeholder="Code" required>
-        <mat-error>
-            Project Code is Required
+        <input matInput  placeholder="Code" formControlName="projectCode" appUniqueValidators keyUrl="projects/verifyCode" keyId="{{currentId}}" required>
+        <mat-error *ngIf="projectForm.get('projectCode').hasError('asyncInvalid')">
+            Project Code must be unique
         </mat-error>
+        <mat-error *ngIf="projectForm.get('projectCode').hasError('required')">
+                Project Code is required
+            </mat-error>
         </mat-form-field>
 
         <mat-form-field>
             <input matInput formControlName="projectName" placeholder="Name" required>
             <mat-error>
-                Project Name is Required
+                Project Name is required
             </mat-error>
         </mat-form-field>
     </mat-dialog-content>
 
     <mat-dialog-actions align="end">
-        <mat-progress-bar *ngIf="(isSaveLoading$ | async)" color="primary" mode="indeterminate" ></mat-progress-bar>
-        <div *ngIf="!(isSaveLoading$ | async)" >
-            <button mat-raised-button (click)="submitForm()" color="accent">Save</button>
-            <button mat-raised-button (click)="closeDialog()" color="warn">Cancel</button>
-        </div>
+        
+        <button mat-raised-button [disabled]="projectForm.invalid || projectForm.touched" (click)="submitForm()" color="accent">Save</button>
+        <button mat-raised-button (click)="closeDialog()" color="warn">Cancel</button>
+    
     </mat-dialog-actions>
 
 </form>

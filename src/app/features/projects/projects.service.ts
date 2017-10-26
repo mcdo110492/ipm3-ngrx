@@ -14,6 +14,11 @@ export interface DataResponse {
   data   : Projects[];
 }
 
+export interface StatusResponse {
+  status  : number;
+  message : string;
+}
+
 @Injectable()
 export class ProjectsService {
 
@@ -31,6 +36,18 @@ export class ProjectsService {
           .append('order',sortDirection);
 
     return this._http.get<DataResponse>(`${this.restEndPoint}/projects`,{ params : params });
+  }
+
+  save(project : Projects){
+
+    return this._http.post<StatusResponse>(`${this.restEndPoint}/projects`,project);
+
+  }
+
+  update(project : Projects){
+
+    return this._http.put<StatusResponse>(`${this.restEndPoint}/projects/${project.projectId}`,project)
+
   }
 
   openFormDialog() : void{

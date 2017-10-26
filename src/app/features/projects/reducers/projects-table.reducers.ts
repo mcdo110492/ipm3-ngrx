@@ -12,7 +12,6 @@ export interface State {
  selectedProject: Projects; 
  error          : any;  
  isLoading      : boolean;
- isSaveLoading  : boolean;
 }
 
 export const initialState: State = {
@@ -25,8 +24,7 @@ export const initialState: State = {
     collections     : null,
     selectedProject : null,
     error           : null,
-    isLoading       : false,
-    isSaveLoading   : false
+    isLoading       : false
 }
 
 
@@ -44,7 +42,7 @@ export function reducer(state: State = initialState, action: projectActions.Acti
 
         case projectActions.LOAD_ERROR : {
             
-            return { ...state, error : action.payload, isLoading: false, isSaveLoading : false };
+            return { ...state, error : action.payload, isLoading: false};
         }
 
         case projectActions.SEARCH : {
@@ -74,19 +72,6 @@ export function reducer(state: State = initialState, action: projectActions.Acti
         case projectActions.CLEAR_SELECT_PROJECT : {
 
             return { ...state, selectedProject : null };
-        }
-
-        case projectActions.SAVE_PROJECT  : {
-
-            return { ...state, isSaveLoading : true };
-
-        }
-
-
-        case projectActions.SAVE_SUCCESS : {
-
-            return { ...state, isSaveLoading : true};
-
         }
 
 
@@ -120,5 +105,3 @@ export const getError = (state: State) => state.error;
 export const getIsLoading = (state : State) => state.isLoading;
 
 export const getSelectedProject = (state : State) => state.selectedProject;
-
-export const getisSaveLoading = (state : State) => state.isSaveLoading;

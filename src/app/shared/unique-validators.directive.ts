@@ -15,12 +15,13 @@ import { UniqueValidatorService } from './unique-validator.service';
 
 
 @Directive({
-  selector: '[appUniqueValidator][formControlName],[appUniqueValidator][ngModel]',
+  selector: '[appUniqueValidators][formControlName],[appUniqueValidators][ngModel]',
   providers:[{
     provide: NG_ASYNC_VALIDATORS,
     useExisting: forwardRef(() => UniqueValidatorsDirective),
     multi: true
-  }]
+  },
+  UniqueValidatorService]
 })
 export class UniqueValidatorsDirective implements Validator, OnDestroy {
   @Input() keyUrl : string ; // KeyUrl Input to pass in the backend
@@ -44,7 +45,6 @@ export class UniqueValidatorsDirective implements Validator, OnDestroy {
       this.controlValue.next();
 
       return new Observable( (observer) => {
-
             control.valueChanges
                           .debounceTime(300)
                           .distinctUntilChanged()
@@ -52,13 +52,17 @@ export class UniqueValidatorsDirective implements Validator, OnDestroy {
                           .switchMap( (value) =>  this._service.validateToBackEnd(this.keyUrl,value,this.keyId))
                           .subscribe( (result) => {
                             if(result.status == 200){
-                              observer.next(null);
+                               //return status of 200
+                               observer.next(null);
                             }
                             else{
-                              observer.next({'asyncInvalid' : true});
+                              observer.next({'asyncInvalid' : true}); 
                             }
                           },
-                          (err) => { observer.next({'asyncInvalid' : true}); });
+                          (err) => { 
+                            //return status of 422 or 500
+                            observer.next({'asyncInvalid' : true}); 
+                          });
       });
    
         
