@@ -105,10 +105,15 @@ export class ProjectsTableEffects {
 
                        
 
-    @Effect({dispatch : false})
+    @Effect()
         error$ = this._actions$
                  .ofType<projectActions.LoadError>(projectActions.LOAD_ERROR)
                  .map((action) => action.payload)
                  .do((payload) => { this._toastr.errorHandler(payload)})
+                 .mergeMap((payload) => {
+                    return [
+                       (payload.status == 422) ? new projectActions.ClearSelectProject() : []
+                    ];
+                })
                  
 }

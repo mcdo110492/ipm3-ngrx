@@ -32,7 +32,7 @@ export class ProjectsService {
           .set('filter',searchQuery)
           .append('field',sortField)
           .append('limit', pageSize.toString())
-          .append('page',pageIndex.toString())
+          .append('page', (pageIndex + 1).toString())
           .append('order',sortDirection);
 
     return this._http.get<DataResponse>(`${this.restEndPoint}/projects`,{ params : params });

@@ -21,7 +21,7 @@
                 <h2 *ngIf="link.isHeader" class="list-header">{{ link.title | uppercase }}</h2>
 
                 <mat-list-item *ngIf="!link.isHeader" [routerLink]="link.link" routerLinkActive="active">
-                    <mat-icon matListIcon>{{link.icon}}</mat-icon>
+                    <mat-icon  matListIcon>{{link.icon}}</mat-icon>
                     <a class="list-item">{{ link.title | uppercase }}</a>
                 </mat-list-item>
             </div>

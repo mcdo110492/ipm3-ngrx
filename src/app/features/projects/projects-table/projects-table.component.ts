@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { PageEvent, Sort } from "@angular/material";
 
@@ -15,7 +15,7 @@ import { ProjectsService } from "./../projects.service";
 @Component({
   selector: 'app-projects-table',
   templateUrl: './projects-table.component.html',
-  styleUrls: ['./projects-table.component.scss']
+  changeDetection : ChangeDetectionStrategy.OnPush
 })
 export class ProjectsTableComponent implements OnInit {
 
@@ -26,7 +26,7 @@ export class ProjectsTableComponent implements OnInit {
   pageLength$   : Observable<number>;
   pageSize$     : Observable<number>;
   pageIndex$    : Observable<number>;
-  pageSizeOptions = [2,5,10,15,30,50,100];
+  pageSizeOptions = [5,10,15,30,50,100];
 
   searchQuery$ : Observable<string>;
   isLoading$   : Observable<boolean>;
@@ -53,6 +53,7 @@ export class ProjectsTableComponent implements OnInit {
     this._store$.dispatch( new projectActions.Paginate(ev.pageSize,ev.pageIndex) );
 
     this._store$.dispatch( new projectActions.Load() );
+
   }
 
   sortEvent(ev : Sort){

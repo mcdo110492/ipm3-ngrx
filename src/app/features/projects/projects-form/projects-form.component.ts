@@ -14,8 +14,7 @@ import { Projects } from "./../models/projects.model";
 
 @Component({
   selector: 'app-projects-form',
-  templateUrl: './projects-form.component.html',
-  //changeDetection : ChangeDetectionStrategy.OnPush
+  templateUrl: './projects-form.component.html'
 })
 export class ProjectsFormComponent implements OnInit, OnDestroy {
   subscription : Subscription;

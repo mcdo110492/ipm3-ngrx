@@ -8,8 +8,9 @@ const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'main2' },
   { path :'main2' , component : FeatureContentComponent , data : { animation :'main2' }},
   { path :'login', component :  LoginComponent, data : { animation: 'login' }},
-  { path: 'table', loadChildren: 'app/features/material-table/material-table.module#MaterialTableModule', data: { animation : 'table' } },
   { path: 'projects', loadChildren: 'app/features/projects/projects.module#ProjectsModule', data : { animation : 'projects' } },
+  { path: 'positions', loadChildren: 'app/features/positions/positions.module#PositionsModule', data : { animation : 'positions' } },
+  { path: 'employment/status', loadChildren: 'app/features/employment-status/employment-status.module#EmploymentStatusModule', data : { animation : 'employmentStatus' } },
 ];
 
 @NgModule({
