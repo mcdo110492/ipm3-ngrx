@@ -12,9 +12,7 @@ import 'rxjs/add/operator/withLatestFrom';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/distinctUntilChanged';
-
-
-
+import 'rxjs/add/operator/filter';
 
 import * as employmentStatusAction from './../actions/employment-status.actions';
 import * as fromRootEmploymentStatus from './../reducers';
@@ -110,10 +108,7 @@ export class EmploymentStatusEffects {
                  .ofType<employmentStatusAction.LoadError>(employmentStatusAction.LOAD_ERROR)
                  .map((action) => action.payload)
                  .do((payload) => { this._toastr.errorHandler(payload)})
-                 .mergeMap((payload) => {
-                     return [
-                        (payload.status == 422) ? new employmentStatusAction.ClearSelectEmploymentStatus() : []
-                     ];
-                 })
+                 .filter( payload => payload.status == 422)
+                 .map(() => new employmentStatusAction.ClearSelectEmploymentStatus() )
                  
 }

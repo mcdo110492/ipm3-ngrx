@@ -12,9 +12,7 @@ import 'rxjs/add/operator/withLatestFrom';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/distinctUntilChanged';
-
-
-
+import 'rxjs/add/operator/filter';
 
 import * as positionActions from './../actions/position.actions';
 import * as fromRootPosition from './../reducers';
@@ -30,6 +28,11 @@ export class PositionTableEffects {
 
     constructor(private _service : PositionsService, private _actions$ : Actions, private _store$ : Store<fromRootPosition.State>, private _loader : LoaderSpinnerService, private _toastr : ToastrService){}
 
+    /**
+     * Effect that will listen to LOAD Action
+     * Passed the success http request to the LOAD_SUCCESS Action and update the collection state
+     * Passed the error http request to the LAOD_ERROR Action and notify the using the errorHandler method of ToastrService
+     */
     @Effect()
         loadData$ : Observable<Action> = this._actions$
         .ofType(positionActions.LOAD)
@@ -47,6 +50,11 @@ export class PositionTableEffects {
 
         });
 
+    /**
+     * Effect that will listen to SEARCH Action
+     * Passed the success http request to the LOAD_SUCCESS Action and update the collection state
+     * Passed the error http request to the LAOD_ERROR Action and notify the using the errorHandler method of ToastrService
+     */ 
     @Effect()
         search$ : Observable<Action> = this._actions$
         .ofType(positionActions.SEARCH)
@@ -65,14 +73,17 @@ export class PositionTableEffects {
             .catch(err => of(new positionActions.LoadError(err) ))
 
         });
-
+    /**
+     * Effect  tah will listen to SAVE Action
+     */
     @Effect()
         save$ : Observable<Action> = this._actions$
         .ofType<positionActions.SavePosition>(positionActions.SAVE_POSITION)
         .map( (action) => action.payload)
         .switchMap((payload) => {
 
-            this._loader.openDialog();
+            this._loader.openDialog(); // opening of a loader dialog
+            // Check  the id of the data if data is equal to 0 it will create a new data otherwise it will update the data
             if(payload.positionId == 0){
             
                 return this._service.save(payload)
@@ -90,7 +101,11 @@ export class PositionTableEffects {
             }
 
         })
-
+    
+    /**
+     * Effect that will listen to SAVE_SUCCESS Action
+     * It will dispatch the LOAD Action and also the ClearSelectPosition Action to reset the form and update the selected state
+     */
     @Effect()
         saveSuccess$  = this._actions$
                        .ofType(positionActions.SAVE_SUCCESS)
@@ -104,16 +119,17 @@ export class PositionTableEffects {
                        
 
                        
-
+    /**
+     * Effect that will listen to LOAD_ERROR Action
+     */
     @Effect()
         error$ = this._actions$
                  .ofType<positionActions.LoadError>(positionActions.LOAD_ERROR)
                  .map((action) => action.payload)
                  .do((payload) => { this._toastr.errorHandler(payload)})
-                 .mergeMap((payload) => {
-                     return [
-                        (payload.status == 422) ? new positionActions.ClearSelectPosition() : []
-                     ];
-                 })
+                 .filter( payload => payload.status == 422 )
+                 .map(() => new positionActions.ClearSelectPosition() )
+    
+  
                  
 }

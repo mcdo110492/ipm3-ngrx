@@ -20,8 +20,7 @@ import { UniqueValidatorService } from './unique-validator.service';
     provide: NG_ASYNC_VALIDATORS,
     useExisting: forwardRef(() => UniqueValidatorsDirective),
     multi: true
-  },
-  UniqueValidatorService]
+  }]
 })
 export class UniqueValidatorsDirective implements Validator, OnDestroy {
   @Input() keyUrl : string ; // KeyUrl Input to pass in the backend

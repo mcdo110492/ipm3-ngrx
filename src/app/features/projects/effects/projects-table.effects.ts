@@ -12,9 +12,7 @@ import 'rxjs/add/operator/withLatestFrom';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/distinctUntilChanged';
-
-
-
+import 'rxjs/add/operator/filter';
 
 import * as projectActions from './../actions/project-table.actions';
 import * as fromRootProjects from './../reducers';
@@ -110,10 +108,7 @@ export class ProjectsTableEffects {
                  .ofType<projectActions.LoadError>(projectActions.LOAD_ERROR)
                  .map((action) => action.payload)
                  .do((payload) => { this._toastr.errorHandler(payload)})
-                 .mergeMap((payload) => {
-                    return [
-                       (payload.status == 422) ? new projectActions.ClearSelectProject() : []
-                    ];
-                })
+                 .filter( payload => payload.status == 422 )
+                 .map(() => new projectActions.ClearSelectProject() )
                  
 }

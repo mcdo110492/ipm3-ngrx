@@ -3,11 +3,10 @@
 
 export const sidenavMetaData  = [
     { title : 'Master Data' , isHeader : true},
-    { title : 'Table' , link : 'table', icon : 'table', isHeader : false },
-    { title : 'Dashboard' , link : 'main2', icon : 'dashboard', isHeader : false },
     { title : 'Projects' , link : 'projects', icon : 'table', isHeader : false },
     { title : 'Positions' , link : 'positions', icon : 'table', isHeader : false },
     { title : 'Employment Status' , link : 'employment/status', icon : 'table', isHeader : false },
+    { title : 'Employee Status' , link : 'employee/status', icon : 'table', isHeader : false },
 ];
 
 

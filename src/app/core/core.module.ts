@@ -4,6 +4,9 @@ import { CommonModule } from '@angular/common';
 //Authentication Guard for Routes
 import { AuthenticationGuard } from "./services/authentication.guard";
 
+//Provider for uniqueValidationDirective
+import { UniqueValidatorService } from "./../shared/unique-validator.service";
+
 
 
 /* Only Import Some Global/Core Services that will be use in the entire applications */
@@ -14,7 +17,8 @@ import { AuthenticationGuard } from "./services/authentication.guard";
   ],
   declarations: [],
   providers:[
-    AuthenticationGuard]
+    AuthenticationGuard,
+    UniqueValidatorService]
 })
 export class CoreModule {
 

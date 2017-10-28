@@ -13,7 +13,6 @@ import { SidenavComponent } from './sidenav/sidenav.component';
 import { ToolbarLoaderService ,LoaderSpinnerComponent, LoaderSpinnerService, ToastrService } from './services';
 import { BreadcrumbComponent } from "./breadcrumb/breadcrumb.component";
 
-import { FeatureContentComponent } from './feature-content/feature-content.component';
 
 
 @NgModule({
@@ -23,7 +22,7 @@ import { FeatureContentComponent } from './feature-content/feature-content.compo
     BrowserAnimationsModule,
     SharedModule
   ],
-  declarations: [MainContentComponent, ToolbarComponent, SidenavComponent, FeatureContentComponent,LoaderSpinnerComponent,BreadcrumbComponent],
+  declarations: [MainContentComponent, ToolbarComponent, SidenavComponent,LoaderSpinnerComponent,BreadcrumbComponent],
   entryComponents:[
     LoaderSpinnerComponent
   ],
