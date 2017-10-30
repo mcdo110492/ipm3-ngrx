@@ -19,7 +19,8 @@ import { storeFreeze } from "ngrx-store-freeze";
  */
 import * as fromMainContent from './../main-content/reducers/main-content.reducers';
 import * as fromRouterLinks from './../main-content/reducers/router-links.reducers';
-
+import * as fromMasterData  from './../master-data/reducers/master-data.reducers';
+import * as fromLoginPresence from './../features/login/reducers/login.reducers';
 /**
  * As mentioned, we treat each reducer like a table in a database. This means
  * our top level state interface is just a map of keys to inner state types.
@@ -29,6 +30,8 @@ import * as fromRouterLinks from './../main-content/reducers/router-links.reduce
 export interface State {
      mainContent    : fromMainContent.State,
      routerLinks    : fromRouterLinks.State,
+     masterData     : fromMasterData.State,
+     loginPresence  : fromLoginPresence.State,
      routerReducer  : fromRouter.RouterReducerState<RouterStateUrl>
  }
 
@@ -41,6 +44,8 @@ export interface State {
 export const reducers   :   ActionReducerMap<State> = {
     mainContent     : fromMainContent.reducer,
     routerLinks     : fromRouterLinks.reducer,
+    masterData      : fromMasterData.reducer,
+    loginPresence   : fromLoginPresence.reducer,
     routerReducer   : fromRouter.routerReducer
   };
 

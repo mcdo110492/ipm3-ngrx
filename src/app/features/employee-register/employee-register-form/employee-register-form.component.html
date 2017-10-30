@@ -1,0 +1,177 @@
+<mat-card class="stepper-container">
+    <mat-horizontal-stepper linear="false">
+      
+          <mat-step [stepControl]="personalForm">
+  
+            <ng-template matStepLabel>Personal Information (Input <i>N/A</i> for optional * fields)</ng-template>
+            <form [formGroup]="personalForm" fxLayout="column">
+  
+              <mat-form-field fxFlex >
+                <input matInput placeholder="Employee Number" formControlName="employeeNumber" required>
+                <mat-error>
+                    Employee Number is required
+                </mat-error>
+              </mat-form-field>
+  
+              <div fxLayout="row">
+                <mat-form-field fxFlex>
+                  <input matInput placeholder="First Name" formControlName="firstName" required>
+                  <mat-error>
+                    First Name is required
+                  </mat-error>
+                </mat-form-field>
+        
+                <mat-form-field fxFlex>
+                  <input matInput placeholder="Middle Name" formControlName="middleName" required>
+                  <mat-error>
+                    Middle Name is required
+                  </mat-error>
+                </mat-form-field>
+                    
+                <mat-form-field fxFlex>
+                    <input matInput placeholder="Last Name" formControlName="lastName" required>
+                    <mat-error>
+                      Last Name is required
+                    </mat-error>
+                </mat-form-field>
+              </div>
+  
+              <div fxLayout="row">
+  
+                <mat-form-field fxFlex>
+                  <input matInput [matDatepicker]="picker" placeholder="Birthday" formControlName="birthday" required>
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                  <mat-error>
+                    Birthday is required
+                  </mat-error>
+                </mat-form-field>
+  
+                <mat-form-field fxFlex>
+                  <input matInput placeholder="Place of Birth" formControlName="placeOfBirth" required>
+                  <mat-error>
+                    Place of Birth is required
+                  </mat-error>
+                </mat-form-field>
+  
+              </div>
+              
+              <div fxLayout="row">
+  
+                <mat-form-field fxFlex>
+                  <mat-select placeholder="Civil Status" formControlName="civilStatus" required>
+                    <mat-option *ngFor="let civil of civilStatuses" [value]="civil">{{civil}}</mat-option>
+                  </mat-select>
+                  <mat-error>
+                    Civil Status is required
+                  </mat-error>
+                </mat-form-field>
+  
+                <mat-form-field fxFlex>
+                  <input matInput placeholder="Citizenship" formControlName="citizenship" required>
+                  <mat-error>
+                    Citizenship is required
+                  </mat-error>
+                </mat-form-field>
+  
+                <mat-form-field fxFlex>
+                  <input matInput placeholder="Religion" formControlName="religion" required>
+                  <mat-error>
+                      Religion is required
+                  </mat-error>
+                </mat-form-field>
+  
+              </div>
+  
+              <div fxLayoutAlign="center center">
+                <button  mat-raised-button color="primary" matStepperNext>NEXT</button>
+              </div>
+  
+            </form>
+  
+          </mat-step>
+      
+          <mat-step [stepControl]="employmentForm">
+              <ng-template matStepLabel>Employment Information</ng-template>
+  
+              <form [formGroup]="employmentForm" fxLayout="column">
+                
+                <div fxLayout="row">
+                    <mat-form-field fxFlex>
+                        <mat-select placeholder="Position" formControlName="positionId" required>
+                          <mat-option *ngFor="let position of positions | async" [value]="position.positionId">{{position.positionName}}</mat-option>
+                        </mat-select>
+                        <mat-error>
+                          Position is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div fxLayout="row">
+
+                    <mat-form-field fxFlex>
+                        <mat-select placeholder="Employment Status" formControlName="employmentStatusId" required>
+                          <mat-option *ngFor="let emp of employmentStatus | async" [value]="emp.employmentStatusId">{{emp.employmentStatusName}}</mat-option>
+                        </mat-select>
+                        <mat-error>
+                          Employment Status is required
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex>
+                        <mat-select placeholder="Employee Status" formControlName="employeeStatusId" required>
+                          <mat-option *ngFor="let es of employeeStatus | async" [value]="es.employeeStatusId">{{es.employeeStatusName}}</mat-option>
+                        </mat-select>
+                        <mat-error>
+                          Employee Status is required
+                        </mat-error>
+                    </mat-form-field>
+
+                </div>
+
+                <div fxLayout="row">
+                    
+                  <mat-form-field fxFlex>
+                    <input matInput [matDatepicker]="picker2" placeholder="Contract Start" formControlName="contractStart" required>
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                    <mat-error>
+                      Contract Start is required
+                    </mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field fxFlex>
+                    <input matInput [matDatepicker]="picker3" placeholder="Contract End" formControlName="contractEnd" required>
+                    <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                    <mat-datepicker #picker3></mat-datepicker>
+                    <mat-error>
+                      Contract End is required
+                    </mat-error>
+                  </mat-form-field>
+                    
+                    
+                </div>
+
+  
+                <div fxLayoutAlign="center center" fxLayoutGap="10px">
+                  <button type="button"  mat-raised-button color="primary" matStepperPrevious>PREVIOUS</button>
+                  <button type="button" mat-raised-button color="primary" matStepperNext>NEXT</button>
+                </div>
+  
+              </form>
+  
+          </mat-step>
+
+          <mat-step>
+              <ng-template matStepLabel>Confirmation</ng-template>
+
+              <div fxLayoutAlign="center center" fxLayoutGap="10px">
+                  <button type="button"  mat-raised-button color="primary" matStepperPrevious>PREVIOUS</button>
+                  <button type="button" mat-raised-button color="primary" matStepperNext>SUBMIT</button>
+              </div>
+          </mat-step>
+          
+        
+      
+        </mat-horizontal-stepper>
+  </mat-card>

@@ -1,5 +1,5 @@
 <div class="login-card-container" *ngIf="isLoginPage | async">
-  <form action="">
+  <form [formGroup]="loginForm">
     <mat-card fxLayout="column" fxLayoutAlign="start center">
       <mat-card-header >
         <mat-card-title>
@@ -9,16 +9,25 @@
       <img mat-card-image src="assets/ipm-logo.png" class="logo" alt="Company Logo...">
       <mat-card-content >
       
-        <mat-form-field class="full-width">
-          <input type="text" matInput  placeholder="Username">
+        <mat-form-field>
+          <input type="text" matInput  placeholder="Username" formControlName="username" required>
+          <mat-icon matSuffix>person_pin</mat-icon>
+          <mat-error>
+            Username is required
+          </mat-error>
         </mat-form-field>
-        <mat-form-field class="full-width">
-            <input type="password" matInput  placeholder="Password">
-          </mat-form-field>
+
+        <mat-form-field>
+            <input type="password" matInput  placeholder="Password" formControlName="password" required>
+            <mat-icon matSuffix>lock</mat-icon>
+            <mat-error>
+              Password is required
+            </mat-error>
+        </mat-form-field>
 
       </mat-card-content>
       <mat-card-actions >
-          <button type="button" (click)="loginPage()" mat-raised-button color="primary" routerLink="/table" class="login-button">LOGIN</button>
+          <button (click)="authenticate()" [disabled]="loginForm.invalid" mat-raised-button color="primary" class="login-button">LOGIN</button>
       </mat-card-actions>
     </mat-card>
   </form>

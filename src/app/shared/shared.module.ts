@@ -28,6 +28,7 @@ import { MatAutocompleteModule,
          MatPaginatorModule} from "@angular/material";
 
 import { FlexLayoutModule } from "@angular/flex-layout";
+import 'hammerjs';
 
 const ANGULAR_MODULES: any[] = [
   FormsModule,

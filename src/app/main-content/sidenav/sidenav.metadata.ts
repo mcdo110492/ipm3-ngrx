@@ -7,6 +7,9 @@ export const sidenavMetaData  = [
     { title : 'Positions' , link : 'positions', icon : 'table', isHeader : false },
     { title : 'Employment Status' , link : 'employment/status', icon : 'table', isHeader : false },
     { title : 'Employee Status' , link : 'employee/status', icon : 'table', isHeader : false },
+    { title : 'Human Resources' , isHeader : true},
+    { title : 'Register Employee' , link : 'employee/register', icon : 'book', isHeader : false },
+    { title : 'Employee List' , link : 'employee/list', icon : 'people', isHeader : false },
 ];
 
 

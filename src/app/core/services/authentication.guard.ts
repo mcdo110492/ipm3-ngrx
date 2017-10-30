@@ -1,13 +1,35 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { CanActivate, CanActivateChild, CanLoad ,ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/first';
+
+import { AuthenticationService } from "./authentication.service";
 
 @Injectable()
-export class AuthenticationGuard implements CanActivate {
+export class AuthenticationGuard implements CanActivate, CanActivateChild, CanLoad {
+
+  constructor(private _service : AuthenticationService){}
+
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> {
-    return Observable.of(true);
+
+    return this._service.authenticateGuard().first();
+
   }
+
+  canActivateChild(route : ActivatedRouteSnapshot, state : RouterStateSnapshot) : Observable<boolean> {
+
+    return this._service.authenticateGuard().first();
+
+  }
+
+  canLoad() : Observable<boolean> {
+
+    return this._service.authenticateGuard().first();
+
+  }
+
+
 }

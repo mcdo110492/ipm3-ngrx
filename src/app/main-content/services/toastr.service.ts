@@ -21,18 +21,22 @@ export class ToastrService {
 
             case "success" : {
                 this._toast.success(message,title);
+                break;
             }
 
             case "error" : {
                 this._toast.error(message,title);
+                break;
             }
 
             case "warning" : {
                 this._toast.warning(message,title);
+                break;
             }
                 
             default: {
                 this._toast.success(message,title);
+                break;
             }
                
         }

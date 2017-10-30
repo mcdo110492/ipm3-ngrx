@@ -5,6 +5,9 @@ import { Store } from "@ngrx/store";
 import * as mainActions from './../actions/main-content.actions';
 import * as fromMain from './../reducers/main-content.reducers';
 
+import * as loginActions from "./../../features/login/actions/login.actions";
+import * as fromLogin from './../../features/login/reducers/login.reducers';
+
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
@@ -12,13 +15,14 @@ import * as fromMain from './../reducers/main-content.reducers';
 })
 export class ToolbarComponent {
   
-  constructor(private _store : Store<fromMain.State>, private _router : Router) {}
+  constructor(private _mainStore : Store<fromMain.State>, private _loginStore : Store<fromLogin.State> , private _router : Router) {}
 
   toggleSidenav(){
-    this._store.dispatch( new mainActions.SidenavToggle() );
+    this._mainStore.dispatch( new mainActions.SidenavToggle() );
   }
 
   logout() {
+    this._loginStore.dispatch( new loginActions.Logout() );
     this._router.navigateByUrl('login');
   }
 

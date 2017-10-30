@@ -1,11 +1,18 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
 
-//Authentication Guard for Routes
+//Authentication Guard for Routes and Http Interceptor for Token
 import { AuthenticationGuard } from "./services/authentication.guard";
+import { AuthenticationService } from "./services/authentication.service";
+import { NoopInterceptor } from "./services/noop-interceptor.service";
 
 //Provider for uniqueValidationDirective
 import { UniqueValidatorService } from "./../shared/unique-validator.service";
+
+//Provider for Master Data
+import { MasterDataService } from "./../master-data/master-data.service";
+
 
 
 
@@ -18,7 +25,10 @@ import { UniqueValidatorService } from "./../shared/unique-validator.service";
   declarations: [],
   providers:[
     AuthenticationGuard,
-    UniqueValidatorService]
+    AuthenticationService,
+    UniqueValidatorService,
+    { provide: HTTP_INTERCEPTORS, useClass: NoopInterceptor, multi: true },
+    MasterDataService]
 })
 export class CoreModule {
 

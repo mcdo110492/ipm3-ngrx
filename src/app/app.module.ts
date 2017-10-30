@@ -21,6 +21,9 @@ import { LoginModule } from "./features/login/login.module";
 import { reducers, metaReducers } from './reducers';
 import { CustomRouterStateSerializer } from "./shared/utils";
 
+import { MasterDataEffects } from "./master-data/effects/master-data.effects";
+import { LoginEffects } from "./features/login/effects/login.effects";
+
 import { environment } from "./../environments/environment";
 
 @NgModule({
@@ -77,7 +80,7 @@ import { environment } from "./../environments/environment";
      * EffectedModule.forRoot() is imported once in the root app module and acceptiong all your effects providers.
      * Injecting the effects providers is the same as injecting the angular services
      */
-    EffectsModule.forRoot([MainContentEffects]),
+    EffectsModule.forRoot([MainContentEffects,MasterDataEffects,LoginEffects]),
 
 
   ],
