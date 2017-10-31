@@ -23,6 +23,7 @@ export class ToolbarComponent {
 
   logout() {
     this._loginStore.dispatch( new loginActions.Logout() );
+    this._mainStore.dispatch( new mainActions.IsLoginPage(true) );
     this._router.navigateByUrl('login');
   }
 

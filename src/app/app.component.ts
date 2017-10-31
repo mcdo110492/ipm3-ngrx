@@ -12,6 +12,7 @@ import * as fromMain from './main-content/reducers/main-content.reducers';
 
 
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/take';
 
 
 @Component({
@@ -43,7 +44,7 @@ export class AppComponent  implements OnInit, OnDestroy {
     this.isToolbarLoader$ = this._store.select(fromMain.getIsToolbarLoader);
 
     /**
-     * A slice of state for router from routerReducer
+     * A slice of state for router from routerReducer Store
      */
     this.routerState = this._routerStore.select('routerReducer');
 
@@ -64,23 +65,22 @@ export class AppComponent  implements OnInit, OnDestroy {
     });
 
     /**
-     * Add additional subscription
-     * Subscribe to routerState observable
+     * Subscribe to routerState from the store
+     * The first value will be undefined and the second and third is the default url in the routing-module in the first reload
+     * By using take(4) will get the current url state and then completes/unsubscribe
      */
-   this.subscriber.add(this.routerState.subscribe((response) => {
+    this.routerState.take(4).subscribe((route) => {
       // Check of the response is not undefined to avoid errors when accessing the response object
-      if(response != undefined){
-        //Check if the router state url is /login and dispatch the mainAction.IsLoginPage to hide the toolbar and sidenav for login page layout and otherwise
-        if(response.state.url === '/login'){
-          this._store.dispatch( new mainAction.IsLoginPage(true) );
+        if(route != undefined){
+          //Check if the router state url is /login and dispatch the mainAction.IsLoginPage to hide the toolbar and sidenav for login page layout
+          if(route.state.url === '/login'){
+            this._store.dispatch( new mainAction.IsLoginPage(true) );
+          }
+          else{
+            this._store.dispatch( new mainAction.IsLoginPage(false) );
+          }
         }
-        else {
-          this._store.dispatch( new mainAction.IsLoginPage(false) );
-        }
-
-      }
-
-   }));
+    });
   }
 
   ngOnDestroy() {

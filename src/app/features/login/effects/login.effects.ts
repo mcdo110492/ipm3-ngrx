@@ -11,6 +11,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
 
 import * as loginActions from "./../actions/login.actions";
+import * as mainActions from './../../../main-content/actions/main-content.actions';
 
 import { LoginService } from "./../login.service";
 import { ToastrService } from "./../../../main-content/services/toastr.service";
@@ -38,20 +39,22 @@ export class LoginEffects {
             .catch((err) => of(new loginActions.LoginError(err) ) )
         })
 
-    @Effect({dispatch : false})
+    @Effect()
         success$ = this._actions$
         .ofType<loginActions.LoginSuccess>(loginActions.LOGIN_SUCCESS)
         .map((response) => response.payload.status)
         .switchMap((status) => { 
             this._loader.closeDialog();
-           if(status == 401){
+           if(status == 200){
+             return of(new mainActions.IsLoginPage(false));
+           }
+           else if(status == 401){
                 this._toastr.custom('Invalid Credentials','Incorrect username or password','error');
             }
             else if(status == 403){
                 this._toastr.custom('Account Locked','This account has been locked. Contact your administrator','warning');
             }
-
-            return [];
+            return of();
         })
 
     @Effect({dispatch : false})

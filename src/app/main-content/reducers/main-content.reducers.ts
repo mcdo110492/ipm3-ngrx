@@ -10,7 +10,7 @@ export const initialState: MainContent = {
     isSidenavOpen   :   true,
     sidenavMode     :   'side',
     isToolbarLoader :   false,
-    isLoginPage     :   false
+    isLoginPage     :   true
 }
 
 

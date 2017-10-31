@@ -7,10 +7,13 @@
             <form [formGroup]="personalForm" fxLayout="column">
   
               <mat-form-field fxFlex >
-                <input matInput placeholder="Employee Number" formControlName="employeeNumber" required>
-                <mat-error>
-                    Employee Number is required
+                <input matInput placeholder="Employee Number" formControlName="employeeNumber" appUniqueValidators keyUrl="employee/verify" required>
+                <mat-error *ngIf="personalForm.get('employeeNumber').hasError('asyncInvalid')">
+                    Employee Number is must be unique
                 </mat-error>
+                <mat-error *ngIf="personalForm.get('employeeNumber').hasError('required')" >
+                  Employee Number is required
+              </mat-error>
               </mat-form-field>
   
               <div fxLayout="row">
@@ -84,7 +87,7 @@
               </div>
   
               <div fxLayoutAlign="center center">
-                <button  mat-raised-button color="primary" matStepperNext>NEXT</button>
+                <button [disabled]="personalForm.invalid"  mat-raised-button color="primary" matStepperNext>NEXT</button>
               </div>
   
             </form>
