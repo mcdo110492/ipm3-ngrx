@@ -1,0 +1,93 @@
+
+
+<form [formGroup]="personalForm" fxLayout="column" fxLayoutGap="20px">
+
+    <mat-form-field fxFlex>
+        <input matInput placeholder="Employee Number" formControlName="employeeNumber" appUniqueValidators keyUrl="employee/verify" keyId="{{currentId}}" required>
+        <mat-error *ngIf="personalForm.get('employeeNumber').hasError('asyncInvalid')" >
+            Employee Number is rquired
+        </mat-error>
+        <mat-error *ngIf="personalForm.get('employeeNumber').hasError('required')">
+            Employee Number is required
+        </mat-error>
+    </mat-form-field>
+
+    <div fxFlex >
+        <div fxLayout="row" fxLayout.xs="column">
+            <mat-form-field fxFlex>
+                <input matInput placeholder="First Name" formControlName="firstName" required>
+                <mat-error>
+                    First Name is required
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field fxFlex>
+                <input matInput placeholder="Middle Name" formControlName="middleName" required>
+                <mat-error>
+                    Middle Name is required
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field fxFlex>
+                <input matInput placeholder="Last Name" formControlName="lastName" required>
+                <mat-error>
+                    Last Name is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div fxFlex>
+        <div fxLayout="row" fxLayout.xs="column">
+
+            <mat-form-field fxFlex="33">
+                <input matInput [matDatepicker]="picker" placeholder="Birthday" formControlName="birthday" required>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error>
+                    Birthday is required
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field fxFlex>
+                <input matInput placeholder="Place of Birth" formControlName="placeOfBirth" required>
+                <mat-error>
+                    Place of Birth is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div fxFlex >
+        <div fxLayout="row" fxLayout.xs="column">
+            <mat-form-field fxFlex>
+                <mat-select placeholder="Civil Status" formControlName="civilStatus" required>
+                    <mat-option *ngFor="let civil of civilStatuses" [value]="civil">{{civil}}</mat-option>
+                </mat-select>
+                <mat-error>
+                    Civil Status is required
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field fxFlex>
+                <input matInput placeholder="Citizenship" formControlName="citizenship" required>
+                <mat-error>
+                    Citizenship is required
+                </mat-error>
+            </mat-form-field>
+    
+            <mat-form-field fxFlex>
+                <input matInput placeholder="Religion" formControlName="religion" required>
+                <mat-error>
+                    Religion is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div fxFlex fxLayoutAlign="center center">
+        <button [disabled]="personalForm.invalid || personalForm.pristine" (click)="save()" mat-raised-button color="accent" type="button">Save Changes</button>
+    </div>
+
+
+</form>

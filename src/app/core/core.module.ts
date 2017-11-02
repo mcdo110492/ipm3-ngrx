@@ -13,6 +13,9 @@ import { UniqueValidatorService } from "./../shared/unique-validator.service";
 //Provider for Master Data
 import { MasterDataService } from "./../master-data/master-data.service";
 
+//Moment Service to parse the date before passing to http request
+import { MomentService } from "./services/moment.service";
+
 
 
 
@@ -28,7 +31,8 @@ import { MasterDataService } from "./../master-data/master-data.service";
     AuthenticationService,
     UniqueValidatorService,
     { provide: HTTP_INTERCEPTORS, useClass: NoopInterceptor, multi: true },
-    MasterDataService]
+    MasterDataService,
+    MomentService]
 })
 export class CoreModule {
 

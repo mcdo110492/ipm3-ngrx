@@ -39,6 +39,9 @@ export class LoginComponent implements OnInit, OnDestroy {
       if(role == 1){
         this._router.navigateByUrl('/projects');
       }
+      else if(role == 2 ){
+        this._router.navigateByUrl('/employee/list');
+      }
     });
 
   }

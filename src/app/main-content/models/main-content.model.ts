@@ -5,4 +5,5 @@ export interface MainContent {
     sidenavMode         : string;
     isToolbarLoader?    : boolean;
     isLoginPage?        : boolean;
+    currentProjectId?   : number;
 }

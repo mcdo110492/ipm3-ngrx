@@ -71,11 +71,15 @@ app-root {
 }
 
 
+.mat-tab-body{
+  padding: 40px 20px 20px 20px;
+}
+
 // Rounded Avatar Photo
 .avatar-photo {
-  width: 72px;
-  margin: 0 auto 8px;
-  height: 72px;
+  width: 60px;
+  margin: 8px 0;
+  height: 60px;
   box-sizing: border-box;
   border: 1px solid hsla(210,8%,51%,.13);
   padding: 4px;

@@ -1,0 +1,3 @@
+<mat-select class="select" placeholder="Select a Project" [(ngModel)]="currentProject" name="projectId" >
+    <mat-option *ngFor="let project of projects | async" [value]="project.projectId" (click)="onSelectProject(project.projectId)">{{ project.projectName }}</mat-option>
+</mat-select>

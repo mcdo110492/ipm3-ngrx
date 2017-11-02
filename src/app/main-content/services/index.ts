@@ -6,3 +6,5 @@ export { LoaderSpinnerComponent } from './loader-spinner/loader-spinner.componen
 export { LoaderSpinnerService } from './loader-spinner/loader-spinner.service';
 
 export { ToastrService } from './toastr.service';
+
+export { ConfirmDialogService } from './confirm-dialog/confirm-dialog.service';

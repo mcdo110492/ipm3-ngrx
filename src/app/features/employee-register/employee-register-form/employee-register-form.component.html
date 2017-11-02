@@ -1,5 +1,5 @@
-<mat-card class="stepper-container">
-    <mat-horizontal-stepper linear="false">
+<mat-card >
+    <mat-vertical-stepper  linear="true">
       
           <mat-step [stepControl]="personalForm">
   
@@ -87,7 +87,7 @@
               </div>
   
               <div fxLayoutAlign="center center">
-                <button [disabled]="personalForm.invalid"  mat-raised-button color="primary" matStepperNext>NEXT</button>
+                <button type="button" [disabled]="personalForm.invalid"  mat-raised-button color="primary" matStepperNext>NEXT</button>
               </div>
   
             </form>
@@ -158,23 +158,12 @@
   
                 <div fxLayoutAlign="center center" fxLayoutGap="10px">
                   <button type="button"  mat-raised-button color="primary" matStepperPrevious>PREVIOUS</button>
-                  <button type="button" mat-raised-button color="primary" matStepperNext>NEXT</button>
+                  <button type="button" [disabled]="employmentForm.invalid" mat-raised-button color="primary" (click)="submit.emit()" >SUBMIT</button>
                 </div>
   
               </form>
   
           </mat-step>
-
-          <mat-step>
-              <ng-template matStepLabel>Confirmation</ng-template>
-
-              <div fxLayoutAlign="center center" fxLayoutGap="10px">
-                  <button type="button"  mat-raised-button color="primary" matStepperPrevious>PREVIOUS</button>
-                  <button type="button" mat-raised-button color="primary" matStepperNext>SUBMIT</button>
-              </div>
-          </mat-step>
-          
-        
       
-        </mat-horizontal-stepper>
+        </mat-vertical-stepper>
   </mat-card>

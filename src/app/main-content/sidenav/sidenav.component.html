@@ -7,11 +7,14 @@
     <div class="overflow-content">
         <div class="user">
             <div class="user-photo">
-                <img src="assets/default.jpg" alt="">
+                <img [src]="profileImage | async" alt="">
             </div>
             <span class="user-name">
                 <mat-icon class="icon-small">lock</mat-icon>
-                John Doe
+                {{ profileName | async }}
+            </span>
+            <span *ngIf="(role | async) == 1" class="select-project" matTooltip="Select a Project" matTooltipPosition="right">
+                <app-project-select></app-project-select>
             </span>
         </div>   
     

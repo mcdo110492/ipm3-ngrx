@@ -1,0 +1,109 @@
+
+<mat-card fxLayout="row" fxLayoutGap="10px" *ngIf="personalInfo | async; let personal ;" >
+  <img mat-card-md-image src="assets/default.jpg" alt="">
+  <div>
+    <mat-card-title>
+      <strong>{{ personal.lastName }}, {{ personal.firstName }} {{ personal.middleName }}</strong>
+    </mat-card-title>
+    <mat-card-subtitle>
+     
+      <mat-chip-list>
+        Employee Number : &nbsp;
+        <mat-chip color="accent" selected="true">{{ personal.employeeNumber }}</mat-chip>
+      </mat-chip-list>
+    </mat-card-subtitle>
+  </div>
+</mat-card>
+
+<!-- <mat-card>
+
+  <mat-card-content>
+
+    <mat-tab-group>
+
+      <mat-tab label="Personal Information">
+        <app-employee-personal-information></app-employee-personal-information>
+      </mat-tab>
+      
+      <mat-tab label="Employment Information">
+        <app-employee-employment-information></app-employee-employment-information>
+      </mat-tab>
+
+      <mat-tab label="Contact Information">Content 2</mat-tab>
+
+      <mat-tab label="Government Issued ID's">Content 2</mat-tab>
+
+      <mat-tab label="Health Information">Content 2</mat-tab>
+
+      <mat-tab label="License ID's">Content 2</mat-tab>
+
+      <mat-tab label="Educational Background">Content 2</mat-tab>
+
+      <mat-tab label="Training Information">Content 2</mat-tab>
+
+      <mat-tab label="Club Information">Content 2</mat-tab>
+
+      <mat-tab label="Account Settings">Content 2</mat-tab>
+
+    </mat-tab-group>
+
+  </mat-card-content>
+
+</mat-card> -->
+
+<mat-card>
+  <mat-vertical-stepper  linear="false">
+
+    <mat-step>
+        <ng-template matStepLabel>Personal Information</ng-template>
+        <app-employee-personal-information></app-employee-personal-information>
+    </mat-step>
+
+    <mat-step>
+        <ng-template matStepLabel>Employment Information</ng-template>
+        <app-employee-employment-information></app-employee-employment-information>
+    </mat-step>
+
+    <mat-step>
+        <ng-template matStepLabel>Contact Information</ng-template>
+        Contact
+    </mat-step>
+
+    <mat-step>
+        <ng-template matStepLabel>Government Issued ID's</ng-template>
+        Government
+    </mat-step>
+
+    <mat-step>
+        <ng-template matStepLabel>Health Information</ng-template>
+        Health
+    </mat-step>
+
+    <mat-step>
+        <ng-template matStepLabel>License ID's</ng-template>
+        License
+    </mat-step>
+
+    <mat-step>
+        <ng-template matStepLabel>Educational Background</ng-template>
+        Educational
+    </mat-step>
+
+    <mat-step>
+        <ng-template matStepLabel>Training Information</ng-template>
+        Training
+    </mat-step>
+
+    <mat-step>
+        <ng-template matStepLabel>Club Information</ng-template>
+        Club
+    </mat-step>
+
+    <mat-step>
+        <ng-template matStepLabel>Account Settings</ng-template>
+        Account
+    </mat-step>
+
+  </mat-vertical-stepper>
+</mat-card>
+

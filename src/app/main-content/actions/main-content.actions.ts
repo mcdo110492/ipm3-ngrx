@@ -5,6 +5,7 @@ export const SIDENAV_TOGGLE         = '[ MAIN ] SidenavToggle';
 export const SIDENAV_MODE           = '[ MAIN ] SidenavMode';
 export const TOOLBAR_LOADER         = '[ MAIN ] ToolbarLoader';
 export const IS_LOGIN_PAGE          = '[ MAIN ] IsLoginPage';
+export const CHANGE_PROJECT         = '[ MAIN ] ChangeProject';
 
 export class SidenavToggle implements Action {
   readonly type = SIDENAV_TOGGLE;
@@ -30,6 +31,12 @@ export class IsLoginPage implements Action {
   constructor(public payload : boolean){}
 }
 
+export class ChangeProject implements Action {
+  readonly type = CHANGE_PROJECT;
+
+  constructor(public payload : number){}
+}
+
 
 /**
  * Export a type alias of all actions in this action group
@@ -39,4 +46,5 @@ export type Actions
 = SidenavToggle
 | SidenavMode
 | ToolbarLoader
-| IsLoginPage;
+| IsLoginPage
+| ChangeProject;

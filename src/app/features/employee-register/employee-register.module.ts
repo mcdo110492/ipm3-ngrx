@@ -12,11 +12,16 @@ import { EmployeeRegisterComponent } from './employee-register.component';
 import { EmployeeRegisterService } from "./employee-register.service";
 import { EmployeeRegisterFormComponent } from './employee-register-form/employee-register-form.component';
 
+import { reducers } from "./reducers";
+import { EmployeeRegisterEffects } from "./effects/employee-register.effects";
+
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    EmployeeRegisterRoutingModule
+    EmployeeRegisterRoutingModule,
+    StoreModule.forFeature('featureEmployeeRegister',reducers),
+    EffectsModule.forFeature([EmployeeRegisterEffects])
   ],
   declarations: [EmployeeRegisterComponent, EmployeeRegisterFormComponent],
   providers:[EmployeeRegisterService]

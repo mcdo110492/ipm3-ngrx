@@ -7,10 +7,11 @@ import { MainContent } from './../models/main-content.model';
 export type State = MainContent;
 
 export const initialState: MainContent = {
-    isSidenavOpen   :   true,
-    sidenavMode     :   'side',
-    isToolbarLoader :   false,
-    isLoginPage     :   true
+    isSidenavOpen       :   true,
+    sidenavMode         :   'side',
+    isToolbarLoader     :   false,
+    isLoginPage         :   true,
+    currentProjectId    :   +localStorage.getItem('projectId') || null
 }
 
 
@@ -31,6 +32,10 @@ export function reducer(state: MainContent = initialState, action: mainActions.A
 
         case mainActions.IS_LOGIN_PAGE : {
             return { ...state , isLoginPage : action.payload };
+        }
+
+        case mainActions.CHANGE_PROJECT : {
+            return { ...state, currentProjectId : action.payload };
         }
 
         default:
@@ -54,3 +59,4 @@ export const getIsToolbarLoader = createSelector(getMainContent, (state : MainCo
 
 export const getIsLoginPage  = createSelector(getMainContent, (state : MainContent) => state.isLoginPage);
 
+export const getCurrentProject = createSelector(getMainContent, (state : State) => state.currentProjectId);

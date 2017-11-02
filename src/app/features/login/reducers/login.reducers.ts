@@ -12,7 +12,7 @@ export type State = LoginResponse;
 export const initialState: State = {
     token           :   (getPresence() != null) ? getPresence().token : null,
     profileName     :   (getPresence() != null) ? getPresence().profileName : null,
-    profileImage    :   (getPresence() != null) ? getPresence().profileName : 'assets/default.jpg',
+    profileImage    :   (getPresence() != null) ? getPresence().profileImage : 'avatars/default.jpg',
     role            :   (getPresence() != null) ? getPresence().role : null,
     status          :   (getPresence() != null) ? getPresence().status : null
 }

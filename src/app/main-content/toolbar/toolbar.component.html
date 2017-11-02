@@ -3,6 +3,7 @@
         <button mat-icon-button (click)="toggleSidenav()">
             <mat-icon>menu</mat-icon>
         </button>
+
        
         <span fxFlex="1 1 auto"></span>
 
@@ -11,13 +12,13 @@
        </button>
 
         <button mat-icon-button class="profile-button profile-image" [matMenuTriggerFor]="menu">
-            <img src="assets/default.jpg" alt="">
+            <img [src]="profileImage | async" alt="">
         </button>
     </div>
     <mat-menu #menu="matMenu">
         <button mat-menu-item>
           <mat-icon>person</mat-icon>
-          <span>John Doe</span>
+          <span>{{ profileName | async }}</span>
         </button>
         <mat-divider></mat-divider>
         <button mat-menu-item >
@@ -30,6 +31,7 @@
         </button>
     </mat-menu>
 </mat-toolbar>
+
 
 
 

@@ -25,7 +25,8 @@ import { MatAutocompleteModule,
          MatTooltipModule,
          MatTableModule,
          MatSortModule,
-         MatPaginatorModule} from "@angular/material";
+         MatPaginatorModule,
+         MatChipsModule} from "@angular/material";
 
 import { FlexLayoutModule } from "@angular/flex-layout";
 import 'hammerjs';
@@ -60,7 +61,8 @@ const ANGULAR_MATERIAL_MODULES: any[] = [
   MatTooltipModule,
   MatTableModule,
   MatSortModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatChipsModule
 ];
 
 import { SearchBarComponent } from "./search-bar/search-bar.component";

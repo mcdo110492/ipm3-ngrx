@@ -33,6 +33,11 @@ export class ToastrService {
                 this._toast.warning(message,title);
                 break;
             }
+
+            case "info" :{
+                this._toast.info(message,title);
+                break;
+            }
                 
             default: {
                 this._toast.success(message,title);

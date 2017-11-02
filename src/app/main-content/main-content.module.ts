@@ -10,8 +10,11 @@ import { MainContentComponent } from './main-content.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 
-import { ToolbarLoaderService ,LoaderSpinnerComponent, LoaderSpinnerService, ToastrService } from './services';
+import { ToolbarLoaderService ,LoaderSpinnerComponent, LoaderSpinnerService, ToastrService, ConfirmDialogService } from './services';
 import { BreadcrumbComponent } from "./breadcrumb/breadcrumb.component";
+import { ConfirmDialogComponent } from './services/confirm-dialog/confirm-dialog.component';
+import { ProjectSelectComponent } from './project-select/project-select.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 
@@ -22,11 +25,12 @@ import { BreadcrumbComponent } from "./breadcrumb/breadcrumb.component";
     BrowserAnimationsModule,
     SharedModule
   ],
-  declarations: [MainContentComponent, ToolbarComponent, SidenavComponent,LoaderSpinnerComponent,BreadcrumbComponent],
+  declarations: [MainContentComponent, ToolbarComponent, SidenavComponent,LoaderSpinnerComponent,BreadcrumbComponent, ConfirmDialogComponent, ProjectSelectComponent, PageNotFoundComponent],
   entryComponents:[
-    LoaderSpinnerComponent
+    LoaderSpinnerComponent,
+    ConfirmDialogComponent
   ],
   exports:[MainContentComponent],
-  providers:[ToolbarLoaderService,LoaderSpinnerService,ToastrService]
+  providers:[ToolbarLoaderService,LoaderSpinnerService,ToastrService,ConfirmDialogService]
 })
 export class MainContentModule { }
