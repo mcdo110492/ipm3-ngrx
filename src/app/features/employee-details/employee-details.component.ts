@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, ParamMap } from "@angular/router";
+import { StepperSelectionEvent } from "@angular/cdk/stepper";
 
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs/Observable";
@@ -8,6 +9,7 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/take';
 
 import * as empActions from './actions/employee-details.actions';
+import * as employmentActions from './employee-employment-information/actions/employee-employment.actions';
 import * as fromRoot    from './reducers';
 
 import { EmployeePersonal } from "./employee-personal-information/models/employee-personal.models";
@@ -39,5 +41,15 @@ export class EmployeeDetailsComponent implements OnInit {
     .subscribe((id) => this._store.dispatch(new empActions.GetEmployeeId(id)) );
 
   }
+
+  selectionChange(ev : StepperSelectionEvent){
+    const index = ev.selectedIndex;
+
+    if(index == 1){
+      this._store.dispatch( new employmentActions.GetEmployment() ); // Get Employment Data
+    }
+
+  }
+
 
 }

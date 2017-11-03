@@ -52,14 +52,14 @@
 </mat-card> -->
 
 <mat-card>
-  <mat-vertical-stepper  linear="false">
+  <mat-vertical-stepper (selectionChange)="selectionChange($event)"  linear="false">
 
     <mat-step>
         <ng-template matStepLabel>Personal Information</ng-template>
         <app-employee-personal-information></app-employee-personal-information>
     </mat-step>
 
-    <mat-step>
+    <mat-step (click)="getEmployment()">
         <ng-template matStepLabel>Employment Information</ng-template>
         <app-employee-employment-information></app-employee-employment-information>
     </mat-step>

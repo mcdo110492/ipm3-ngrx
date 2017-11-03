@@ -13,7 +13,7 @@ import { EmployeeDetailsService } from "./employee-details.service";
 
 import { EmployeePersonalInformationComponent, EmployeePersonalInformationService, EmployeePersonalInformationEffects } from "./employee-personal-information";
 
-import { EmployeeEmploymentInformationComponent } from './employee-employment-information/employee-employment-information.component';
+import { EmployeeEmploymentInformationComponent, EmployeeEmploymentInformationService, EmployeeEmploymentInformationEffects } from './employee-employment-information';
 
 import { reducers } from "./reducers";
 
@@ -25,9 +25,18 @@ import { reducers } from "./reducers";
     SharedModule,
     EmployeeDetailsRoutingModule,
     StoreModule.forFeature('featureEmployeeDetails',reducers),
-    EffectsModule.forFeature([EmployeePersonalInformationEffects])
+
+    EffectsModule.forFeature([  EmployeePersonalInformationEffects,
+                                EmployeeEmploymentInformationEffects 
+                             ])
   ],
-  declarations: [EmployeeDetailsComponent, EmployeePersonalInformationComponent, EmployeeEmploymentInformationComponent],
-  providers :[EmployeeDetailsService,EmployeePersonalInformationService]
+  declarations: [ EmployeeDetailsComponent, 
+                  EmployeePersonalInformationComponent, 
+                  EmployeeEmploymentInformationComponent
+                ],
+  providers :[  EmployeeDetailsService,
+                EmployeePersonalInformationService,
+                EmployeeEmploymentInformationService
+             ]
 })
 export class EmployeeDetailsModule { }
