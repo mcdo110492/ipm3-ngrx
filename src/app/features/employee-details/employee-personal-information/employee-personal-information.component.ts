@@ -7,7 +7,6 @@ import * as fromRoot from "./../reducers";
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/take';
-import 'rxjs/add/operator/toArray';
 
 import { EmployeePersonal } from "./models/employee-personal.models";
 
@@ -35,7 +34,7 @@ export class EmployeePersonalInformationComponent implements OnInit {
 
   ngOnInit() {
 
-    this._store.dispatch( new personalActions.GetPersonal() );
+    
    
     this.personalData
     .take(2)

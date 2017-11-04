@@ -11,7 +11,7 @@ export const initialState: MainContent = {
     sidenavMode         :   'side',
     isToolbarLoader     :   false,
     isLoginPage         :   true,
-    currentProjectId    :   +localStorage.getItem('projectId') || null
+    currentProjectId    :   +localStorage.getItem('projectId') || 1
 }
 
 

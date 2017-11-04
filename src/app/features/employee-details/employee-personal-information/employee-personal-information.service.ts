@@ -42,7 +42,7 @@ export class EmployeePersonalInformationService {
       religion       : data.religion
     };
 
-    return this._http.post<StatusResponse>(`${this._restEndpoint}/employee/profile/${data.employeeId}`,newData);
+    return this._http.put<StatusResponse>(`${this._restEndpoint}/employee/profile/${data.employeeId}`,newData);
   }
 
 }

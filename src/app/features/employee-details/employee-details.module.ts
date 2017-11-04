@@ -12,10 +12,14 @@ import { EmployeeDetailsComponent } from './employee-details.component';
 import { EmployeeDetailsService } from "./employee-details.service";
 
 import { EmployeePersonalInformationComponent, EmployeePersonalInformationService, EmployeePersonalInformationEffects } from "./employee-personal-information";
-
 import { EmployeeEmploymentInformationComponent, EmployeeEmploymentInformationService, EmployeeEmploymentInformationEffects } from './employee-employment-information';
+import { EmployeeContactInformationComponent, EmployeeContactInformationService, EmployeeContactInformationEffects } from './employee-contact-information';
+import { EmployeeGovernmentInformationComponent, EmployeeGovernmentInformationService, EmployeeGovernmentInformationEffects } from './employee-government-information';
+import { EmployeeHealthInformationComponent, EmployeeHealthInformationService, EmployeeHealthInformationEffects } from './employee-health-information';
 
 import { reducers } from "./reducers";
+
+
 
 
 
@@ -27,16 +31,23 @@ import { reducers } from "./reducers";
     StoreModule.forFeature('featureEmployeeDetails',reducers),
 
     EffectsModule.forFeature([  EmployeePersonalInformationEffects,
-                                EmployeeEmploymentInformationEffects 
+                                EmployeeEmploymentInformationEffects,
+                                EmployeeContactInformationEffects,
+                                EmployeeGovernmentInformationEffects,
+                                EmployeeHealthInformationEffects
                              ])
   ],
   declarations: [ EmployeeDetailsComponent, 
                   EmployeePersonalInformationComponent, 
-                  EmployeeEmploymentInformationComponent
+                  EmployeeEmploymentInformationComponent, 
+                  EmployeeContactInformationComponent, EmployeeGovernmentInformationComponent, EmployeeHealthInformationComponent
                 ],
   providers :[  EmployeeDetailsService,
                 EmployeePersonalInformationService,
-                EmployeeEmploymentInformationService
+                EmployeeEmploymentInformationService,
+                EmployeeContactInformationService,
+                EmployeeGovernmentInformationService,
+                EmployeeHealthInformationService
              ]
 })
 export class EmployeeDetailsModule { }

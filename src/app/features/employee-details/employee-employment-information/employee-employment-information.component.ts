@@ -51,6 +51,8 @@ export class EmployeeEmploymentInformationComponent implements OnInit {
     this._masterState.dispatch( new masterActions.GetAllEmployeeStatus() );
     this._masterState.dispatch( new masterActions.GetAllEmploymentStatus() );
 
+    this._store.dispatch( new employmentActions.GetEmployment() );
+
     this.employmentData
     .take(2)
     .subscribe((data : EmployeeEmployment) => {

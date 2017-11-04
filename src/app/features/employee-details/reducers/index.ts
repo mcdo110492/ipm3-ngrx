@@ -7,11 +7,17 @@ import * as fromRoot from './../../../reducers';
 import  * as fromEmp from './employee-details.reducers';
 import * as fromPersonal from './../employee-personal-information/reducers/employee-personal.reducers';
 import * as fromEmployment from './../employee-employment-information/reducers/employee-employment.reducers';
+import * as fromContact from './../employee-contact-information/reducers/employee-contact.reducers';
+import * as fromGovernment from './../employee-government-information/reducers/employee-government.reducers';
+import * as fromHealth from './../employee-health-information/reducers/employee-health.reducers';
 
 export interface EmployeeDetailsState {
     employeeDetails : fromEmp.State,
     personal        : fromPersonal.State,
-    employment      : fromEmployment.State
+    employment      : fromEmployment.State,
+    contact         : fromContact.State,
+    government      : fromGovernment.State,
+    health          : fromHealth.State
 }
 
 export interface State extends fromRoot.State {
@@ -22,7 +28,10 @@ export interface State extends fromRoot.State {
 export const reducers : ActionReducerMap<EmployeeDetailsState> = {
     employeeDetails : fromEmp.reducer,
     personal        : fromPersonal.reducer,
-    employment      : fromEmployment.reducer
+    employment      : fromEmployment.reducer,
+    contact         : fromContact.reducer,
+    government      : fromGovernment.reducer,
+    health          : fromHealth.reducer
 }
 
 export const getState = createFeatureSelector<EmployeeDetailsState>('featureEmployeeDetails');
@@ -37,6 +46,22 @@ export const getPersonalState  = createSelector(getState, (state : EmployeeDetai
 
 export const getPersonal = createSelector(getPersonalState, fromPersonal.getPersonal);
 
+
 export const getEmploymentState  = createSelector(getState, (state : EmployeeDetailsState) => state.employment);
 
 export const getEmployment = createSelector(getEmploymentState, fromEmployment.getEmployment);
+
+
+export const getContactState = createSelector(getState, (state : EmployeeDetailsState) => state.contact);
+
+export const getContact = createSelector(getContactState, fromContact.getContact);
+
+
+export const getGovernmentState = createSelector(getState, (state : EmployeeDetailsState) => state.government );
+
+export const getGovernment = createSelector(getGovernmentState, fromGovernment.getGovernment);
+
+
+export const getHealthState = createSelector(getState, (state : EmployeeDetailsState ) => state.health);
+
+export const getHealth = createSelector(getHealthState, fromHealth.getHealth);

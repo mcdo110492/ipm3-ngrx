@@ -40,7 +40,7 @@ export class EmployeeEmploymentInformationService {
         remarks                 : data.remarks
     };
 
-    return this._http.post<StatusResponse>(`${this._restEndpoint}/employee/employment/${data.employeeEmploymentId}`,newData);
+    return this._http.put<StatusResponse>(`${this._restEndpoint}/employee/employment/${data.employeeEmploymentId}`,newData);
   }
 
 }
