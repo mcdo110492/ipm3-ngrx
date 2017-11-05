@@ -25,6 +25,9 @@ export class EmployeeDetailsService {
       else if(label === 'health'){
           return 4;
       }
+      else if(label === 'license'){
+          return 5;
+      }
 
   }
   

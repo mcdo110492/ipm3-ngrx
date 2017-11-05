@@ -8,6 +8,7 @@ import { EmployeeEmploymentInformationComponent } from "./employee-employment-in
 import { EmployeeContactInformationComponent } from "./employee-contact-information/employee-contact-information.component";
 import { EmployeeGovernmentInformationComponent } from "./employee-government-information/employee-government-information.component";
 import { EmployeeHealthInformationComponent } from "./employee-health-information/employee-health-information.component";
+import { EmployeeLicensesComponent } from "./employee-licenses/employee-licenses.component";
 
 const routes: Routes = [
   { path: '', component: EmployeeDetailsComponent, data:{ animation : 'employee/details' },
@@ -18,6 +19,7 @@ const routes: Routes = [
       { path: 'contact', component: EmployeeContactInformationComponent, data:{ animation : 'employee/details/contact', label : 'contact' } },
       { path: 'government', component: EmployeeGovernmentInformationComponent, data:{ animation : 'employee/details/government', label : 'government' } },
       { path: 'health', component: EmployeeHealthInformationComponent, data:{ animation : 'employee/details/health', label : 'health' } },
+      { path: 'license', component: EmployeeLicensesComponent, data:{ animation : 'employee/details/license', label : 'license' } },
     ]
   },
   

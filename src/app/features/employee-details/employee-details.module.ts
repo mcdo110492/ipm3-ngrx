@@ -16,12 +16,9 @@ import { EmployeeEmploymentInformationComponent, EmployeeEmploymentInformationSe
 import { EmployeeContactInformationComponent, EmployeeContactInformationService, EmployeeContactInformationEffects } from './employee-contact-information';
 import { EmployeeGovernmentInformationComponent, EmployeeGovernmentInformationService, EmployeeGovernmentInformationEffects } from './employee-government-information';
 import { EmployeeHealthInformationComponent, EmployeeHealthInformationService, EmployeeHealthInformationEffects } from './employee-health-information';
+import { EmployeeLicensesComponent, EmployeeLicensesTableComponent, EmployeeLicensesFormComponent, EmployeeLicensesService, EmployeeLicensesEffects } from './employee-licenses';
 
 import { reducers } from "./reducers";
-
-
-
-
 
 @NgModule({
   imports: [
@@ -34,20 +31,30 @@ import { reducers } from "./reducers";
                                 EmployeeEmploymentInformationEffects,
                                 EmployeeContactInformationEffects,
                                 EmployeeGovernmentInformationEffects,
-                                EmployeeHealthInformationEffects
+                                EmployeeHealthInformationEffects,
+                                EmployeeLicensesEffects
                              ])
   ],
   declarations: [ EmployeeDetailsComponent, 
                   EmployeePersonalInformationComponent, 
                   EmployeeEmploymentInformationComponent, 
-                  EmployeeContactInformationComponent, EmployeeGovernmentInformationComponent, EmployeeHealthInformationComponent
+                  EmployeeContactInformationComponent, 
+                  EmployeeGovernmentInformationComponent, 
+                  EmployeeHealthInformationComponent, 
+                  EmployeeLicensesComponent, 
+                  EmployeeLicensesTableComponent, 
+                  EmployeeLicensesFormComponent
                 ],
+  entryComponents : [
+                  EmployeeLicensesFormComponent
+  ],
   providers :[  EmployeeDetailsService,
                 EmployeePersonalInformationService,
                 EmployeeEmploymentInformationService,
                 EmployeeContactInformationService,
                 EmployeeGovernmentInformationService,
-                EmployeeHealthInformationService
+                EmployeeHealthInformationService,
+                EmployeeLicensesService
              ]
 })
 export class EmployeeDetailsModule { }

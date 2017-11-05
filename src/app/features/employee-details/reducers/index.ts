@@ -10,14 +10,16 @@ import * as fromEmployment from './../employee-employment-information/reducers/e
 import * as fromContact from './../employee-contact-information/reducers/employee-contact.reducers';
 import * as fromGovernment from './../employee-government-information/reducers/employee-government.reducers';
 import * as fromHealth from './../employee-health-information/reducers/employee-health.reducers';
+import * as fromLicense from './../employee-licenses/reducers/employee-license.reducers';
 
 export interface EmployeeDetailsState {
-    employeeDetails : fromEmp.State,
-    personal        : fromPersonal.State,
-    employment      : fromEmployment.State,
-    contact         : fromContact.State,
-    government      : fromGovernment.State,
-    health          : fromHealth.State
+    employeeDetails : fromEmp.State;
+    personal        : fromPersonal.State;
+    employment      : fromEmployment.State;
+    contact         : fromContact.State;
+    government      : fromGovernment.State;
+    health          : fromHealth.State;
+    licenses        : fromLicense.State;
 }
 
 export interface State extends fromRoot.State {
@@ -31,7 +33,8 @@ export const reducers : ActionReducerMap<EmployeeDetailsState> = {
     employment      : fromEmployment.reducer,
     contact         : fromContact.reducer,
     government      : fromGovernment.reducer,
-    health          : fromHealth.reducer
+    health          : fromHealth.reducer,
+    licenses        : fromLicense.reducer
 }
 
 export const getState = createFeatureSelector<EmployeeDetailsState>('featureEmployeeDetails');
@@ -65,3 +68,10 @@ export const getGovernment = createSelector(getGovernmentState, fromGovernment.g
 export const getHealthState = createSelector(getState, (state : EmployeeDetailsState ) => state.health);
 
 export const getHealth = createSelector(getHealthState, fromHealth.getHealth);
+
+
+export const getLicenseState = createSelector(getState, (state : EmployeeDetailsState) => state.licenses);
+
+export const getLicenses     = createSelector(getLicenseState, fromLicense.getCollections);
+
+export const getSelectedLicense = createSelector(getLicenseState, fromLicense.getSelected);
