@@ -1,0 +1,71 @@
+<form [formGroup]="educationalForm" fxLayout="column" fxLayoutGap="20px">
+  
+    <h2 align="center" mat-dialog-title>Educational Background</h2>
+    <mat-dialog-content>
+  
+      <mat-form-field fxFlex>
+        <input matInput placeholder="School Name" formControlName="schoolName" required>
+        <mat-error>
+          School Name is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field fxFlex>
+        <input matInput placeholder="School Address" formControlName="schoolAddress" required>
+        <mat-error>
+          School Address is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field fxFlex>
+        <input matInput placeholder="School Year" formControlName="schoolYear" required>
+        <mat-error>
+          School Year is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field fxFlex>
+        <input matInput placeholder="Degree" formControlName="degree" required>
+        <mat-error>
+          Degree is required
+        </mat-error>
+      </mat-form-field>
+  
+      <div fxFlex>
+        <div fxLayout="row" fxLayout.xs="column">
+  
+          <mat-form-field fxFlex>
+            <input matInput placeholder="Major" formControlName="major" required>
+            <mat-error>
+              Major is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field fxFlex>
+            <input matInput placeholder="Minor" formControlName="minor" required>
+            <mat-error>
+              Minor is required
+            </mat-error>
+          </mat-form-field>
+  
+  
+        </div>
+      </div>
+
+      <mat-form-field fxFlex>
+        <input matInput placeholder="Awards" formControlName="awards" required>
+        <mat-error>
+          Awards is required
+        </mat-error>
+      </mat-form-field>
+
+  </mat-dialog-content>
+  
+  <mat-dialog-actions align="center">
+      
+      <button mat-raised-button [disabled]="educationalForm.invalid || educationalForm.pristine" (click)="saveForm()" color="accent">Save</button>
+      <button mat-raised-button (click)="closeDialog()" color="warn">Cancel</button>
+  
+  </mat-dialog-actions>
+  
+  </form>

@@ -28,6 +28,9 @@ export class EmployeeDetailsService {
       else if(label === 'license'){
           return 5;
       }
+      else if(label === 'educational'){
+          return 6;
+      }
 
   }
   

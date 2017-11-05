@@ -11,6 +11,7 @@ import * as fromContact from './../employee-contact-information/reducers/employe
 import * as fromGovernment from './../employee-government-information/reducers/employee-government.reducers';
 import * as fromHealth from './../employee-health-information/reducers/employee-health.reducers';
 import * as fromLicense from './../employee-licenses/reducers/employee-license.reducers';
+import * as fromEducational from './../employee-educational/reducers/employee-educational.reducers';
 
 export interface EmployeeDetailsState {
     employeeDetails : fromEmp.State;
@@ -20,6 +21,7 @@ export interface EmployeeDetailsState {
     government      : fromGovernment.State;
     health          : fromHealth.State;
     licenses        : fromLicense.State;
+    educational     : fromEducational.State;
 }
 
 export interface State extends fromRoot.State {
@@ -34,7 +36,8 @@ export const reducers : ActionReducerMap<EmployeeDetailsState> = {
     contact         : fromContact.reducer,
     government      : fromGovernment.reducer,
     health          : fromHealth.reducer,
-    licenses        : fromLicense.reducer
+    licenses        : fromLicense.reducer,
+    educational     : fromEducational.reducer
 }
 
 export const getState = createFeatureSelector<EmployeeDetailsState>('featureEmployeeDetails');
@@ -75,3 +78,10 @@ export const getLicenseState = createSelector(getState, (state : EmployeeDetails
 export const getLicenses     = createSelector(getLicenseState, fromLicense.getCollections);
 
 export const getSelectedLicense = createSelector(getLicenseState, fromLicense.getSelected);
+
+
+export const getEducationalState = createSelector(getState, (state : EmployeeDetailsState) => state.educational);
+
+export const getEducational = createSelector(getEducationalState, fromEducational.getCollections);
+
+export const getSelectedEducational = createSelector(getEducationalState, fromEducational.getSelected);

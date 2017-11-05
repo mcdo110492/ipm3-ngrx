@@ -17,6 +17,7 @@ import { EmployeeContactInformationComponent, EmployeeContactInformationService,
 import { EmployeeGovernmentInformationComponent, EmployeeGovernmentInformationService, EmployeeGovernmentInformationEffects } from './employee-government-information';
 import { EmployeeHealthInformationComponent, EmployeeHealthInformationService, EmployeeHealthInformationEffects } from './employee-health-information';
 import { EmployeeLicensesComponent, EmployeeLicensesTableComponent, EmployeeLicensesFormComponent, EmployeeLicensesService, EmployeeLicensesEffects } from './employee-licenses';
+import { EmployeeEducationalComponent, EmployeeEducationalService, EmployeeEducationalFormComponent, EmployeeEducationalTableComponent, EmployeeEducationalEffects } from './employee-educational';
 
 import { reducers } from "./reducers";
 
@@ -32,7 +33,8 @@ import { reducers } from "./reducers";
                                 EmployeeContactInformationEffects,
                                 EmployeeGovernmentInformationEffects,
                                 EmployeeHealthInformationEffects,
-                                EmployeeLicensesEffects
+                                EmployeeLicensesEffects,
+                                EmployeeEducationalEffects
                              ])
   ],
   declarations: [ EmployeeDetailsComponent, 
@@ -43,10 +45,14 @@ import { reducers } from "./reducers";
                   EmployeeHealthInformationComponent, 
                   EmployeeLicensesComponent, 
                   EmployeeLicensesTableComponent, 
-                  EmployeeLicensesFormComponent
+                  EmployeeLicensesFormComponent, 
+                  EmployeeEducationalComponent, 
+                  EmployeeEducationalTableComponent, 
+                  EmployeeEducationalFormComponent
                 ],
   entryComponents : [
-                  EmployeeLicensesFormComponent
+                  EmployeeLicensesFormComponent,
+                  EmployeeEducationalFormComponent
   ],
   providers :[  EmployeeDetailsService,
                 EmployeePersonalInformationService,
@@ -54,7 +60,8 @@ import { reducers } from "./reducers";
                 EmployeeContactInformationService,
                 EmployeeGovernmentInformationService,
                 EmployeeHealthInformationService,
-                EmployeeLicensesService
+                EmployeeLicensesService,
+                EmployeeEducationalService
              ]
 })
 export class EmployeeDetailsModule { }

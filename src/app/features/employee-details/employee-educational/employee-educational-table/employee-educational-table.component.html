@@ -1,0 +1,86 @@
+
+
+  <div fxFlex class="datatable-container" >
+    
+            <div fxLayout="row" >
+          
+                <div fxFlex fxLayoutAlign="end" class="action-buttons">
+              
+                    <button type="button" class="" mat-raised-button (click)="openDialogForm()" color="accent" matTooltip="Click to add new data" matTooltipPosition="above" >
+                      <mat-icon>add</mat-icon>
+                      ADD NEW
+                    </button>
+            </div>
+            </div>
+    
+              <mat-table #table [dataSource]="dataSource" matSort >
+            
+                <!--- Note that these columns can be defined in any order.
+                      The actual rendered columns are set as a property on the row definition" -->
+    
+                <ng-container matColumnDef="schoolName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>School Name</mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                      {{ row.schoolName }}
+                    </mat-cell>
+                </ng-container>
+    
+                <ng-container matColumnDef="schoolAddress">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Address</mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                      {{ row.schoolAddress }}
+                    </mat-cell>
+                </ng-container>
+    
+                <ng-container matColumnDef="schoolYear">
+                    <mat-header-cell *matHeaderCellDef>School Year</mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                      {{ row.schoolYear }}
+                    </mat-cell>
+                </ng-container>
+    
+                <ng-container matColumnDef="degree">
+                    <mat-header-cell *matHeaderCellDef>Degree</mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                      {{ row.degree }}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="major">
+                  <mat-header-cell *matHeaderCellDef>Major</mat-header-cell>
+                  <mat-cell *matCellDef="let row">
+                    {{ row.major }}
+                  </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="minor">
+                <mat-header-cell *matHeaderCellDef>Minor</mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                  {{ row.minor }}
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="awards">
+                <mat-header-cell *matHeaderCellDef>Awards</mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                  {{ row.awards }}
+                </mat-cell>
+              </ng-container>
+    
+            
+                <!-- Action Column -->
+                <ng-container matColumnDef="actions">
+                  <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+                  <mat-cell *matCellDef="let row">
+                    <button mat-raised-button  color="accent" (click)="openUpdateDialogForm(row)" >UPDATE</button>
+                  </mat-cell>
+                </ng-container>
+            
+            
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+              </mat-table>
+          </div>
+        
+        
+        
