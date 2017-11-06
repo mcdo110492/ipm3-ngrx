@@ -75,6 +75,9 @@ export class EmployeeDetailsComponent implements OnInit {
     else if(index == 7){
       this._router.navigate(['training'], { relativeTo : this._route });
     }
+    else if(index == 8){
+      this._router.navigate(['club'], { relativeTo : this._route });
+    }
 
   }
 

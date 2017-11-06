@@ -34,6 +34,9 @@ export class EmployeeDetailsService {
       else if(label === 'training'){
           return 7;
       }
+      else if(label === 'club'){
+        return 8;
+    }
 
   }
   

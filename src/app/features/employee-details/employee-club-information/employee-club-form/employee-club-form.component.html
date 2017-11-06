@@ -1,0 +1,39 @@
+<form [formGroup]="clubForm" fxLayout="column" fxLayoutGap="20px">
+  
+    <h2 align="center" mat-dialog-title>Club</h2>
+    <mat-dialog-content>
+      <mat-form-field fxFlex>
+        <input matInput placeholder="Club Name" formControlName="clubName" required>
+        <mat-error >
+              Club Name  is required
+          </mat-error>
+      </mat-form-field>
+  
+      <mat-form-field fxFlex>
+        <input matInput placeholder="Position" formControlName="clubPosition" required>
+        <mat-error>
+          Position is required
+        </mat-error>
+      </mat-form-field>
+  
+  
+      <mat-form-field fxFlex>
+        <input matInput [matDatepicker]="picker" placeholder="Membership Date" formControlName="membershipDate" required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error>
+          Memebership Date is required
+        </mat-error>
+      </mat-form-field>
+  
+  
+  </mat-dialog-content>
+  
+  <mat-dialog-actions align="end">
+      
+      <button mat-raised-button [disabled]="clubForm.invalid || clubForm.pristine" (click)="saveForm()" color="accent">Save</button>
+      <button mat-raised-button (click)="closeDialog()" color="warn">Cancel</button>
+  
+  </mat-dialog-actions>
+  
+  </form>
