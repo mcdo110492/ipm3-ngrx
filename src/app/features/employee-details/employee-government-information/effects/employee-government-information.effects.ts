@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { Action, Store } from "@ngrx/store";
 import { Effect, Actions } from "@ngrx/effects";
 import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
+import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -39,7 +39,7 @@ export class EmployeeGovernmentInformationEffects {
         .switchMap( ([action, employeeId]) => {
             return this._service.getGovernment(employeeId)
             .map((response) => new government.GetGovernmentSuccess(response.data) )
-            .catch(err => of(new government.GetGovernmentError(err) ))
+            .catch(err => Observable.of(new government.GetGovernmentError(err) ))
 
         });
     @Effect({dispatch : false})
@@ -59,7 +59,7 @@ export class EmployeeGovernmentInformationEffects {
             
             return this._service.updateGovernment(payload)
                 .map((response) =>  new government.SaveGovernmentSuccess(payload) )
-                .catch((err) => of( new government.GetGovernmentError(err) ))
+                .catch((err) => Observable.of( new government.GetGovernmentError(err) ))
                 .do(() => this._loader.closeDialog())
 
         })

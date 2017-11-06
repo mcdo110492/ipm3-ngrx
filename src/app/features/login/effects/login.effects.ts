@@ -4,7 +4,7 @@ import { Action } from '@ngrx/store';
 import { Actions, Effect } from '@ngrx/effects';
 
 import { Observable } from 'rxjs/Observable';
-import { of } from "rxjs/observable/of";
+import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/catch';
@@ -36,7 +36,7 @@ export class LoginEffects {
 
             return this._service.autheticateCredentials(payload) 
             .map((response) => new loginActions.LoginSuccess(response) )
-            .catch((err) => of(new loginActions.LoginError(err) ) )
+            .catch((err) => Observable.of(new loginActions.LoginError(err) ) )
         })
 
     @Effect()
@@ -46,7 +46,7 @@ export class LoginEffects {
         .switchMap((status) => { 
             this._loader.closeDialog();
            if(status == 200){
-             return of(new mainActions.IsLoginPage(false));
+             return Observable.of(new mainActions.IsLoginPage(false));
            }
            else if(status == 401){
                 this._toastr.custom('Invalid Credentials','Incorrect username or password','error');
@@ -54,7 +54,7 @@ export class LoginEffects {
             else if(status == 403){
                 this._toastr.custom('Account Locked','This account has been locked. Contact your administrator','warning');
             }
-            return of();
+            return Observable.of();
         })
 
     @Effect({dispatch : false})

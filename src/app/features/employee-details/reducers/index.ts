@@ -12,6 +12,7 @@ import * as fromGovernment from './../employee-government-information/reducers/e
 import * as fromHealth from './../employee-health-information/reducers/employee-health.reducers';
 import * as fromLicense from './../employee-licenses/reducers/employee-license.reducers';
 import * as fromEducational from './../employee-educational/reducers/employee-educational.reducers';
+import * as fromTraining from './../employee-training-information/reducers/employee-training.reducers';
 
 export interface EmployeeDetailsState {
     employeeDetails : fromEmp.State;
@@ -22,6 +23,7 @@ export interface EmployeeDetailsState {
     health          : fromHealth.State;
     licenses        : fromLicense.State;
     educational     : fromEducational.State;
+    training        : fromTraining.State;
 }
 
 export interface State extends fromRoot.State {
@@ -37,7 +39,8 @@ export const reducers : ActionReducerMap<EmployeeDetailsState> = {
     government      : fromGovernment.reducer,
     health          : fromHealth.reducer,
     licenses        : fromLicense.reducer,
-    educational     : fromEducational.reducer
+    educational     : fromEducational.reducer,
+    training        : fromTraining.reducer
 }
 
 export const getState = createFeatureSelector<EmployeeDetailsState>('featureEmployeeDetails');
@@ -85,3 +88,10 @@ export const getEducationalState = createSelector(getState, (state : EmployeeDet
 export const getEducational = createSelector(getEducationalState, fromEducational.getCollections);
 
 export const getSelectedEducational = createSelector(getEducationalState, fromEducational.getSelected);
+
+
+export const getTrainingState = createSelector(getState, (state : EmployeeDetailsState) => state.training);
+
+export const getTraining = createSelector(getTrainingState, fromTraining.getCollections);
+
+export const getSelectedTraining = createSelector(getTrainingState, fromTraining.getSelected);

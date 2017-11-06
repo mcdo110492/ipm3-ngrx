@@ -6,8 +6,8 @@ export interface EmployeeEmployment {
     positionId                  :   number;
     employeeStatusId            :   number;
     employmentStatusId          :   number;
-    contractStart               :   Date;
-    contractEnd                 :   Date;
+    contractStart               :   Date | string;
+    contractEnd                 :   Date | string;
     salary                      :   number;
     remarks                     :   string;
     created_at?                 :   Date;

@@ -18,8 +18,11 @@ import { EmployeeGovernmentInformationComponent, EmployeeGovernmentInformationSe
 import { EmployeeHealthInformationComponent, EmployeeHealthInformationService, EmployeeHealthInformationEffects } from './employee-health-information';
 import { EmployeeLicensesComponent, EmployeeLicensesTableComponent, EmployeeLicensesFormComponent, EmployeeLicensesService, EmployeeLicensesEffects } from './employee-licenses';
 import { EmployeeEducationalComponent, EmployeeEducationalService, EmployeeEducationalFormComponent, EmployeeEducationalTableComponent, EmployeeEducationalEffects } from './employee-educational';
+import { EmployeeTrainingInformationComponent, EmployeeTrainingFormComponent, EmployeeTrainingTableComponent, EmployeeTrainingInformationService, EmployeeTrainingInformationEffects } from './employee-training-information';
 
 import { reducers } from "./reducers";
+
+
 
 @NgModule({
   imports: [
@@ -34,7 +37,8 @@ import { reducers } from "./reducers";
                                 EmployeeGovernmentInformationEffects,
                                 EmployeeHealthInformationEffects,
                                 EmployeeLicensesEffects,
-                                EmployeeEducationalEffects
+                                EmployeeEducationalEffects,
+                                EmployeeTrainingInformationEffects
                              ])
   ],
   declarations: [ EmployeeDetailsComponent, 
@@ -48,11 +52,15 @@ import { reducers } from "./reducers";
                   EmployeeLicensesFormComponent, 
                   EmployeeEducationalComponent, 
                   EmployeeEducationalTableComponent, 
-                  EmployeeEducationalFormComponent
+                  EmployeeEducationalFormComponent, 
+                  EmployeeTrainingInformationComponent, 
+                  EmployeeTrainingTableComponent, 
+                  EmployeeTrainingFormComponent
                 ],
   entryComponents : [
                   EmployeeLicensesFormComponent,
-                  EmployeeEducationalFormComponent
+                  EmployeeEducationalFormComponent,
+                  EmployeeTrainingFormComponent
   ],
   providers :[  EmployeeDetailsService,
                 EmployeePersonalInformationService,
@@ -61,7 +69,8 @@ import { reducers } from "./reducers";
                 EmployeeGovernmentInformationService,
                 EmployeeHealthInformationService,
                 EmployeeLicensesService,
-                EmployeeEducationalService
+                EmployeeEducationalService,
+                EmployeeTrainingInformationService
              ]
 })
 export class EmployeeDetailsModule { }

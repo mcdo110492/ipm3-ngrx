@@ -7,7 +7,7 @@ export class MomentService {
 
   constructor() { }
 
-  parseDateToMoment(date : Date){
+  parseDateToMoment(date : Date | string){
     moment.locale();
     return moment(date).format('LL');
   }

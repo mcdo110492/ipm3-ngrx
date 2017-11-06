@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Action, Store } from "@ngrx/store";
 import { Effect, Actions } from "@ngrx/effects";
 import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
+import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
@@ -39,7 +39,7 @@ export class EmployeeEducationalEffects {
         .switchMap( ([action, employeeId]) => {
             return this._service.getEducational(employeeId)
             .map((response) => new educational.LoadSuccess(response.data) )
-            .catch(err => of(new educational.EducationalError(err) ))
+            .catch(err => Observable.of(new educational.EducationalError(err) ))
 
         });
 
@@ -60,7 +60,7 @@ export class EmployeeEducationalEffects {
                 
                 return this._service.saveEducational(payload,employeeId)
                     .map((response) =>  new educational.SaveEducationalSuccess() )
-                    .catch((err) => of( new educational.EducationalError(err) ))
+                    .catch((err) => Observable.of( new educational.EducationalError(err) ))
                     .do(() => this._loader.closeDialog())
                 
             }
@@ -68,7 +68,7 @@ export class EmployeeEducationalEffects {
 
                 return this._service.updateEducational(payload)
                 .map((response) => new educational.SaveEducationalSuccess() )
-                .catch((err) => of( new educational.EducationalError(err) ))
+                .catch((err) => Observable.of( new educational.EducationalError(err) ))
                 .do(() => this._loader.closeDialog())
             }
 

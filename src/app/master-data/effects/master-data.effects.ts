@@ -3,16 +3,11 @@ import { Injectable } from '@angular/core';
 import { Action, Store } from "@ngrx/store";
 import { Effect, Actions } from "@ngrx/effects";
 import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
+import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/withLatestFrom';
-import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/operator/filter';
 
 import * as masterDataActions from './../actions/master-data.actions';
 import * as fromMasterData from './../reducers/master-data.reducers';
@@ -33,7 +28,7 @@ export class MasterDataEffects {
         .switchMap( () => {
             return this._service.getProjects()
             .map((response) => new masterDataActions.GetAllProjectsSuccess(response.data) )
-            .catch(err => of(new masterDataActions.MasterDataError(err) ))
+            .catch(err => Observable.of(new masterDataActions.MasterDataError(err) ))
         });
 
     @Effect()
@@ -42,7 +37,7 @@ export class MasterDataEffects {
         .switchMap( () => {
             return this._service.getPositions()
             .map((response) => new masterDataActions.GetAllPositionsSuccess(response.data) )
-            .catch(err => of(new masterDataActions.MasterDataError(err) ))
+            .catch(err => Observable.of(new masterDataActions.MasterDataError(err) ))
         });
 
     @Effect()
@@ -51,7 +46,7 @@ export class MasterDataEffects {
         .switchMap( () => {
             return this._service.getEmploymentStatus()
             .map((response) => new masterDataActions.GetAllEmploymentStatusSuccess(response.data) )
-            .catch(err => of(new masterDataActions.MasterDataError(err) ))
+            .catch(err => Observable.of(new masterDataActions.MasterDataError(err) ))
         });
 
     @Effect()
@@ -60,7 +55,7 @@ export class MasterDataEffects {
         .switchMap( () => {
             return this._service.getEmployeeStatus()
             .map((response) => new masterDataActions.GetAllEmployeeStatusSuccess(response.data) )
-            .catch(err => of(new masterDataActions.MasterDataError(err) ))
+            .catch(err => Observable.of(new masterDataActions.MasterDataError(err) ))
         });
 
 

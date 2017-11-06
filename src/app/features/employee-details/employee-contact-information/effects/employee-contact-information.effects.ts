@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { Action, Store } from "@ngrx/store";
 import { Effect, Actions } from "@ngrx/effects";
 import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
+import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -39,7 +39,7 @@ export class EmployeeContactInformationEffects {
         .switchMap( ([action, employeeId]) => {
             return this._service.getContact(employeeId)
             .map((response) => new contact.GetContactSuccess(response.data) )
-            .catch(err => of(new contact.GetContactError(err) ))
+            .catch(err => Observable.of(new contact.GetContactError(err) ))
 
         });
     @Effect({dispatch : false})
@@ -59,7 +59,7 @@ export class EmployeeContactInformationEffects {
             
             return this._service.updateContact(payload)
                 .map((response) =>  new contact.SaveContactSuccess(payload) )
-                .catch((err) => of( new contact.GetContactError(err) ))
+                .catch((err) => Observable.of( new contact.GetContactError(err) ))
                 .do(() => this._loader.closeDialog())
 
         })

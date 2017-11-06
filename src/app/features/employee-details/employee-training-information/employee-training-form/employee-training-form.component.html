@@ -1,0 +1,52 @@
+<form [formGroup]="trainingForm" fxLayout="column" fxLayoutGap="20px">
+  
+    <h2 align="center" mat-dialog-title>License</h2>
+    <mat-dialog-content>
+      <mat-form-field fxFlex>
+        <input matInput placeholder="Training Title" formControlName="trainingTitle" required>
+        <mat-error >
+              Training Title  is required
+          </mat-error>
+      </mat-form-field>
+  
+      <mat-form-field fxFlex>
+        <input matInput placeholder="Name" formControlName="trainingName" required>
+        <mat-error>
+          Name is required
+        </mat-error>
+      </mat-form-field>
+  
+      <div fxFlex>
+        <div fxLayout="row" fxLayout.xs="column">
+  
+            <mat-form-field fxFlex>
+                <input matInput [matDatepicker]="picker" placeholder="From" formControlName="trainingFrom" required>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error>
+                  From is required
+                </mat-error>
+            </mat-form-field>
+  
+            <mat-form-field fxFlex>
+                <input matInput [matDatepicker]="picker2" placeholder="To" formControlName="trainingTo" required>
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+                <mat-error>
+                  To is required
+                </mat-error>
+            </mat-form-field>
+  
+  
+        </div>
+      </div>
+  </mat-dialog-content>
+  
+  <mat-dialog-actions align="end">
+      
+      <button mat-raised-button [disabled]="trainingForm.invalid || trainingForm.pristine" (click)="saveForm()" color="accent">Save</button>
+      <button mat-raised-button (click)="closeDialog()" color="warn">Cancel</button>
+  
+  </mat-dialog-actions>
+  
+  </form>

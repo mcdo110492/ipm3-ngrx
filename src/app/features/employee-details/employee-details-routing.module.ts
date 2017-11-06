@@ -10,6 +10,7 @@ import { EmployeeGovernmentInformationComponent } from "./employee-government-in
 import { EmployeeHealthInformationComponent } from "./employee-health-information/employee-health-information.component";
 import { EmployeeLicensesComponent } from "./employee-licenses/employee-licenses.component";
 import { EmployeeEducationalComponent } from "./employee-educational/employee-educational.component";
+import { EmployeeTrainingInformationComponent } from "./employee-training-information/employee-training-information.component";
 
 const routes: Routes = [
   { path: '', component: EmployeeDetailsComponent, data:{ animation : 'employee/details' },
@@ -22,6 +23,7 @@ const routes: Routes = [
       { path: 'health', component: EmployeeHealthInformationComponent, data:{ animation : 'employee/details/health', label : 'health' } },
       { path: 'license', component: EmployeeLicensesComponent, data:{ animation : 'employee/details/license', label : 'license' } },
       { path: 'educational', component: EmployeeEducationalComponent, data:{ animation : 'employee/details/educational', label : 'educational' } },
+      { path: 'training', component: EmployeeTrainingInformationComponent, data:{ animation : 'employee/details/training', label : 'training' } },
     ]
   },
   

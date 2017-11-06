@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Action, Store } from "@ngrx/store";
 import { Effect, Actions } from "@ngrx/effects";
 import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
+import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
@@ -46,7 +46,7 @@ export class PositionTableEffects {
         .switchMap( ([action, pageIndex, pageSize, sortField, sortDirection,searchQuery]) => {
             return this._service.loadData(pageIndex,pageSize,sortField,sortDirection,searchQuery)
             .map((response) => new positionActions.LoadSuccess(response.data,response.count) )
-            .catch(err => of(new positionActions.LoadError(err) ))
+            .catch(err => Observable.of(new positionActions.LoadError(err) ))
 
         });
 
@@ -70,7 +70,7 @@ export class PositionTableEffects {
         .switchMap( ([action, pageIndex, pageSize, sortField, sortDirection,searchQuery]) => {
             return this._service.loadData(pageIndex,pageSize,sortField,sortDirection,searchQuery)
             .map((response) => new positionActions.LoadSuccess(response.data,response.count) )
-            .catch(err => of(new positionActions.LoadError(err) ))
+            .catch(err => Observable.of(new positionActions.LoadError(err) ))
 
         });
     /**
@@ -88,7 +88,7 @@ export class PositionTableEffects {
             
                 return this._service.save(payload)
                 .map((response) =>  new positionActions.SaveSuccess(response.status) )
-                .catch((err) => of( new positionActions.LoadError(err) ))
+                .catch((err) => Observable.of( new positionActions.LoadError(err) ))
                 .do(() => this._loader.closeDialog())
                 
             }
@@ -96,7 +96,7 @@ export class PositionTableEffects {
 
                 return this._service.update(payload)
                 .map((response) => new positionActions.SaveSuccess(response.status) )
-                .catch((err) => of( new positionActions.LoadError(err) ))
+                .catch((err) => Observable.of( new positionActions.LoadError(err) ))
                 .do(() => this._loader.closeDialog())
             }
 

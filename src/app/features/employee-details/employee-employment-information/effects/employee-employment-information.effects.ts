@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { Action, Store } from "@ngrx/store";
 import { Effect, Actions } from "@ngrx/effects";
 import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
+import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -39,7 +39,7 @@ export class EmployeeEmploymentInformationEffects {
         .switchMap( ([action, employeeId]) => {
             return this._service.getEmployment(employeeId)
             .map((response) => new empEmployment.GetEmploymentSuccess(response.data) )
-            .catch(err => of(new empEmployment.GetEmploymentError(err) ))
+            .catch(err => Observable.of(new empEmployment.GetEmploymentError(err) ))
             
         });
     @Effect({dispatch : false})
@@ -59,7 +59,7 @@ export class EmployeeEmploymentInformationEffects {
             
             return this._service.updateEmployment(payload)
                 .map((response) =>  new empEmployment.SaveEmploymentSuccess(payload) )
-                .catch((err) => of( new empEmployment.GetEmploymentError(err) ))
+                .catch((err) => Observable.of( new empEmployment.GetEmploymentError(err) ))
                 .do(() => this._loader.closeDialog())
 
         })

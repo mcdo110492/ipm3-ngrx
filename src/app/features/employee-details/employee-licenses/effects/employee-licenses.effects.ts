@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Action, Store } from "@ngrx/store";
 import { Effect, Actions } from "@ngrx/effects";
 import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
+import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
@@ -39,7 +39,7 @@ export class EmployeeLicensesEffects {
         .switchMap( ([action, employeeId]) => {
             return this._service.getLicenses(employeeId)
             .map((response) => new license.LoadSuccess(response.data) )
-            .catch(err => of(new license.LicenseError(err) ))
+            .catch(err => Observable.of(new license.LicenseError(err) ))
 
         });
 
@@ -60,7 +60,7 @@ export class EmployeeLicensesEffects {
                 
                 return this._service.saveLicense(payload,employeeId)
                     .map((response) =>  new license.SaveLicenseSuccess() )
-                    .catch((err) => of( new license.LicenseError(err) ))
+                    .catch((err) => Observable.of( new license.LicenseError(err) ))
                     .do(() => this._loader.closeDialog())
                 
             }
@@ -68,7 +68,7 @@ export class EmployeeLicensesEffects {
 
                 return this._service.updateLicense(payload)
                 .map((response) => new license.SaveLicenseSuccess() )
-                .catch((err) => of( new license.LicenseError(err) ))
+                .catch((err) => Observable.of( new license.LicenseError(err) ))
                 .do(() => this._loader.closeDialog())
             }
 

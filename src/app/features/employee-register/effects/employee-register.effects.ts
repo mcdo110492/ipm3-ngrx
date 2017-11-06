@@ -5,7 +5,7 @@ import { Action, Store } from '@ngrx/store';
 import { Actions, Effect } from '@ngrx/effects';
 
 import { Observable } from 'rxjs/Observable';
-import { of } from "rxjs/observable/of";
+import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
@@ -46,7 +46,7 @@ export class EmployeeRegisterEffects {
             this._loader.openDialog();
             return this._service.submitForm(formData,project)
                     .map(() => new empActions.SubmitSuccess() )
-                    .catch((err) => of( new empActions.SubmitError(err) ))
+                    .catch((err) => Observable.of( new empActions.SubmitError(err) ))
                     .do(() => this._loader.closeDialog())
         });
 
