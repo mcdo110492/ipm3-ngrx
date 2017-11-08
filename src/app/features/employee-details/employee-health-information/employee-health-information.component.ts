@@ -6,15 +6,14 @@ import * as healthActions from "./actions/employee-health.actions";
 import * as fromRoot from "./../reducers";
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/take';
-import 'rxjs/add/operator/toArray';
+import { take } from "rxjs/operators";
 
 import { EmployeeHealth } from "./models/employee-health.model";
 
 @Component({
   selector: 'app-employee-health-information',
   templateUrl: './employee-health-information.component.html',
-  styleUrls: ['./employee-health-information.component.scss']
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EmployeeHealthInformationComponent implements OnInit {
 
@@ -35,7 +34,9 @@ export class EmployeeHealthInformationComponent implements OnInit {
     this._store.dispatch( new healthActions.GetHealth() );
    
     this.healthData
-    .take(2)
+    .pipe(
+      take(2)
+    )
     .subscribe((data : EmployeeHealth) => {
       if(data !== undefined){
         this.healthForm.patchValue(data)

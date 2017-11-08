@@ -6,15 +6,13 @@ import * as governmentActions from "./actions/employee-government.actions";
 import * as fromRoot from "./../reducers";
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/take';
-import 'rxjs/add/operator/toArray';
+import { take } from "rxjs/operators";
 
 import { EmployeeGovernment } from "./models/employee-government.model";
 
 @Component({
   selector: 'app-employee-government-information',
   templateUrl: './employee-government-information.component.html',
-  styleUrls: ['./employee-government-information.component.scss'],
   changeDetection : ChangeDetectionStrategy.OnPush
 })
 export class EmployeeGovernmentInformationComponent implements OnInit {
@@ -36,7 +34,9 @@ export class EmployeeGovernmentInformationComponent implements OnInit {
     this._store.dispatch( new governmentActions.GetGovernment() );
    
     this.governmentData
-    .take(2)
+    .pipe(
+      take(2)
+    )
     .subscribe((data : EmployeeGovernment) => {
       if(data !== undefined){
         this.governmentForm.patchValue(data)

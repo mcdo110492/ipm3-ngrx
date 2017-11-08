@@ -65,10 +65,10 @@ app-root {
 .mat-card {
   margin: 5px 5px 0 0;
 }
-// Override mat-form-field width
-.mat-form-field {
-  width: 100%;
-}
+// // Override mat-form-field width
+// .mat-form-field {
+//   width: 100%;
+// }
 
 
 
@@ -91,7 +91,7 @@ app-root {
 
 // Free Spinner From http://tobiasahlin.com/spinkit
 .preview-spinner-area {
-    width: 100px;
+    width: 400px;
     height: 100px;
     position: absolute;
     top: 0;

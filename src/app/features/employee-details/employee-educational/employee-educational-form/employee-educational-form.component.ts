@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 import { MatDialogRef } from "@angular/material";
@@ -8,13 +8,14 @@ import * as fromRoot from './../../reducers';
 import * as educational from './../actions/employee-educational.actions';
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/take';
+import { take } from "rxjs/operators";
 
 import { EmployeeEducational } from "./../models/employee-educational.model";
 
 @Component({
   selector: 'app-employee-educational-form',
-  templateUrl: './employee-educational-form.component.html'
+  templateUrl: './employee-educational-form.component.html',
+  changeDetection : ChangeDetectionStrategy.OnPush
 })
 export class EmployeeEducationalFormComponent implements OnInit {
 
@@ -31,7 +32,10 @@ export class EmployeeEducationalFormComponent implements OnInit {
 
   ngOnInit() {
 
-    this.selectedEducational.take(1)
+    this.selectedEducational
+    .pipe(
+      take(1)
+    )
     .subscribe((data : EmployeeEducational) => {
       if(data != null){
         this.educationalForm.patchValue(data);

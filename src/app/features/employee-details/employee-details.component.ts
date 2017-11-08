@@ -4,9 +4,8 @@ import {  MatTabChangeEvent } from "@angular/material";
 
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs/Observable";
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/take';
+import { of } from "rxjs/observable/of";
+import { switchMap, take } from "rxjs/operators";
 
 import * as empActions from './actions/employee-details.actions';
 import * as personalActions from './employee-personal-information/actions/employee-personal.actions';
@@ -37,8 +36,10 @@ export class EmployeeDetailsComponent implements OnInit {
   ngOnInit() {
 
     this._route.paramMap
-    .switchMap((params : ParamMap) => { return Observable.of(+params.get('id')) })
-    .take(1)
+    .pipe(
+      switchMap((params : ParamMap) => { return of(+params.get('id')) }),
+      take(1)
+    )
     .subscribe((id) => this._store.dispatch(new empActions.GetEmployeeId(id)) );
 
     this.checkRouteTabSelected();
@@ -78,6 +79,9 @@ export class EmployeeDetailsComponent implements OnInit {
     else if(index == 8){
       this._router.navigate(['club'], { relativeTo : this._route });
     }
+    else if(index == 9){
+      this._router.navigate(['account/setting'], { relativeTo : this._route });
+    }
 
   }
 
@@ -85,7 +89,9 @@ export class EmployeeDetailsComponent implements OnInit {
   checkRouteTabSelected(){
 
     this._route.firstChild.data
-    .take(1)
+    .pipe(
+      take(1)
+    )
     .subscribe((data) => {
 
      this.currentIndex = this._service.selectedRouteTab(data);

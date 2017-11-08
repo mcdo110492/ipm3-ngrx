@@ -1,0 +1,26 @@
+<mat-card>
+    <mat-card-header>
+        <h2 mat-card-title>Change Username</h2>
+    </mat-card-header>
+    <mat-card-content>
+      <app-employee-account-change-username [accountId]="accountId$ | async" [username]="username$ | async" (save)="changeUsername($event)" ></app-employee-account-change-username>
+    </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-header>
+    <h2 mat-card-title>Security & Login</h2>
+  </mat-card-header>
+  <mat-card-content fxLayout="row">
+
+    <div fxFlex>
+        <app-employee-account-change-password (changePassword)="changePassword($event)" ></app-employee-account-change-password>
+    </div>
+
+    <div fxFlex>
+        <app-employee-account-change-status [status]="status$ | async" (changeStatus)="changeStatus($event)" ></app-employee-account-change-status>
+    </div>
+     
+      
+  </mat-card-content>
+</mat-card>

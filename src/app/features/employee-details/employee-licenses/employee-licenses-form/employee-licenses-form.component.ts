@@ -8,7 +8,7 @@ import * as fromRoot from './../../reducers';
 import * as licenseAction from './../actions/employee-license.actions';
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/take';
+import { take } from "rxjs/operators";
 
 import { EmployeeLicense } from "./../models/employee-licenses.models";
 
@@ -31,7 +31,10 @@ export class EmployeeLicensesFormComponent implements OnInit {
 
   ngOnInit() {
 
-    this.selectedLicense.take(1)
+    this.selectedLicense
+    .pipe(
+      take(1)
+    )
     .subscribe((data : EmployeeLicense) => {
       if(data != null){
         this.licenseForm.patchValue(data);

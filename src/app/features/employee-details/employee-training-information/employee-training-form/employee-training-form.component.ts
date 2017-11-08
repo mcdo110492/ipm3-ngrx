@@ -8,7 +8,7 @@ import * as fromRoot from './../../reducers';
 import * as trainingAction from './../actions/employee-training.actions';
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/take';
+import { take } from "rxjs/operators";
 
 import { EmployeeTraining } from "./../models/employee-training.model";
 
@@ -32,7 +32,10 @@ export class EmployeeTrainingFormComponent implements OnInit {
 
   ngOnInit() {
 
-    this.selectedTraining.take(1)
+    this.selectedTraining
+    .pipe(
+      take(1)
+    )
     .subscribe((data : EmployeeTraining) => {
       if(data != null){
         this.trainingForm.patchValue(data);

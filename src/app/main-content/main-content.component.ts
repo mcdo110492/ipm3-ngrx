@@ -9,13 +9,13 @@ import { Subscription } from "rxjs/Subscription";
 
 import { ObservableMedia, MediaChange } from "@angular/flex-layout";
 
-import { fadeInAnimation } from "./../animations/fade.animations";
+import { routeAnimation } from "./../animations/route.animations";
 
 @Component({
   selector: 'app-main-content',
   templateUrl: './main-content.component.html',
   styleUrls: ['./main-content.component.scss'],
-  animations:[fadeInAnimation]
+  animations:[routeAnimation]
 })
 export class MainContentComponent implements OnInit, OnDestroy {
 

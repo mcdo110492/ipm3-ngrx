@@ -1,7 +1,7 @@
 <form [formGroup]="trainingForm" fxLayout="column" fxLayoutGap="20px">
   
     <h2 align="center" mat-dialog-title>License</h2>
-    <mat-dialog-content>
+
       <mat-form-field fxFlex>
         <input matInput placeholder="Training Title" formControlName="trainingTitle" required>
         <mat-error >
@@ -40,13 +40,10 @@
   
         </div>
       </div>
-  </mat-dialog-content>
   
-  <mat-dialog-actions align="end">
       
       <button mat-raised-button [disabled]="trainingForm.invalid || trainingForm.pristine" (click)="saveForm()" color="accent">Save</button>
       <button mat-raised-button (click)="closeDialog()" color="warn">Cancel</button>
-  
-  </mat-dialog-actions>
+ 
   
   </form>

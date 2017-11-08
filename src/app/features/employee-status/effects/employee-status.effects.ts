@@ -3,16 +3,8 @@ import { Injectable } from '@angular/core';
 import { Action, Store } from "@ngrx/store";
 import { Effect, Actions } from "@ngrx/effects";
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/withLatestFrom';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/operator/filter';
+import { of } from "rxjs/observable/of";
+import { map, switchMap, mergeMap, catchError, withLatestFrom, debounceTime, tap, distinctUntilChanged, filter } from "rxjs/operators";
 
 import * as employeeStatusAction from './../actions/employee-status.actions';
 import * as fromRootEmployeeStatus from './../reducers';
@@ -31,74 +23,91 @@ export class EmploymentStatusEffects {
     @Effect()
         loadData$ : Observable<Action> = this._actions$
         .ofType(employeeStatusAction.LOAD)
-        .withLatestFrom(
-            this._store$.select(fromRootEmployeeStatus.getPageIndex),
-            this._store$.select(fromRootEmployeeStatus.getPageSize),
-            this._store$.select(fromRootEmployeeStatus.getSortField),
-            this._store$.select(fromRootEmployeeStatus.getSortDirection),
-            this._store$.select(fromRootEmployeeStatus.getSearchQuery)
-        )
-        .switchMap( ([action, pageIndex, pageSize, sortField, sortDirection,searchQuery]) => {
-            return this._service.loadData(pageIndex,pageSize,sortField,sortDirection,searchQuery)
-            .map((response) => new employeeStatusAction.LoadSuccess(response.data,response.count) )
-            .catch(err => Observable.of(new employeeStatusAction.LoadError(err) ))
-
-        });
+        .pipe(
+            withLatestFrom(
+                this._store$.select(fromRootEmployeeStatus.getPageIndex),
+                this._store$.select(fromRootEmployeeStatus.getPageSize),
+                this._store$.select(fromRootEmployeeStatus.getSortField),
+                this._store$.select(fromRootEmployeeStatus.getSortDirection),
+                this._store$.select(fromRootEmployeeStatus.getSearchQuery)
+            ),
+            switchMap( ([action, pageIndex, pageSize, sortField, sortDirection,searchQuery]) => {
+                return this._service.loadData(pageIndex,pageSize,sortField,sortDirection,searchQuery)
+                .pipe(
+                    map((response) => new employeeStatusAction.LoadSuccess(response.data,response.count) ),
+                    catchError(err => of(new employeeStatusAction.LoadError(err) ))
+                )
+    
+            })
+        );
 
     @Effect()
         search$ : Observable<Action> = this._actions$
         .ofType(employeeStatusAction.SEARCH)
-        .withLatestFrom(
-            this._store$.select(fromRootEmployeeStatus.getPageIndex),
-            this._store$.select(fromRootEmployeeStatus.getPageSize),
-            this._store$.select(fromRootEmployeeStatus.getSortField),
-            this._store$.select(fromRootEmployeeStatus.getSortDirection),
-            this._store$.select(fromRootEmployeeStatus.getSearchQuery)
-        )
-        .debounceTime(300)
-        .distinctUntilChanged()
-        .switchMap( ([action, pageIndex, pageSize, sortField, sortDirection,searchQuery]) => {
-            return this._service.loadData(pageIndex,pageSize,sortField,sortDirection,searchQuery)
-            .map((response) => new employeeStatusAction.LoadSuccess(response.data,response.count) )
-            .catch(err => Observable.of(new employeeStatusAction.LoadError(err) ))
-
-        });
+        .pipe(
+            withLatestFrom(
+                this._store$.select(fromRootEmployeeStatus.getPageIndex),
+                this._store$.select(fromRootEmployeeStatus.getPageSize),
+                this._store$.select(fromRootEmployeeStatus.getSortField),
+                this._store$.select(fromRootEmployeeStatus.getSortDirection),
+                this._store$.select(fromRootEmployeeStatus.getSearchQuery)
+            ),
+            debounceTime(300),
+            distinctUntilChanged(),
+            switchMap( ([action, pageIndex, pageSize, sortField, sortDirection,searchQuery]) => {
+                return this._service.loadData(pageIndex,pageSize,sortField,sortDirection,searchQuery)
+                .pipe(
+                    map((response) => new employeeStatusAction.LoadSuccess(response.data,response.count) ),
+                    catchError(err => of(new employeeStatusAction.LoadError(err) ))
+                )
+            })
+        );
 
     @Effect()
         save$ : Observable<Action> = this._actions$
         .ofType<employeeStatusAction.SaveEmployeeStatus>(employeeStatusAction.SAVE_EMPLOYEE_STATUS)
-        .map( (action) => action.payload)
-        .switchMap((payload) => {
-
-            this._loader.openDialog();
-            if(payload.employeeStatusId == 0){
-            
-                return this._service.save(payload)
-                .map((response) =>  new employeeStatusAction.SaveSuccess(response.status) )
-                .catch((err) => Observable.of( new employeeStatusAction.LoadError(err) ))
-                .do(() => this._loader.closeDialog())
+        .pipe(
+            map( (action) => action.payload),
+            switchMap((payload) => {
+    
+                this._loader.openDialog();
+                if(payload.employeeStatusId == 0){
                 
-            }
-            else {
-
-                return this._service.update(payload)
-                .map((response) => new employeeStatusAction.SaveSuccess(response.status) )
-                .catch((err) => Observable.of( new employeeStatusAction.LoadError(err) ))
-                .do(() => this._loader.closeDialog())
-            }
-
-        })
+                    return this._service.save(payload)
+                    .pipe(
+                        map((response) =>  new employeeStatusAction.SaveSuccess(response.status) ),
+                        catchError((err) => of( new employeeStatusAction.LoadError(err) )),
+                        tap(() => this._loader.closeDialog())
+                    )
+                    
+                }
+                else {
+    
+                    return this._service.update(payload)
+                    .pipe(
+                        map((response) =>  new employeeStatusAction.SaveSuccess(response.status) ),
+                        catchError((err) => of( new employeeStatusAction.LoadError(err) )),
+                        tap(() => this._loader.closeDialog())
+                    )
+                }
+    
+            })
+        );
+        
 
     @Effect()
         saveSuccess$  = this._actions$
                        .ofType(employeeStatusAction.SAVE_SUCCESS)
-                       .do(() => { this._toastr.saveSuccess(); })
-                       .mergeMap(() => {
-                           return [
-                            new employeeStatusAction.Load(),
-                            new employeeStatusAction.ClearSelectEmployeeStatus()
-                           ];
-                       })
+                       .pipe(
+                            tap(() => { this._toastr.saveSuccess(); }),
+                            mergeMap(() => {
+                                return [
+                                new employeeStatusAction.Load(),
+                                new employeeStatusAction.ClearSelectEmployeeStatus()
+                                ];
+                            })
+                       );
+                       
                        
 
                        
@@ -106,9 +115,12 @@ export class EmploymentStatusEffects {
     @Effect()
         error$ = this._actions$
                  .ofType<employeeStatusAction.LoadError>(employeeStatusAction.LOAD_ERROR)
-                 .map((action) => action.payload)
-                 .do((payload) => { this._toastr.errorHandler(payload)})
-                 .filter( payload => payload.status == 422)
-                 .map(() => new employeeStatusAction.ClearSelectEmployeeStatus() )
+                 .pipe(
+                    map((action) => action.payload),
+                    tap((payload) => { this._toastr.errorHandler(payload)}),
+                    filter( payload => payload.status == 422),
+                    map(() => new employeeStatusAction.ClearSelectEmployeeStatus() )
+                 );
+                 
                  
 }

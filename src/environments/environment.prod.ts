@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  endpoint : 'http://127.0.0.1:8000'
+  endPoint : 'http://staticscript.com/ipm3-laravel-api/public'
 };

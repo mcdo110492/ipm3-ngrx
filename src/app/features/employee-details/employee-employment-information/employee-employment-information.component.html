@@ -4,7 +4,7 @@
     
       <mat-form-field fxFlex>
         <mat-select placeholder="Position" formControlName="positionId" required>
-            <mat-option *ngFor="let pos of positions | async" [value]="pos.positionId">{{pos.positionName}}</mat-option>
+            <mat-option *ngFor="let pos of positions | async" value="{{pos.positionId}}">{{pos.positionName}}</mat-option>
         </mat-select>
         <mat-error>
             Position is required
@@ -16,7 +16,7 @@
 
           <mat-form-field fxFlex>
             <mat-select placeholder="Employment Status" formControlName="employmentStatusId" required>
-                <mat-option *ngFor="let emp of employmentStatus | async" [value]="emp.employmentStatusId">{{emp.employmentStatusName}}</mat-option>
+                <mat-option *ngFor="let emp of employmentStatus | async" value="{{emp.employmentStatusId}}">{{emp.employmentStatusName}}</mat-option>
             </mat-select>
             <mat-error>
                 Employment Status is required
@@ -25,7 +25,7 @@
 
           <mat-form-field fxFlex>
               <mat-select placeholder="Employee Status" formControlName="employeeStatusId" required>
-                  <mat-option *ngFor="let es of employeeStatus | async" [value]="es.employeeStatusId">{{es.employeeStatusName}}</mat-option>
+                  <mat-option *ngFor="let es of employeeStatus | async" value="{{es.employeeStatusId}}">{{es.employeeStatusName}}</mat-option>
               </mat-select>
               <mat-error>
                   Employee Status is required

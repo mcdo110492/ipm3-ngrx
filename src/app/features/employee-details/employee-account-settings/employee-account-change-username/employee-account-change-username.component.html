@@ -1,0 +1,23 @@
+
+
+ 
+      <form [formGroup]="usernameForm" fxLayout="column" fxLayoutGap="20px">
+          
+            <mat-form-field fxFlex>
+              <input matInput placeholder="Username" type="text" formControlName="username" appUniqueValidators keyUrl="employee/verify/username" keyId="{{accountId}}"  required>
+              <mat-error *ngIf="usernameForm.get('username').hasError('asyncInvalid')" >
+                Username must be unique
+              </mat-error>
+              <mat-error *ngIf="usernameForm.get('username').hasError('required')" >
+                Username is required
+              </mat-error>
+            </mat-form-field>
+          
+            <div fxFlex fxLayoutAlign="center center">
+          
+              <button type="button" [disabled]="usernameForm.invalid || usernameForm.pristine" mat-raised-button color="accent" (click)="submit()" >Change Username</button>
+          
+            </div>
+          
+      </form>
+

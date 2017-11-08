@@ -6,14 +6,13 @@ import * as personalActions from "./actions/employee-personal.actions";
 import * as fromRoot from "./../reducers";
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/take';
+import { take } from "rxjs/operators";
 
 import { EmployeePersonal } from "./models/employee-personal.models";
 
 @Component({
   selector: 'app-employee-personal-information',
   templateUrl: './employee-personal-information.component.html',
-  styleUrls: ['./employee-personal-information.component.scss'],
   changeDetection : ChangeDetectionStrategy.OnPush
 })
 export class EmployeePersonalInformationComponent implements OnInit {
@@ -37,7 +36,9 @@ export class EmployeePersonalInformationComponent implements OnInit {
     
    
     this.personalData
-    .take(2)
+    .pipe(
+      take(2)
+    )
     .subscribe((data : EmployeePersonal) => {
       if(data !== undefined){
         this.personalForm.patchValue(data)

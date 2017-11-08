@@ -12,6 +12,7 @@ import { EmployeeLicensesComponent } from "./employee-licenses/employee-licenses
 import { EmployeeEducationalComponent } from "./employee-educational/employee-educational.component";
 import { EmployeeTrainingInformationComponent } from "./employee-training-information/employee-training-information.component";
 import { EmployeeClubInformationComponent } from "./employee-club-information/employee-club-information.component";
+import { EmployeeAccountSettingsComponent } from "./employee-account-settings/employee-account-settings.component";
 
 const routes: Routes = [
   { path: '', component: EmployeeDetailsComponent, data:{ animation : 'employee/details' },
@@ -26,6 +27,7 @@ const routes: Routes = [
       { path: 'educational', component: EmployeeEducationalComponent, data:{ animation : 'employee/details/educational', label : 'educational' } },
       { path: 'training', component: EmployeeTrainingInformationComponent, data:{ animation : 'employee/details/training', label : 'training' } },
       { path: 'club', component: EmployeeClubInformationComponent, data:{ animation : 'employee/details/club', label : 'club' } },
+      { path: 'account/setting', component: EmployeeAccountSettingsComponent, data:{ animation : 'employee/details/account', label : 'account' } },
     ]
   },
   

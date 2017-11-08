@@ -5,9 +5,8 @@ import { HttpClient } from "@angular/common/http";
 import { Store } from "@ngrx/store";
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/catch';
+import { of } from "rxjs/observable/of";
+import { switchMap, catchError } from "rxjs/operators";
 
 import { environment } from "./../../../environments/environment";
 
@@ -27,14 +26,16 @@ export class AuthenticationService {
   authenticateGuard() : Observable<boolean>{
 
     return this._http.get(`${this._restEndPoint}/routeAuthenticate`)
-            .switchMap((response) => { return Observable.of(true)})
-            .catch(() => { 
-              this._store.dispatch( new loginActions.Logout() ); 
-              this._mainStore.dispatch(new mainContentActions.IsLoginPage(true));
-              this._router.navigateByUrl('/login');
-              return Observable.of(false); 
-            });
-
+            .pipe(
+              switchMap((response) => { return of(true)}),
+              catchError(() => { 
+                this._store.dispatch( new loginActions.Logout() ); 
+                this._mainStore.dispatch(new mainContentActions.IsLoginPage(true));
+                this._router.navigateByUrl('/login');
+                return of(false); 
+              })
+            );
+            
   }
 
 }

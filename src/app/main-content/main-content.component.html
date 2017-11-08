@@ -18,7 +18,7 @@
         
         <!-- Body -->
         <!-- This is where the routable content be injected -->
-        <div [ngClass]="{ 'feature-container' : !(isLoginPage$ | async), 'login-container' : (isLoginPage$ | async)  }" [@fadeInAnimation]="prepRouteState(routerOutletChild)">
+        <div [ngClass]="{ 'feature-container' : !(isLoginPage$ | async), 'login-container' : (isLoginPage$ | async)  }" [@routeAnimation]="prepRouteState(routerOutletChild)">
           <router-outlet #routerOutletChild="outlet"></router-outlet>
         </div>
         <!-- End of Body -->

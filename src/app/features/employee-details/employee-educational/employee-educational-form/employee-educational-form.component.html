@@ -1,8 +1,7 @@
 <form [formGroup]="educationalForm" fxLayout="column" fxLayoutGap="20px">
   
     <h2 align="center" mat-dialog-title>Educational Background</h2>
-    <mat-dialog-content>
-  
+
       <mat-form-field fxFlex>
         <input matInput placeholder="School Name" formControlName="schoolName" required>
         <mat-error>
@@ -59,13 +58,11 @@
         </mat-error>
       </mat-form-field>
 
-  </mat-dialog-content>
-  
-  <mat-dialog-actions align="center">
+
       
       <button mat-raised-button [disabled]="educationalForm.invalid || educationalForm.pristine" (click)="saveForm()" color="accent">Save</button>
       <button mat-raised-button (click)="closeDialog()" color="warn">Cancel</button>
   
-  </mat-dialog-actions>
+
   
   </form>

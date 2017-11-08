@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 import { MatDialogRef } from "@angular/material";
@@ -8,13 +8,14 @@ import * as fromRoot from './../../reducers';
 import * as clubAction from './../actions/employee-club.actions';
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/take';
+import { take } from "rxjs/operators";
 
 import { EmployeeClub } from "./../models/employee-club.model";
 
 @Component({
   selector: 'app-employee-club-form',
-  templateUrl: './employee-club-form.component.html'
+  templateUrl: './employee-club-form.component.html',
+  changeDetection : ChangeDetectionStrategy.OnPush
 })
 export class EmployeeClubFormComponent implements OnInit {
 
@@ -31,7 +32,10 @@ export class EmployeeClubFormComponent implements OnInit {
 
   ngOnInit() {
 
-    this.selectedClub.take(1)
+    this.selectedClub
+    .pipe(
+      take(1)
+    )
     .subscribe((data : EmployeeClub) => {
       if(data != null){
         this.clubForm.patchValue(data);

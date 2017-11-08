@@ -5,8 +5,7 @@ import { FormBuilder, FormGroup , Validators } from "@angular/forms";
 import { Store } from "@ngrx/store";
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from "rxjs/Subscription";
-import 'rxjs/add/operator/take';
-import 'rxjs/add/operator/debounceTime';
+import { take, debounceTime } from "rxjs/operators";
 
 import { Position } from "./../../positions/models/positions.model";
 import { EmploymentStatus } from "./../../employment-status/models/employment-status.model";
@@ -55,19 +54,25 @@ export class EmployeeRegisterFormComponent implements OnInit ,OnDestroy {
     this._masterStore.dispatch( new masterDataActions.GetAllEmployeeStatus() );
     this._masterStore.dispatch( new masterDataActions.GetAllEmploymentStatus() );
    //Subscribe to valueChanges of personalForm to save the state of the form from the store
-   this.subscription = this.personalForm.valueChanges
-   .debounceTime(500)
-    .subscribe((value : Personal) => {
+   this.subscription = this.personalForm
+   .valueChanges
+   .pipe(
+    debounceTime(500)
+   )
+   .subscribe((value : Personal) => {
       const data : EmployeeRegister = {
         personal    : value,
         employment  : this.employmentForm.value
       };
       this._empStore.dispatch( new empFormActions.Save(data) );
     });
+   
     //Subscribe to valueChanges of employmentForm to save the state of the form from the store
     this.subscription.add(
       this.employmentForm.valueChanges
-      .debounceTime(500)
+      .pipe(
+        debounceTime(500)
+       )
       .subscribe((value : Employment) => {
         const data : EmployeeRegister = {
           personal    : this.personalForm.value,
@@ -79,7 +84,9 @@ export class EmployeeRegisterFormComponent implements OnInit ,OnDestroy {
 
     //Get the state of the form from the store if it is null and set the value of each form on the first emitted values and automatically unsubscribe to it
       this._empStore.select(fromEmployeeRegister.getEmployeeRegister)
-      .take(1)
+      .pipe(
+        take(1)
+       )
       .subscribe((formData : EmployeeRegister) => {
         if(formData != null){
           this.personalForm.setValue(formData.personal);

@@ -7,7 +7,7 @@ import * as fromMain from './../reducers/main-content.reducers';
 import * as mainActions from './../actions/main-content.actions';
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/take';
+import { take } from "rxjs/operators";
 
 import { Projects } from "./../../features/projects/models/projects.model";
 
@@ -28,7 +28,10 @@ export class ProjectSelectComponent implements OnInit {
 
   ngOnInit() {
     this._masterStore.dispatch( new masterActions.GetAllProjects() );
-    this._mainStore.select(fromMain.getCurrentProject).take(1)
+    this._mainStore.select(fromMain.getCurrentProject)
+    .pipe(
+      take(1)
+    )
     .subscribe((value) => this.currentProject = value);
   }
 

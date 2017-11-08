@@ -1,7 +1,6 @@
 <form [formGroup]="licenseForm" fxLayout="column" fxLayoutGap="20px">
-
   <h2 align="center" mat-dialog-title>License</h2>
-  <mat-dialog-content>
+
     <mat-form-field fxFlex>
       <input matInput placeholder="License Number" formControlName="licenseNumber" appUniqueValidators keyUrl="employee/license/verify" keyId="{{currentId}}" required>
       <mat-error *ngIf="licenseForm.get('licenseNumber').hasError('asyncInvalid')">
@@ -43,13 +42,11 @@
 
       </div>
     </div>
-</mat-dialog-content>
 
-<mat-dialog-actions align="end">
     
     <button mat-raised-button [disabled]="licenseForm.invalid || licenseForm.pristine" (click)="saveForm()" color="accent">Save</button>
     <button mat-raised-button (click)="closeDialog()" color="warn">Cancel</button>
 
-</mat-dialog-actions>
+
 
 </form>

@@ -3,14 +3,8 @@ import { Injectable } from '@angular/core';
 import { Action, Store } from "@ngrx/store";
 import { Effect, Actions } from "@ngrx/effects";
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/withLatestFrom';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/filter';
+import { of } from "rxjs/observable/of";
+import { map, switchMap, mergeMap, catchError, withLatestFrom, tap, filter } from "rxjs/operators";
 
 import * as training from './../actions/employee-training.actions';
 import * as fromRoot from './../../reducers';
@@ -33,64 +27,76 @@ export class EmployeeTrainingInformationEffects {
     @Effect()
     loadLicenses$ : Observable<Action> = this._actions$
     .ofType(training.LOAD)
-    .withLatestFrom(
-        this._store$.select(fromRoot.getEmployeeId),
-    )
-    .switchMap( ([action, employeeId]) => {
-        return this._service.getTraining(employeeId)
-        .map((response) => new training.LoadSuccess(response.data) )
-        .catch(err => Observable.of(new training.TrainingError(err) ))
-
-    });
-
+    .pipe(
+        withLatestFrom(
+            this._store$.select(fromRoot.getEmployeeId)
+        ),
+        switchMap( ([action, employeeId]) => {
+            return this._service.getTraining(employeeId)
+            .pipe(
+                map((response) => new training.LoadSuccess(response.data) ),
+                catchError(err => of(new training.TrainingError(err) ))
+            )
+        })
+    );
 
 
     @Effect()
     save$ : Observable<Action> = this._actions$
     .ofType<training.SaveTraining>(training.SAVE_TRAINING)
-    .map( (action) => action.payload)
-    .withLatestFrom(
-        this._store$.select(fromRoot.getEmployeeId),
-    )
-    .switchMap(([payload, employeeId]) => {
-
-        this._loader.openDialog();
-        if(payload.employeeTrainingId == 0){
-        
+    .pipe(
+        map( (action) => action.payload),
+        withLatestFrom(
+            this._store$.select(fromRoot.getEmployeeId)
+        ),
+        switchMap(([payload, employeeId]) => {
+    
+            this._loader.openDialog();
+            if(payload.employeeTrainingId == 0){
             
-            return this._service.saveTraining(payload,employeeId)
-                .map((response) =>  new training.SaveTrainingSuccess() )
-                .catch((err) => Observable.of( new training.TrainingError(err) ))
-                .do(() => this._loader.closeDialog())
-            
-        }
-        else {
-
-            return this._service.updateTraining(payload)
-            .map((response) => new training.SaveTrainingSuccess() )
-            .catch((err) => Observable.of( new training.TrainingError(err) ))
-            .do(() => this._loader.closeDialog())
-        }
-
-        
-    })
+                
+                return this._service.saveTraining(payload,employeeId)
+                .pipe(
+                    map((response) =>  new training.SaveTrainingSuccess() ),
+                    catchError((err) => of( new training.TrainingError(err) )),
+                    tap(() => this._loader.closeDialog())
+                )
+            }
+            else {
+    
+                return this._service.updateTraining(payload)
+                .pipe(
+                    map((response) =>  new training.SaveTrainingSuccess() ),
+                    catchError((err) => of( new training.TrainingError(err) )),
+                    tap(() => this._loader.closeDialog())
+                )
+            }
+        })
+    );
+    
 
     @Effect()
     saveSuccess$  = this._actions$
     .ofType(training.SAVE_TRAINING_SUCCESS)
-    .do(() => { this._toastr.saveSuccess(); })
-    .mergeMap(() => {
-        return [
-        new training.Load(),
-        new training.ClearSelected()
-        ];
-    })
+    .pipe(
+        tap(() => { this._toastr.saveSuccess(); }),
+        mergeMap(() => {
+            return [
+                new training.Load(),
+                new training.ClearSelected()
+            ];
+        })
+    )
+    
 
     @Effect()
     error$ = this._actions$
             .ofType<training.TrainingError>(training.TRAINING_ERROR)
-            .map((action) => action.payload)
-            .do((payload) => { this._toastr.errorHandler(payload)})
-            .filter( payload => payload.status == 422)
-            .map(() => new training.ClearSelected() )
+            .pipe(
+                map((action) => action.payload),
+                tap((payload) => { this._toastr.errorHandler(payload)}),
+                filter( payload => payload.status == 422),
+                map(() => new training.ClearSelected() )
+            );
+            
 }

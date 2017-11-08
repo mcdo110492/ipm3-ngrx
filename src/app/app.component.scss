@@ -1,8 +1,6 @@
 
-
-.main-route-container {
+.router-progress-bar-loader {
     position: absolute;
-    box-sizing: border-box;
-    width: 100%;
-    height: 100%;
+    height: 3px;
+    z-index: 9999;
 }
