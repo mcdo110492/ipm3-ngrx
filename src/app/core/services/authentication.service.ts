@@ -23,6 +23,9 @@ export class AuthenticationService {
 
   constructor(private _http : HttpClient, private _router : Router, private _store : Store<fromLogin.State>, private _mainStore : Store<fromMain.State>) { }
 
+  /**
+   * Method that will communicate to the server for authentication of current user per route in routeGuard
+   */
   authenticateGuard() : Observable<boolean>{
 
     return this._http.get(`${this._restEndPoint}/routeAuthenticate`)

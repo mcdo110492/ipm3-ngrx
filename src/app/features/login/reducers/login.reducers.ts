@@ -3,18 +3,38 @@ import { createSelector, createFeatureSelector } from '@ngrx/store';
 import * as loginActions from './../actions/login.actions';
 import { LoginResponse } from "./../models/login.model";
 
-export const  getPresence = () => {
-    return  JSON.parse(localStorage.presence || null);
-}
-
 export type State = LoginResponse;
 
+export function getPresence() {
+    const presence =  JSON.parse(localStorage.presence || null);
+    if(presence != null){
+        return {
+            token           : presence.token,
+            profileName     : presence.profileName,
+            profileImage    : presence.profileImage,
+            role            : presence.role,
+            status          : presence.status
+        };
+    }
+    else{
+        return {
+            token           : null,
+            profileName     : null,
+            profileImage    : 'avatars/default.jpg',
+            role            : null,
+            status          : null
+        };
+    }
+}
+
+const currentPresence = getPresence();
+
 export const initialState: State = {
-    token           :   (getPresence() != null) ? getPresence().token : null,
-    profileName     :   (getPresence() != null) ? getPresence().profileName : null,
-    profileImage    :   (getPresence() != null) ? getPresence().profileImage : 'avatars/default.jpg',
-    role            :   (getPresence() != null) ? getPresence().role : null,
-    status          :   (getPresence() != null) ? getPresence().status : null
+    token           :   currentPresence.token,
+    profileName     :   currentPresence.profileName,
+    profileImage    :   currentPresence.profileImage,
+    role            :   currentPresence.role,
+    status          :   currentPresence.status
 }
 
 

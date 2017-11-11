@@ -6,6 +6,9 @@ import { first } from "rxjs/operators";
 
 import { AuthenticationService } from "./authentication.service";
 
+/**
+ * Guard that will be use in route if the current user is valid or not
+ */
 @Injectable()
 export class AuthenticationGuard implements CanActivate, CanActivateChild, CanLoad {
 

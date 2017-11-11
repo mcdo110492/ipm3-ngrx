@@ -40,11 +40,10 @@
 
     </mat-tab-group>
 
-    <mat-card>
-      <mat-card-content>
-          <router-outlet></router-outlet>
-      </mat-card-content>
-    </mat-card>
+   <div [@fadeAnimation]="prepRouteState(routerOutletEmployeeDetails)">
+    <router-outlet #routerOutletEmployeeDetails="outlet"></router-outlet>
+  </div>
+
    
 
 

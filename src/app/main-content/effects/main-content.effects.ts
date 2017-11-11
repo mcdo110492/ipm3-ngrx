@@ -6,9 +6,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 import { tap } from "rxjs/operators";
 
-
 import * as mainActions from './../actions/main-content.actions';
-
 
 import { LoaderSpinnerService } from "./../services/loader-spinner/loader-spinner.service";
 

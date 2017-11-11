@@ -1,5 +1,7 @@
 <mat-toolbar color="primary" class="app-toolbar" >
+
     <mat-toolbar-row>
+
         <div fxLayout="row" fxFlex fxLayoutWrap>
                 <button mat-icon-button (click)="toggleSidenav()">
                     <mat-icon>menu</mat-icon>
@@ -8,18 +10,21 @@
             
                 <span fxFlex="1 1 auto"></span>
 
-            <button mat-icon-button >
-                <mat-icon>notifications</mat-icon>
-            </button>
+                <button mat-icon-button >
+                    <mat-icon>notifications</mat-icon>
+                </button>
 
                 <button mat-icon-button class="profile-button profile-image" [matMenuTriggerFor]="menu">
                     <img [src]="profileImage | async" alt="">
                 </button>
+
             </div>
+
     </mat-toolbar-row>
+
 </mat-toolbar>
 
-
+<!-- The Dropdown menu of Profile -->
 <mat-menu #menu="matMenu">
         <button mat-menu-item>
         <mat-icon>person</mat-icon>

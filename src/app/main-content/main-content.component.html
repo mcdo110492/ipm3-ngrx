@@ -1,10 +1,5 @@
 
 <div fxLayout="column" class="app-container">
-
-  <!-- <div fxFlex="initial">
-      <app-toolbar class="mat-elevation-z6" (sideNavToggle)="toggleSideNav()" ></app-toolbar>
-  </div> -->
-
  
   <mat-sidenav-container (backdropClick)="onSidenavBackdropClick()" >
 
@@ -18,7 +13,7 @@
         
         <!-- Body -->
         <!-- This is where the routable content be injected -->
-        <div [ngClass]="{ 'feature-container' : !(isLoginPage$ | async), 'login-container' : (isLoginPage$ | async)  }" [@routeAnimation]="prepRouteState(routerOutletChild)">
+        <div class="main" [ngClass]="{ 'feature-container' : !(isLoginPage$ | async), 'login-container' : (isLoginPage$ | async)  }" [@fadeAnimation]="prepRouteState(routerOutletChild)">
           <router-outlet #routerOutletChild="outlet"></router-outlet>
         </div>
         <!-- End of Body -->

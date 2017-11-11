@@ -1,6 +1,8 @@
 
 import { RouterLinks } from "./../models/router-links.model";
 
+// A Collection of links per user role
+
 export const defaultLinks : RouterLinks[] = [
     { title : '404 NOT FOUND', isHeader: true }
 ];

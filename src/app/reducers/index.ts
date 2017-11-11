@@ -17,9 +17,9 @@ import { storeFreeze } from "ngrx-store-freeze";
  * the state of the reducer plus any selector functions. The `* as`
  * notation packages up all of the exports into a single object.
  */
-import * as fromMainContent from './../main-content/reducers/main-content.reducers';
-import * as fromRouterLinks from './../main-content/reducers/router-links.reducers';
-import * as fromMasterData  from './../master-data/reducers/master-data.reducers';
+import * as fromMainContent   from './../main-content/reducers/main-content.reducers';
+import * as fromRouterLinks   from './../main-content/reducers/router-links.reducers';
+import * as fromMasterData    from './../master-data/reducers/master-data.reducers';
 import * as fromLoginPresence from './../features/login/reducers/login.reducers';
 /**
  * As mentioned, we treat each reducer like a table in a database. This means
@@ -42,11 +42,11 @@ export interface State {
  */
 
 export const reducers   :   ActionReducerMap<State> = {
-    mainContent     : fromMainContent.reducer,
-    routerLinks     : fromRouterLinks.reducer,
-    masterData      : fromMasterData.reducer,
-    loginPresence   : fromLoginPresence.reducer,
-    routerReducer   : fromRouter.routerReducer
+    mainContent         : fromMainContent.reducer,
+    routerLinks         : fromRouterLinks.reducer,
+    masterData          : fromMasterData.reducer,
+    loginPresence       : fromLoginPresence.reducer,
+    routerReducer       : fromRouter.routerReducer
   };
 
 

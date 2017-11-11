@@ -46,8 +46,9 @@ export class EmploymentStatusFormComponent implements OnInit, OnDestroy {
 
   }
   
-  get currentId() { return this.employmentStatusForm.get('employmentStatusId').value };
-
+  getCurrentId() {
+    return this.employmentStatusForm.get('employmentStatusId').value;
+  }
 
   createForm() {
     this.employmentStatusForm = this._fb.group({

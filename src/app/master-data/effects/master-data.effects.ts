@@ -24,7 +24,7 @@ export class MasterDataEffects {
         .ofType(masterDataActions.GET_ALL_PROJECTS)
         .pipe(
             switchMap( () => {
-                return this._service.getProjects()
+                return this._service.getAllProjects()
                 .pipe(
                     map(response => new masterDataActions.GetAllProjectsSuccess(response.data) ),
                     catchError(err => of(new masterDataActions.MasterDataError(err) ))
@@ -38,7 +38,7 @@ export class MasterDataEffects {
         .ofType(masterDataActions.GET_ALL_POSITIONS)
         .pipe(
             switchMap( () => {
-                return this._service.getPositions()
+                return this._service.getAllPositions()
                 .pipe(
                     map((response) => new masterDataActions.GetAllPositionsSuccess(response.data) ),
                     catchError(err => of(new masterDataActions.MasterDataError(err) ))
@@ -51,7 +51,7 @@ export class MasterDataEffects {
         .ofType(masterDataActions.GET_ALL_EMPLOYMENT_STATUS)
         .pipe(
             switchMap( () => {
-                return this._service.getEmploymentStatus()
+                return this._service.getAllEmploymentStatus()
                 .pipe(
                     map((response) => new masterDataActions.GetAllEmploymentStatusSuccess(response.data) ),
                     catchError(err => of(new masterDataActions.MasterDataError(err) ))
@@ -65,7 +65,7 @@ export class MasterDataEffects {
         .ofType(masterDataActions.GET_EMPLOYEE_STATUS)
         .pipe(
             switchMap( () => {
-                return this._service.getEmployeeStatus()
+                return this._service.getAllEmployeeStatus()
                 .pipe(
                     map((response) => new masterDataActions.GetAllEmployeeStatusSuccess(response.data) ),
                     catchError(err => of(new masterDataActions.MasterDataError(err) ))

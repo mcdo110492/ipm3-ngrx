@@ -5,7 +5,7 @@
         <mat-dialog-content>
     
             <mat-form-field>
-            <input matInput  placeholder="Employment Status" formControlName="employmentStatusName" appUniqueValidators keyUrl="employmentStatus/verify" keyId="{{currentId}}" required>
+            <input matInput  placeholder="Employment Status" formControlName="employmentStatusName" appUniqueValidators keyUrl="employmentStatus/verify" keyId="{{ getCurrentId() }}" required>
             <mat-error *ngIf="employmentStatusForm.get('employmentStatusName').hasError('asyncInvalid')">
                 Employment Status  must be unique
             </mat-error>

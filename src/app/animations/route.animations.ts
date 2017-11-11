@@ -1,5 +1,6 @@
 import { trigger, state, animate, transition, style, animateChild, query } from '@angular/animations';
 
+//An Animation for router
 export const routeAnimation =
     trigger('routeAnimation', [
         transition('* => login', [

@@ -14,10 +14,13 @@ import * as fromRoot    from './reducers';
 import { EmployeePersonal } from "./employee-personal-information/models/employee-personal.models";
 import { EmployeeDetailsService } from "./employee-details.service";
 
+import { fadeAnimation } from "./../../animations/fade.animations";
+
 @Component({
   selector: 'app-employee-details',
   templateUrl: './employee-details.component.html',
   styleUrls: ['./employee-details.component.scss'],
+  animations:[fadeAnimation],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EmployeeDetailsComponent implements OnInit {
@@ -98,6 +101,16 @@ export class EmployeeDetailsComponent implements OnInit {
         
     });
 
+  }
+
+
+  /**
+   * This for animating every routes with a data 'animation'
+   * @param outlet 
+   */
+  prepRouteState(outlet : any){
+    return outlet.isActivated ? outlet.activatedRoute : '';
+    //return outlet.activatedRouteData.animation;
   }
 
 

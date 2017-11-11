@@ -46,7 +46,10 @@ export class PositionsFormComponent implements OnInit, OnDestroy {
 
   }
   
-  get currentId() { return this.positionForm.get('positionId').value };
+
+  getCurrentId() {
+    return this.positionForm.get('positionId').value
+  }
 
 
   createForm() {

@@ -1,38 +1,40 @@
-<form [formGroup]="contactForm" fxLayout="column" fxLayoutGap="20px">
-  
-    <mat-form-field fxFlex>
-        <input matInput placeholder="Present Address" formControlName="presentAddress"  required>
-        <mat-error >
-            Present Address is required
-        </mat-error>
-    </mat-form-field>
+<mat-card>
+    <form [formGroup]="contactForm" fxLayout="column" fxLayoutGap="20px">
     
-    <mat-form-field fxFlex>
-        <input matInput placeholder="Provincial Address" formControlName="provincialAddress"  required>
-        <mat-error >
-            Provincial Address is required
-        </mat-error>
-    </mat-form-field>
+        <mat-form-field fxFlex>
+            <input matInput placeholder="Present Address" formControlName="presentAddress"  required>
+            <mat-error >
+                Present Address is required
+            </mat-error>
+        </mat-form-field>
+        
+        <mat-form-field fxFlex>
+            <input matInput placeholder="Provincial Address" formControlName="provincialAddress"  required>
+            <mat-error >
+                Provincial Address is required
+            </mat-error>
+        </mat-form-field>
 
-    <div fxFlex >
-        <div fxLayout="row" fxLayout.xs="column">
-            <mat-form-field fxFlex>
-                <input matInput placeholder="Mobile Number" formControlName="mobileNumber" required>
-                <mat-error>
-                    Mobile Number is required
-                </mat-error>
-            </mat-form-field>
+        <div fxFlex >
+            <div fxLayout="row" fxLayout.xs="column">
+                <mat-form-field fxFlex>
+                    <input matInput placeholder="Mobile Number" formControlName="mobileNumber" required>
+                    <mat-error>
+                        Mobile Number is required
+                    </mat-error>
+                </mat-form-field>
 
-            <mat-form-field fxFlex>
-                <input matInput placeholder="Telephone Number" formControlName="telephoneNumber" required>
-                <mat-error>
-                    Telephone Number is required
-                </mat-error>
-            </mat-form-field>
+                <mat-form-field fxFlex>
+                    <input matInput placeholder="Telephone Number" formControlName="telephoneNumber" required>
+                    <mat-error>
+                        Telephone Number is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
         </div>
-    </div>
 
-    <div fxFlex fxLayoutAlign="center center">
-        <button [disabled]="contactForm.invalid || contactForm.pristine" (click)="save()" mat-raised-button color="accent" type="button">Save Changes</button>
-    </div>
-</form>
+        <div fxFlex fxLayoutAlign="center center">
+            <button [disabled]="contactForm.invalid || contactForm.pristine" (click)="save()" mat-raised-button color="accent" type="button">Save Changes</button>
+        </div>
+    </form>
+</mat-card>

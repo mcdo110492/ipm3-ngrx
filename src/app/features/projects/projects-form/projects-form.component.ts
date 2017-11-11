@@ -46,8 +46,9 @@ export class ProjectsFormComponent implements OnInit, OnDestroy {
 
   }
   
-  get currentId() { return this.projectForm.get('projectId').value };
-
+  getCurrentId() {
+    return this.projectForm.get('projectId').value;
+  }
 
   createForm() {
     this.projectForm = this._fb.group({

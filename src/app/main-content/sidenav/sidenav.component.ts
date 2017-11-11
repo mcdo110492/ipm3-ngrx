@@ -20,8 +20,10 @@ import { SidenavService } from "./sidenav.service";
   providers : [SidenavService]
 })
 export class SidenavComponent implements OnInit, OnDestroy {
-
+  
+  //Subscription property 
   subscription : Subscription;
+
   // Stream of Observable that will subscribe in the store
   links$          : Observable<RouterLinks[]>;
   profileName     : Observable<string>;
@@ -36,7 +38,7 @@ export class SidenavComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
+    // Subscribe to the role observable to determine what is the current role of the user and dispatch an action to populate the links
     this.subscription = this.role.subscribe((role) => {
 
       const linksData : RouterLinks[] = this._service.setLinksByRole(role);
@@ -49,6 +51,7 @@ export class SidenavComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() : void {
+    //Unsubscribe to the current subscription after the component is destroyed to avoid memory leaks
     this.subscription.unsubscribe();
   }
 

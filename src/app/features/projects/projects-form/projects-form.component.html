@@ -5,7 +5,7 @@
     <mat-dialog-content>
 
         <mat-form-field>
-        <input matInput  placeholder="Code" formControlName="projectCode" appUniqueValidators keyUrl="projects/verifyCode" keyId="{{currentId}}" required>
+        <input matInput  placeholder="Code" formControlName="projectCode" appUniqueValidators keyUrl="projects/verifyCode" keyId="{{ getCurrentId() }}" required>
         <mat-error *ngIf="projectForm.get('projectCode').hasError('asyncInvalid')">
             Project Code must be unique
         </mat-error>

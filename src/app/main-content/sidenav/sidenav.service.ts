@@ -6,7 +6,11 @@ import { RouterLinks } from "./../models/router-links.model";
 @Injectable()
 export class SidenavService {
 
-
+    /**
+     * 
+     * @param role 
+     * Method that will determine what url links will be given to the current user
+     */
     setLinksByRole(role : number) : RouterLinks[] {
         if(role == 1){
             return superAdminLinks;
