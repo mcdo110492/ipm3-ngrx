@@ -50,9 +50,9 @@ export class EmployeeHealthInformationComponent implements OnInit {
 
     this.healthForm = this._fb.group({
       employeeHealthId     : [null,Validators.required],
-      height               : [null,Validators.required],
-      weight               : [null,Validators.required],
-      bloodType            : [null,Validators.required]
+      height               : [null,[Validators.required, Validators.maxLength(20)]],
+      weight               : [null,[Validators.required, Validators.maxLength(20)]],
+      bloodType            : [null,[Validators.required, Validators.maxLength(20)]]
     });
 
   }

@@ -3,14 +3,16 @@
     <h2 align="center" mat-dialog-title>License</h2>
 
       <mat-form-field fxFlex>
-        <input matInput placeholder="Training Title" formControlName="trainingTitle" required>
+        <input matInput #title maxlength="150" placeholder="Training Title" formControlName="trainingTitle" required>
+        <mat-hint align="end">{{ title.value?.length || 0 }}/150</mat-hint>
         <mat-error >
               Training Title  is required
-          </mat-error>
+        </mat-error>
       </mat-form-field>
   
       <mat-form-field fxFlex>
-        <input matInput placeholder="Name" formControlName="trainingName" required>
+        <input matInput #name maxlength="150" placeholder="Name" formControlName="trainingName" required>
+        <mat-hint align="end">{{ name.value?.length || 0 }}/150</mat-hint>
         <mat-error>
           Name is required
         </mat-error>

@@ -50,10 +50,10 @@ export class EmployeeContactInformationComponent implements OnInit {
 
     this.contactForm = this._fb.group({
       employeeContactId     : [null,Validators.required],
-      presentAddress        : [null,Validators.required],
-      provincialAddress     : [null,Validators.required],
-      mobileNumber          : [null,Validators.required],
-      telephoneNumber       : [null,Validators.required]
+      presentAddress        : [null,[Validators.required, Validators.maxLength(150)]],
+      provincialAddress     : [null,[Validators.required, Validators.maxLength(150)]],
+      mobileNumber          : [null,[Validators.required, Validators.maxLength(50)]],
+      telephoneNumber       : [null,[Validators.required, Validators.maxLength(50)]]
     });
 
   }

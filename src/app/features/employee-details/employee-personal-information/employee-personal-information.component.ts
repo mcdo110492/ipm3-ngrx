@@ -53,15 +53,15 @@ export class EmployeePersonalInformationComponent implements OnInit {
 
     this.personalForm = this._fb.group({
       employeeId        : [null,Validators.required],
-      employeeNumber    : [null,Validators.required],
-      firstName         : [null,Validators.required],
-      middleName        : [null,Validators.required],
-      lastName          : [null,Validators.required],
+      employeeNumber    : [null,[Validators.required, Validators.maxLength(20)]],
+      firstName         : [null,[Validators.required, Validators.maxLength(150)]],
+      middleName        : [null,[Validators.required, Validators.maxLength(150)]],
+      lastName          : [null,[Validators.required, Validators.maxLength(150)]],
       birthday          : [null,Validators.required],
-      placeOfBirth      : [null,Validators.required],
+      placeOfBirth      : [null,[Validators.required, Validators.maxLength(150)]],
       civilStatus       : [null,Validators.required],
-      citizenship       : [null,Validators.required],
-      religion          : [null,Validators.required]
+      citizenship       : [null,[Validators.required, Validators.maxLength(50)]],
+      religion          : [null,[Validators.required, Validators.maxLength(150)]]
     });
 
   }

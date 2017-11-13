@@ -50,10 +50,10 @@ export class EmployeeGovernmentInformationComponent implements OnInit {
 
     this.governmentForm = this._fb.group({
       employeeGovernmentId     : [null,Validators.required],
-      sssNumber                : [null,Validators.required],
-      pagIbigNumber            : [null,Validators.required],
-      philHealthNumber         : [null,Validators.required],
-      tinNumber                : [null,Validators.required]
+      sssNumber                : [null,[Validators.required, Validators.maxLength(20)]],
+      pagIbigNumber            : [null,[Validators.required, Validators.maxLength(20)]],
+      philHealthNumber         : [null,[Validators.required, Validators.maxLength(20)]],
+      tinNumber                : [null,[Validators.required, Validators.maxLength(20)]]
     });
 
   }

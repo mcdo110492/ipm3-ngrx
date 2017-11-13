@@ -4,14 +4,16 @@
         <div fxFlex >
             <div fxLayout="row" fxLayout.xs="column">
                 <mat-form-field fxFlex>
-                    <input matInput placeholder="SSS Number" formControlName="sssNumber" required>
+                    <input matInput #sss maxlength="20" placeholder="SSS Number" formControlName="sssNumber" required>
+                    <mat-hint align="end">{{ sss.value?.length || 0 }}/20</mat-hint>
                     <mat-error>
                         SSS Number is required
                     </mat-error>
                 </mat-form-field>
     
                 <mat-form-field fxFlex>
-                    <input matInput placeholder="PAG-IBIG Number" formControlName="pagIbigNumber" required>
+                    <input matInput #pagibig maxlength="20" placeholder="PAG-IBIG Number" formControlName="pagIbigNumber" required>
+                    <mat-hint align="end">{{ pagibig.value?.length || 0 }}/20</mat-hint>
                     <mat-error>
                         PAG-IBIG Number is required
                     </mat-error>
@@ -23,14 +25,16 @@
         <div fxFlex >
             <div fxLayout="row" fxLayout.xs="column">
                 <mat-form-field fxFlex>
-                    <input matInput placeholder="PHILHEALTH Number" formControlName="philHealthNumber" required>
+                    <input matInput #philh maxlength="20" placeholder="PHILHEALTH Number" formControlName="philHealthNumber" required>
+                    <mat-hint align="end">{{ philh.value?.length || 0 }}/20</mat-hint>
                     <mat-error>
                         PHILHEALTH Number is required
                     </mat-error>
                 </mat-form-field>
     
                 <mat-form-field fxFlex>
-                    <input matInput placeholder="TIN Number" formControlName="tinNumber" required>
+                    <input matInput #tin maxlength="20" placeholder="TIN Number" formControlName="tinNumber" required>
+                    <mat-hint align="end">{{ tin.value?.length || 0 }}/20</mat-hint>
                     <mat-error>
                         TIN Number is required
                     </mat-error>

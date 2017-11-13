@@ -49,8 +49,8 @@ export class EmployeeTrainingFormComponent implements OnInit {
 
     this.trainingForm = this._fb.group({
       employeeTrainingId      : [0,Validators.required],
-      trainingName            : [null,Validators.required],
-      trainingTitle           : [null,Validators.required],
+      trainingName            : [null,[Validators.required, Validators.maxLength(150)]],
+      trainingTitle           : [null,[Validators.required, Validators.maxLength(150)]],
       trainingFrom            : [null,Validators.required],
       trainingTo              : [null,Validators.required]
     });

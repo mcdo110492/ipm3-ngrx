@@ -53,8 +53,8 @@ export class ProjectsFormComponent implements OnInit, OnDestroy {
   createForm() {
     this.projectForm = this._fb.group({
         projectId    :  [0,Validators.required],
-        projectCode  :  [null,Validators.required],
-        projectName  :  [null,Validators.required]
+        projectCode  :  [null,[Validators.required,Validators.maxLength(20)]],
+        projectName  :  [null,[Validators.required,Validators.maxLength(150)]]
     });
   }
 

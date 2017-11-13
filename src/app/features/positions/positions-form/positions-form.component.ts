@@ -38,6 +38,7 @@ export class PositionsFormComponent implements OnInit, OnDestroy {
 
         this.positionForm.setValue({
           positionId   : response.positionId,
+          positionCode : response.positionCode,
           positionName : response.positionName
         });
 
@@ -55,7 +56,8 @@ export class PositionsFormComponent implements OnInit, OnDestroy {
   createForm() {
     this.positionForm = this._fb.group({
         positionId    :  [0,Validators.required],
-        positionName  :  [null,Validators.required]
+        positionCode  :  [null,[Validators.required, Validators.maxLength(20)]],
+        positionName  :  [null,[Validators.required, Validators.maxLength(150)]]
     });
   }
 

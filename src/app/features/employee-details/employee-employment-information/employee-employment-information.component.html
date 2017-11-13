@@ -70,7 +70,8 @@
                 </mat-form-field>
         
                 <mat-form-field fxFlex>
-                    <input matInput placeholder="Remarks" formControlName="remarks" required>
+                    <input matInput #rem maxlength="150" placeholder="Remarks" formControlName="remarks" required>
+                    <mat-hint align="end">{{ rem.value?.length || 0 }}/150</mat-hint>
                     <mat-error>
                         Remarks is required
                     </mat-error>

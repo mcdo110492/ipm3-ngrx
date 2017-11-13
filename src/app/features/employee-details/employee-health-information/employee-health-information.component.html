@@ -5,14 +5,16 @@
         <div fxFlex >
             <div fxLayout="row" fxLayout.xs="column">
                 <mat-form-field fxFlex>
-                    <input matInput placeholder="Height" formControlName="height"  required>
+                    <input matInput #height maxlength="20" placeholder="Height" formControlName="height"  required>
+                    <mat-hint align="end">{{ height.value?.length || 0 }}/20</mat-hint>
                     <mat-error >
                         Height is required
                     </mat-error>
                 </mat-form-field>
                 
                 <mat-form-field fxFlex>
-                    <input matInput placeholder="Weight" formControlName="weight"  required>
+                    <input matInput #weight maxlength="20" placeholder="Weight" formControlName="weight"  required>
+                    <mat-hint align="end">{{ weight.value?.length || 0 }}/20</mat-hint>
                     <mat-error >
                         Weight is required
                     </mat-error>
@@ -21,7 +23,8 @@
         </div>
 
         <mat-form-field fxFlex>
-            <input matInput placeholder="Blood Type" formControlName="bloodType"  required>
+            <input matInput #blood maxlength="20" placeholder="Blood Type" formControlName="bloodType"  required>
+            <mat-hint align="end">{{ blood.value?.length || 0 }}/20</mat-hint>
             <mat-error >
                 Blood Type is required
             </mat-error>

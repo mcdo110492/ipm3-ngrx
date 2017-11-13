@@ -5,7 +5,8 @@
     <mat-dialog-content>
 
         <mat-form-field>
-        <input matInput  placeholder="Code" formControlName="projectCode" appUniqueValidators keyUrl="projects/verifyCode" keyId="{{ getCurrentId() }}" required>
+        <input matInput #code  placeholder="Code" maxlength="20" formControlName="projectCode" appUniqueValidators keyUrl="projects/verifyCode" keyId="{{ getCurrentId() }}" required>
+        <mat-hint align="end">{{code.value?.length || 0}}/20</mat-hint>
         <mat-error *ngIf="projectForm.get('projectCode').hasError('asyncInvalid')">
             Project Code must be unique
         </mat-error>
@@ -15,7 +16,8 @@
         </mat-form-field>
 
         <mat-form-field>
-            <input matInput formControlName="projectName" placeholder="Name" required>
+            <input matInput #name maxlength="150" formControlName="projectName" placeholder="Name" required>
+            <mat-hint align="end">{{name.value?.length || 0}}/150</mat-hint>
             <mat-error>
                 Project Name is required
             </mat-error>

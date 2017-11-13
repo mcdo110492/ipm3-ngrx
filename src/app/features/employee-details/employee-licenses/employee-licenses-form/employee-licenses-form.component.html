@@ -2,7 +2,8 @@
   <h2 align="center" mat-dialog-title>License</h2>
 
     <mat-form-field fxFlex>
-      <input matInput placeholder="License Number" formControlName="licenseNumber" appUniqueValidators keyUrl="employee/license/verify" keyId="{{currentId}}" required>
+      <input matInput #lnum maxlength="20" placeholder="License Number" formControlName="licenseNumber" appUniqueValidators keyUrl="employee/license/verify" keyId="{{currentId}}" required>
+      <mat-hint align="end">{{ lnum.value?.length || 0 }}/20</mat-hint>
       <mat-error *ngIf="licenseForm.get('licenseNumber').hasError('asyncInvalid')">
           License Number  must be unique
       </mat-error>
@@ -12,7 +13,8 @@
     </mat-form-field>
 
     <mat-form-field fxFlex>
-      <input matInput placeholder="License Type" formControlName="licenseType" required>
+      <input matInput #ltype maxlength="20" placeholder="License Type" formControlName="licenseType" required>
+      <mat-hint align="end">{{ ltype.value?.length || 0 }}/20</mat-hint>
       <mat-error>
         License Type is required
       </mat-error>

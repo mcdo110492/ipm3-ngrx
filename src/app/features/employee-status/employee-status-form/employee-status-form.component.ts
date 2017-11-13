@@ -39,6 +39,7 @@ export class EmployeeStatusFormComponent implements OnInit, OnDestroy {
 
         this.employeeStatusForm.setValue({
           employeeStatusId           : response.employeeStatusId,
+          employeeStatusCode         : response.employeeStatusCode,
           employeeStatusName         : response.employeeStatusName
         });
 
@@ -54,7 +55,8 @@ export class EmployeeStatusFormComponent implements OnInit, OnDestroy {
   createForm() {
     this.employeeStatusForm = this._fb.group({
       employeeStatusId    :  [0,Validators.required],
-      employeeStatusName  :  [null,Validators.required]
+      employeeStatusCode  :  [null,[Validators.required, Validators.maxLength(20)]],
+      employeeStatusName  :  [null,[Validators.required, Validators.maxLength(150)]]
     });
   }
 

@@ -21,7 +21,7 @@ import { EmployeeStatusService } from "./../employee-status.service";
 })
 export class EmployeeStatusTableComponent implements OnInit {
 
-  displayedColumns = ['employeeStatusName','actions'];
+  displayedColumns = ['employeeStatusCode','employeeStatusName','actions'];
   dataSource : EmployeeStatusTableDatasource | null;
   collections$ : Observable<EmployeeStatus[]>;
 

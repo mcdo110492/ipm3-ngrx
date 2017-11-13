@@ -36,7 +36,7 @@ export class EmployeeAccountChangeUsernameComponent implements OnInit, OnChanges
   createForm() {
 
       this.usernameForm = this._fb.group({
-        username             : [null,Validators.required]
+        username             : [null,[Validators.required, Validators.maxLength(50)]]
       });
 
   }

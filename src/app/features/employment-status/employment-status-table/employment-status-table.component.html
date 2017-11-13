@@ -22,6 +22,11 @@
           
               <!--- Note that these columns can be defined in any order.
                     The actual rendered columns are set as a property on the row definition" -->
+
+              <ng-container matColumnDef="employmentStatusCode">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Code</mat-header-cell>
+                  <mat-cell *matCellDef="let row"> {{row.employmentStatusCode}} </mat-cell>
+              </ng-container>
   
               <!-- Project Name Column -->
               <ng-container matColumnDef="employmentStatusName">

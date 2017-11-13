@@ -4,7 +4,8 @@
       <form [formGroup]="usernameForm" fxLayout="column" fxLayoutGap="20px">
           
             <mat-form-field fxFlex>
-              <input matInput placeholder="Username" type="text" formControlName="username" appUniqueValidators keyUrl="employee/verify/username" keyId="{{accountId}}"  required>
+              <input matInput #user maxlength="50" placeholder="Username" type="text" formControlName="username" appUniqueValidators keyUrl="employee/verify/username" keyId="{{accountId}}"  required>
+              <mat-hint align="end">{{ user.value?.length || 0 }}/50</mat-hint>
               <mat-error *ngIf="usernameForm.get('username').hasError('asyncInvalid')" >
                 Username must be unique
               </mat-error>

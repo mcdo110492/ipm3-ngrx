@@ -49,8 +49,8 @@ export class EmployeeLicensesFormComponent implements OnInit {
 
     this.licenseForm = this._fb.group({
         employeeLicenseId     : [0,Validators.required],
-        licenseNumber         : [null,Validators.required],
-        licenseType           : [null,Validators.required],
+        licenseNumber         : [null,[Validators.required, Validators.maxLength(20)]],
+        licenseType           : [null,[Validators.required, Validators.maxLength(20)]],
         dateIssued            : [null,Validators.required],
         dateExpiry            : [null,Validators.required]
     });

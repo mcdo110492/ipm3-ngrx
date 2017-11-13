@@ -88,7 +88,7 @@ export class EmployeeEmploymentInformationComponent implements OnInit {
       contractStart           : [null,Validators.required],
       contractEnd             : [null,Validators.required],
       salary                  : [null,Validators.required],
-      remarks                 : [null,Validators.required]
+      remarks                 : [null,[Validators.required, Validators.maxLength(150)]]
     });
 
   }

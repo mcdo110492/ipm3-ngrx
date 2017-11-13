@@ -3,15 +3,27 @@
     
         <h2 align="center" mat-dialog-title>Position</h2>
         <mat-dialog-content>
+
+                <mat-form-field>
+                    <input matInput #code maxlength="20" placeholder="Code" formControlName="positionCode" appUniqueValidators keyUrl="positions/verifyPosition" keyField="positionCode" keyId="{{ getCurrentId() }}" required>
+                    <mat-hint align="end">{{code.value?.length || 0}}/20</mat-hint>
+                    <mat-error *ngIf="positionForm.get('positionCode').hasError('asyncInvalid')">
+                        Code  must be unique
+                    </mat-error>
+                    <mat-error *ngIf="positionForm.get('positionCode').hasError('required')">
+                        Code  is required
+                    </mat-error>
+                </mat-form-field>
     
             <mat-form-field>
-            <input matInput  placeholder="Position" formControlName="positionName" appUniqueValidators keyUrl="positions/verifyPosition" keyId="{{ getCurrentId() }}" required>
+            <input matInput #name maxlength="150"  placeholder="Position" formControlName="positionName" appUniqueValidators keyUrl="positions/verifyPosition" keyField="positionName" keyId="{{ getCurrentId() }}" required>
+            <mat-hint align="end">{{code.value?.length || 0}}/150</mat-hint>
             <mat-error *ngIf="positionForm.get('positionName').hasError('asyncInvalid')">
                 Position  must be unique
             </mat-error>
             <mat-error *ngIf="positionForm.get('positionName').hasError('required')">
                     Position  is required
-                </mat-error>
+            </mat-error>
             </mat-form-field>
     
         </mat-dialog-content>

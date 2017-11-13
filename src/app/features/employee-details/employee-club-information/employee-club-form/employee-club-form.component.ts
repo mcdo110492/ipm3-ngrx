@@ -49,8 +49,8 @@ export class EmployeeClubFormComponent implements OnInit {
 
     this.clubForm = this._fb.group({
       employeeClubId         : [0,Validators.required],
-      clubName               : [null,Validators.required],
-      clubPosition           : [null,Validators.required],
+      clubName               : [null,[Validators.required, Validators.maxLength(150)]],
+      clubPosition           : [null,[Validators.required, Validators.maxLength(150)]],
       membershipDate         : [null,Validators.required]
     });
 
