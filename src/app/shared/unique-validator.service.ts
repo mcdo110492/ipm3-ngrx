@@ -24,11 +24,12 @@ export class UniqueValidatorService {
    * @param keyId 
    * Method to communicate to the backend
    */
-  validateToBackEnd(keyUrl : string, keyValue : any, keyId : number){
+  validateToBackEnd(keyUrl : string, keyValue : any, keyId : number, keyField : string){
     // This is a shorthand properties of object declaration
     const body = {
           keyId,
-          keyValue
+          keyValue,
+         'keyField' : keyField || null
     };
 
     return this._http.post<IStatusResponse>(`${this.restEndPoint}/${keyUrl}`,body);

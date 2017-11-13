@@ -18,6 +18,7 @@ import { UniqueValidatorService } from './unique-validator.service';
 export class UniqueValidatorsDirective implements Validator, OnDestroy {
   @Input() keyUrl : string ; // KeyUrl Input to pass in the backend
   @Input() keyId  : number ; // keyId input to determine the id value to be update in the backend
+  @Input() keyField : string ; //keyField input to determine the field to be compare. optional
 
   controlValue  = new Subject<any>();
 
@@ -46,7 +47,7 @@ export class UniqueValidatorsDirective implements Validator, OnDestroy {
               debounceTime(300),
               distinctUntilChanged(),
               takeUntil(this.controlValue),
-              switchMap( (value) =>  this._service.validateToBackEnd(this.keyUrl,value,this.keyId) )
+              switchMap( (value) =>  this._service.validateToBackEnd(this.keyUrl,value,this.keyId,this.keyField) )
             )
             .subscribe( (result) => {
                 if(result.status == 200){

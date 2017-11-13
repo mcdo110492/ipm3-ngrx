@@ -25,7 +25,7 @@ export class EmployeePersonalInformationService {
   constructor(private _http : HttpClient, private _moment : MomentService) { }
 
   getPersonal(id : number) {
-    return this._http.get<DataResponse>(`${this._restEndpoint}/employee/profile/${id}`);
+    return this._http.get<DataResponse>(`${this._restEndpoint}/employee/personal/${id}`);
   }
 
   updatePersonal(data : EmployeePersonal){
@@ -42,7 +42,7 @@ export class EmployeePersonalInformationService {
       religion       : data.religion
     };
 
-    return this._http.put<StatusResponse>(`${this._restEndpoint}/employee/profile/${data.employeeId}`,newData);
+    return this._http.put<StatusResponse>(`${this._restEndpoint}/employee/personal/${data.employeeId}`,newData);
   }
 
 }
