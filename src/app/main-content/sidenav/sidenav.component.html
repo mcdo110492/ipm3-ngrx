@@ -13,7 +13,7 @@
                 <mat-icon class="icon-small">lock</mat-icon>
                 {{ profileName | async }}
             </span>
-            <span *ngIf="(role | async) == 1" class="select-project" matTooltip="Select a Project" matTooltipPosition="right">
+            <span *ngIf="(role | async) == 1" class="select-project">
                 <app-project-select></app-project-select>
             </span>
         </div>   
