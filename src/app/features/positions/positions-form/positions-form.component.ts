@@ -63,7 +63,6 @@ export class PositionsFormComponent implements OnInit, OnDestroy {
 
   submitForm(){
 
-    this._store$.dispatch( new positionActions.SelectPosition(this.positionForm.value) );
     this._store$.dispatch( new positionActions.SavePosition(this.positionForm.value) );
     this._dialogRef.close();
     

@@ -59,8 +59,6 @@ export class ProjectsFormComponent implements OnInit, OnDestroy {
   }
 
   submitForm(){
-
-    this._store$.dispatch( new projectActions.SelectProject(this.projectForm.value) );
     this._store$.dispatch( new projectActions.SaveProject(this.projectForm.value) );
     this._dialogRef.close();
     

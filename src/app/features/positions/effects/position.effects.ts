@@ -4,7 +4,7 @@ import { Action, Store } from "@ngrx/store";
 import { Effect, Actions } from "@ngrx/effects";
 import { Observable } from 'rxjs/Observable';
 import { of } from "rxjs/observable/of";
-import { map, switchMap, mergeMap, catchError, withLatestFrom, debounceTime, tap, distinctUntilChanged, filter } from "rxjs/operators";
+import { map, switchMap, mergeMap, catchError, withLatestFrom, debounceTime, tap, distinctUntilChanged } from "rxjs/operators";
 
 import * as positionActions from './../actions/position.actions';
 import * as fromRootPosition from './../reducers';
@@ -127,14 +127,12 @@ export class PositionTableEffects {
     /**
      * Effect that will listen to LOAD_ERROR Action
      */
-    @Effect()
+    @Effect({ dispatch: false })
         error$ = this._actions$
                  .ofType<positionActions.LoadError>(positionActions.LOAD_ERROR)
                  .pipe(
                     map((action) => action.payload),
-                    tap((payload) => { this._toastr.errorHandler(payload)}),
-                    filter( payload => payload.status == 422 ),
-                    map(() => new positionActions.ClearSelectPosition() )
+                    tap((payload) => { this._toastr.errorHandler(payload)})
                  );
                  
                  

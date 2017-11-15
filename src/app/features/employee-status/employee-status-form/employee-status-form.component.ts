@@ -62,7 +62,6 @@ export class EmployeeStatusFormComponent implements OnInit, OnDestroy {
 
   submitForm(){
 
-    this._store$.dispatch( new Actions.SelectEmployeeStatus(this.employeeStatusForm.value) );
     this._store$.dispatch( new Actions.SaveEmployeeStatus(this.employeeStatusForm.value) );
     this._dialogRef.close();
     
