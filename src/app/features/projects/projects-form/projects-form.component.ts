@@ -46,20 +46,19 @@ export class ProjectsFormComponent implements OnInit, OnDestroy {
 
   }
   
-  get currentId() { return this.projectForm.get('projectId').value };
-
+  getCurrentId() {
+    return this.projectForm.get('projectId').value;
+  }
 
   createForm() {
     this.projectForm = this._fb.group({
         projectId    :  [0,Validators.required],
-        projectCode  :  [null,Validators.required],
-        projectName  :  [null,Validators.required]
+        projectCode  :  [null,[Validators.required,Validators.maxLength(20)]],
+        projectName  :  [null,[Validators.required,Validators.maxLength(150)]]
     });
   }
 
   submitForm(){
-
-    this._store$.dispatch( new projectActions.SelectProject(this.projectForm.value) );
     this._store$.dispatch( new projectActions.SaveProject(this.projectForm.value) );
     this._dialogRef.close();
     

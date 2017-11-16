@@ -22,7 +22,6 @@ export const getCollectionState = createSelector(getProjectState, (state : Proje
 
 export const getCollectionPageLength = createSelector(getCollectionState, fromProjects.getPageLength);
 
-
 export const getCollectionPageSize = createSelector(getCollectionState, fromProjects.getPageSize);
 
 export const getCollectionPageIndex = createSelector(getCollectionState, fromProjects.getPageIndex);

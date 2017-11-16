@@ -4,10 +4,6 @@ import { HttpClient } from '@angular/common/http';
 
 import { environment } from './../../environments/environment';
 
-import 'rxjs/add/operator/debounceTime';
-
-
-
 interface IStatusResponse {
   status : number;
   message : string;
@@ -21,11 +17,19 @@ export class UniqueValidatorService {
 
   constructor(private _http : HttpClient) { }
 
-  validateToBackEnd(keyUrl : string, keyValue : any, keyId : number){
-
+  /**
+   * 
+   * @param keyUrl 
+   * @param keyValue 
+   * @param keyId 
+   * Method to communicate to the backend
+   */
+  validateToBackEnd(keyUrl : string, keyValue : any, keyId : number, keyField : string){
+    // This is a shorthand properties of object declaration
     const body = {
-          keyId     : keyId,
-          keyValue  : keyValue
+          keyId,
+          keyValue,
+         'keyField' : keyField || null
     };
 
     return this._http.post<IStatusResponse>(`${this.restEndPoint}/${keyUrl}`,body);

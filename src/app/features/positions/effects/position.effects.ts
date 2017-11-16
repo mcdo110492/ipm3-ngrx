@@ -3,16 +3,8 @@ import { Injectable } from '@angular/core';
 import { Action, Store } from "@ngrx/store";
 import { Effect, Actions } from "@ngrx/effects";
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/withLatestFrom';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/operator/filter';
+import { of } from "rxjs/observable/of";
+import { map, switchMap, mergeMap, catchError, withLatestFrom, debounceTime, tap, distinctUntilChanged } from "rxjs/operators";
 
 import * as positionActions from './../actions/position.actions';
 import * as fromRootPosition from './../reducers';
@@ -36,19 +28,22 @@ export class PositionTableEffects {
     @Effect()
         loadData$ : Observable<Action> = this._actions$
         .ofType(positionActions.LOAD)
-        .withLatestFrom(
-            this._store$.select(fromRootPosition.getPageIndex),
-            this._store$.select(fromRootPosition.getPageSize),
-            this._store$.select(fromRootPosition.getSortField),
-            this._store$.select(fromRootPosition.getSortDirection),
-            this._store$.select(fromRootPosition.getSearchQuery)
-        )
-        .switchMap( ([action, pageIndex, pageSize, sortField, sortDirection,searchQuery]) => {
-            return this._service.loadData(pageIndex,pageSize,sortField,sortDirection,searchQuery)
-            .map((response) => new positionActions.LoadSuccess(response.data,response.count) )
-            .catch(err => Observable.of(new positionActions.LoadError(err) ))
-
-        });
+        .pipe(
+            withLatestFrom(
+                this._store$.select(fromRootPosition.getPageIndex),
+                this._store$.select(fromRootPosition.getPageSize),
+                this._store$.select(fromRootPosition.getSortField),
+                this._store$.select(fromRootPosition.getSortDirection),
+                this._store$.select(fromRootPosition.getSearchQuery)
+            ),
+            switchMap( ([action, pageIndex, pageSize, sortField, sortDirection,searchQuery]) => {
+                return this._service.loadData(pageIndex,pageSize,sortField,sortDirection,searchQuery)
+                .pipe(
+                    map((response) => new positionActions.LoadSuccess(response.data,response.count) ),
+                    catchError(err => of(new positionActions.LoadError(err) ))
+                )
+            })
+        );
 
     /**
      * Effect that will listen to SEARCH Action
@@ -58,49 +53,69 @@ export class PositionTableEffects {
     @Effect()
         search$ : Observable<Action> = this._actions$
         .ofType(positionActions.SEARCH)
-        .withLatestFrom(
-            this._store$.select(fromRootPosition.getPageIndex),
-            this._store$.select(fromRootPosition.getPageSize),
-            this._store$.select(fromRootPosition.getSortField),
-            this._store$.select(fromRootPosition.getSortDirection),
-            this._store$.select(fromRootPosition.getSearchQuery)
-        )
-        .debounceTime(300)
-        .distinctUntilChanged()
-        .switchMap( ([action, pageIndex, pageSize, sortField, sortDirection,searchQuery]) => {
-            return this._service.loadData(pageIndex,pageSize,sortField,sortDirection,searchQuery)
-            .map((response) => new positionActions.LoadSuccess(response.data,response.count) )
-            .catch(err => Observable.of(new positionActions.LoadError(err) ))
+        .pipe(
 
-        });
+            withLatestFrom(
+                this._store$.select(fromRootPosition.getPageIndex),
+                this._store$.select(fromRootPosition.getPageSize),
+                this._store$.select(fromRootPosition.getSortField),
+                this._store$.select(fromRootPosition.getSortDirection),
+                this._store$.select(fromRootPosition.getSearchQuery)
+            ),
+            debounceTime(300),
+            distinctUntilChanged(),
+            switchMap( ([action, pageIndex, pageSize, sortField, sortDirection,searchQuery]) => {
+                return this._service.loadData(pageIndex,pageSize,sortField,sortDirection,searchQuery)
+                    .pipe(
+                        map((response) => new positionActions.LoadSuccess(response.data,response.count) ),
+                        catchError(err => of(new positionActions.LoadError(err) ))
+                    )
+            })
+        );
     /**
      * Effect  tah will listen to SAVE Action
      */
     @Effect()
         save$ : Observable<Action> = this._actions$
         .ofType<positionActions.SavePosition>(positionActions.SAVE_POSITION)
-        .map( (action) => action.payload)
-        .switchMap((payload) => {
-
-            this._loader.openDialog(); // opening of a loader dialog
-            // Check  the id of the data if data is equal to 0 it will create a new data otherwise it will update the data
-            if(payload.positionId == 0){
-            
-                return this._service.save(payload)
-                .map((response) =>  new positionActions.SaveSuccess(response.status) )
-                .catch((err) => Observable.of( new positionActions.LoadError(err) ))
-                .do(() => this._loader.closeDialog())
+        .pipe(
+            map( (action) => action.payload),
+            switchMap((payload) => {
+    
+                this._loader.openDialog(); // opening of a loader dialog
+                // Check  the id of the data if data is equal to 0 it will create a new data otherwise it will update the data
+                if(payload.positionId == 0){
                 
-            }
-            else {
-
-                return this._service.update(payload)
-                .map((response) => new positionActions.SaveSuccess(response.status) )
-                .catch((err) => Observable.of( new positionActions.LoadError(err) ))
-                .do(() => this._loader.closeDialog())
-            }
-
-        })
+                    return this._service.save(payload)
+                    .pipe(
+                        mergeMap((response) => {
+                            return [
+                                new positionActions.SaveSuccess(response.status),
+                                new positionActions.Load()
+                            ];
+                        }),
+                        catchError((err) => of( new positionActions.LoadError(err) )),
+                        tap(() => this._loader.closeDialog())
+                    )
+                }
+                else {
+    
+                    return this._service.update(payload)
+                        .pipe(
+                            mergeMap((response) => {
+                                return [   
+                                    new positionActions.SaveSuccess(response.status),
+                                    new positionActions.UpdateSuccess({ id: payload.positionId, updatedData : payload })
+                                ];
+                            }),
+                            catchError((err) => of( new positionActions.LoadError(err) )),
+                            tap(() => this._loader.closeDialog())
+                        )
+                }
+    
+            })
+        );
+        
     
     /**
      * Effect that will listen to SAVE_SUCCESS Action
@@ -109,27 +124,21 @@ export class PositionTableEffects {
     @Effect()
         saveSuccess$  = this._actions$
                        .ofType(positionActions.SAVE_SUCCESS)
-                       .do(() => { this._toastr.saveSuccess(); })
-                       .mergeMap(() => {
-                           return [
-                            new positionActions.Load(),
-                            new positionActions.ClearSelectPosition()
-                           ];
-                       })
-                       
-
+                       .pipe(
+                            tap(() => { this._toastr.saveSuccess(); }),
+                            map(() =>  new positionActions.ClearSelectPosition())
+                       );
                        
     /**
      * Effect that will listen to LOAD_ERROR Action
      */
-    @Effect()
+    @Effect({ dispatch: false })
         error$ = this._actions$
                  .ofType<positionActions.LoadError>(positionActions.LOAD_ERROR)
-                 .map((action) => action.payload)
-                 .do((payload) => { this._toastr.errorHandler(payload)})
-                 .filter( payload => payload.status == 422 )
-                 .map(() => new positionActions.ClearSelectPosition() )
-    
-  
+                 .pipe(
+                    map((action) => action.payload),
+                    tap((payload) => { this._toastr.errorHandler(payload)})
+                 );
+                 
                  
 }

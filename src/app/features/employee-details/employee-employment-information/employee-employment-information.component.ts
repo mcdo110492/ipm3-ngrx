@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 import { Store } from "@ngrx/store";
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/take';
+import { take } from "rxjs/operators";
 
 import * as masterActions from './../../../master-data/actions/master-data.actions';
 import * as fromMaster from './../../../master-data/reducers/master-data.reducers';
@@ -19,7 +19,6 @@ import { EmployeeStatus } from "./../../employee-status/models/employee-status.m
 @Component({
   selector: 'app-employee-employment-information',
   templateUrl: './employee-employment-information.component.html',
-  styleUrls: ['./employee-employment-information.component.scss'],
   changeDetection : ChangeDetectionStrategy.OnPush
 })
 export class EmployeeEmploymentInformationComponent implements OnInit {
@@ -54,10 +53,24 @@ export class EmployeeEmploymentInformationComponent implements OnInit {
     this._store.dispatch( new employmentActions.GetEmployment() );
 
     this.employmentData
-    .take(2)
+    .pipe(
+      take(2)
+    )
     .subscribe((data : EmployeeEmployment) => {
-      if(data !== undefined){
-        this.employmentForm.patchValue(data)
+      if(data != null){
+
+        this.employmentForm.setValue({
+          employeeEmploymentId    : data.employeeEmploymentId,
+          employeeId              : data.employeeId,
+          positionId              : data.positionId,
+          employmentStatusId      : data.employmentStatusId,
+          employeeStatusId        : data.employeeStatusId,
+          contractStart           : data.contractStart,
+          contractEnd             : data.contractEnd,
+          salary                  : data.salary,
+          remarks                 : data.remarks
+        });
+        
       }
     });
     
@@ -75,7 +88,7 @@ export class EmployeeEmploymentInformationComponent implements OnInit {
       contractStart           : [null,Validators.required],
       contractEnd             : [null,Validators.required],
       salary                  : [null,Validators.required],
-      remarks                 : [null,Validators.required]
+      remarks                 : [null,[Validators.required, Validators.maxLength(150)]]
     });
 
   }

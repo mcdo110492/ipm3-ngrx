@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Store } from "@ngrx/store";
 import * as linksAction from './../actions/router-links.actions';
@@ -8,19 +8,21 @@ import { RouterLinks } from "./../models/router-links.model";
 import * as loginActions from './../../features/login/actions/login.actions';
 import * as fromLogin from './../../features/login/reducers/login.reducers';
 
-
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from "rxjs/Subscription";
 
-import { sidenavMetaData } from "./sidenav.metadata";
-
-
+import { SidenavService } from "./sidenav.service";
 
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
-  styleUrls: ['./sidenav.component.scss']
+  styleUrls: ['./sidenav.component.scss'],
+  providers : [SidenavService]
 })
-export class SidenavComponent implements OnInit {
+export class SidenavComponent implements OnInit, OnDestroy {
+  
+  //Subscription property 
+  subscription : Subscription;
 
   // Stream of Observable that will subscribe in the store
   links$          : Observable<RouterLinks[]>;
@@ -28,7 +30,7 @@ export class SidenavComponent implements OnInit {
   profileImage    : Observable<string>;
   role            : Observable<number>;
   
-  constructor(private _routerLinkStore : Store<fromRouterLinks.State>,private _loginStore : Store<fromLogin.State>) { 
+  constructor(private _routerLinkStore : Store<fromRouterLinks.State>,private _loginStore : Store<fromLogin.State>, private _service : SidenavService) { 
     this.links$           = this._routerLinkStore.select(fromRouterLinks.getLinks);
     this.profileImage     = this._loginStore.select(fromLogin.getProfileImage);
     this.profileName      = this._loginStore.select(fromLogin.getProfileName);
@@ -36,8 +38,21 @@ export class SidenavComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._routerLinkStore.dispatch( new linksAction.RoleRouterLinks(sidenavMetaData) );
+    // Subscribe to the role observable to determine what is the current role of the user and dispatch an action to populate the links
+    this.subscription = this.role.subscribe((role) => {
+
+      const linksData : RouterLinks[] = this._service.setLinksByRole(role);
+
+      this._routerLinkStore.dispatch( new linksAction.RoleRouterLinks(linksData) );
+
+    });
+    
   
+  }
+
+  ngOnDestroy() : void {
+    //Unsubscribe to the current subscription after the component is destroyed to avoid memory leaks
+    this.subscription.unsubscribe();
   }
 
 

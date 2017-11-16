@@ -6,15 +6,13 @@ import * as contactActions from "./actions/employee-contact.actions";
 import * as fromRoot from "./../reducers";
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/take';
-import 'rxjs/add/operator/toArray';
+import { take } from "rxjs/operators";
 
 import { EmployeeContact } from "./models/employee-contact.model";
 
 @Component({
   selector: 'app-employee-contact-information',
   templateUrl: './employee-contact-information.component.html',
-  styleUrls: ['./employee-contact-information.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EmployeeContactInformationComponent implements OnInit {
@@ -36,7 +34,9 @@ export class EmployeeContactInformationComponent implements OnInit {
     this._store.dispatch( new contactActions.GetContact() );
    
     this.contactData
-    .take(2)
+    .pipe(
+      take(2)
+    )
     .subscribe((data : EmployeeContact) => {
       if(data !== undefined){
         this.contactForm.patchValue(data)
@@ -50,10 +50,10 @@ export class EmployeeContactInformationComponent implements OnInit {
 
     this.contactForm = this._fb.group({
       employeeContactId     : [null,Validators.required],
-      presentAddress        : [null,Validators.required],
-      provincialAddress     : [null,Validators.required],
-      mobileNumber          : [null,Validators.required],
-      telephoneNumber       : [null,Validators.required]
+      presentAddress        : [null,[Validators.required, Validators.maxLength(150)]],
+      provincialAddress     : [null,[Validators.required, Validators.maxLength(150)]],
+      mobileNumber          : [null,[Validators.required, Validators.maxLength(50)]],
+      telephoneNumber       : [null,[Validators.required, Validators.maxLength(50)]]
     });
 
   }

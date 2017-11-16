@@ -6,14 +6,13 @@ import * as personalActions from "./actions/employee-personal.actions";
 import * as fromRoot from "./../reducers";
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/take';
+import { take } from "rxjs/operators";
 
 import { EmployeePersonal } from "./models/employee-personal.models";
 
 @Component({
   selector: 'app-employee-personal-information',
   templateUrl: './employee-personal-information.component.html',
-  styleUrls: ['./employee-personal-information.component.scss'],
   changeDetection : ChangeDetectionStrategy.OnPush
 })
 export class EmployeePersonalInformationComponent implements OnInit {
@@ -37,9 +36,11 @@ export class EmployeePersonalInformationComponent implements OnInit {
     
    
     this.personalData
-    .take(2)
+    .pipe(
+      take(2)
+    )
     .subscribe((data : EmployeePersonal) => {
-      if(data !== undefined){
+      if(data != null){
         this.personalForm.patchValue(data)
         this.currentId = data.employeeId;
       }
@@ -52,15 +53,15 @@ export class EmployeePersonalInformationComponent implements OnInit {
 
     this.personalForm = this._fb.group({
       employeeId        : [null,Validators.required],
-      employeeNumber    : [null,Validators.required],
-      firstName         : [null,Validators.required],
-      middleName        : [null,Validators.required],
-      lastName          : [null,Validators.required],
+      employeeNumber    : [null,[Validators.required, Validators.maxLength(20)]],
+      firstName         : [null,[Validators.required, Validators.maxLength(150)]],
+      middleName        : [null,[Validators.required, Validators.maxLength(150)]],
+      lastName          : [null,[Validators.required, Validators.maxLength(150)]],
       birthday          : [null,Validators.required],
-      placeOfBirth      : [null,Validators.required],
+      placeOfBirth      : [null,[Validators.required, Validators.maxLength(150)]],
       civilStatus       : [null,Validators.required],
-      citizenship       : [null,Validators.required],
-      religion          : [null,Validators.required]
+      citizenship       : [null,[Validators.required, Validators.maxLength(50)]],
+      religion          : [null,[Validators.required, Validators.maxLength(150)]]
     });
 
   }

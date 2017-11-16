@@ -1,9 +1,10 @@
 
-
+<mat-card>
 <form [formGroup]="personalForm" fxLayout="column" fxLayoutGap="20px">
 
     <mat-form-field fxFlex>
-        <input matInput placeholder="Employee Number" formControlName="employeeNumber" appUniqueValidators keyUrl="employee/verify" keyId="{{currentId}}" required>
+        <input matInput #empNum maxlength="20" placeholder="Employee Number" formControlName="employeeNumber" appUniqueValidators keyUrl="employee/verify" keyId="{{currentId}}" required>
+        <mat-hint align="end">{{ empNum.value?.length || 0 }}/20</mat-hint>
         <mat-error *ngIf="personalForm.get('employeeNumber').hasError('asyncInvalid')" >
             Employee Number is rquired
         </mat-error>
@@ -15,21 +16,24 @@
     <div fxFlex >
         <div fxLayout="row" fxLayout.xs="column">
             <mat-form-field fxFlex>
-                <input matInput placeholder="First Name" formControlName="firstName" required>
+                <input matInput #fname maxlength="150" placeholder="First Name" formControlName="firstName" required>
+                <mat-hint align="end">{{ fname.value?.length || 0 }}/150</mat-hint>
                 <mat-error>
                     First Name is required
                 </mat-error>
             </mat-form-field>
 
             <mat-form-field fxFlex>
-                <input matInput placeholder="Middle Name" formControlName="middleName" required>
+                <input matInput #mname maxlength="150" placeholder="Middle Name" formControlName="middleName" required>
+                <mat-hint align="end">{{ mname.value?.length || 0 }}/150</mat-hint>
                 <mat-error>
                     Middle Name is required
                 </mat-error>
             </mat-form-field>
 
             <mat-form-field fxFlex>
-                <input matInput placeholder="Last Name" formControlName="lastName" required>
+                <input matInput #lname maxlength="150" placeholder="Last Name" formControlName="lastName" required>
+                <mat-hint align="end">{{ lname.value?.length || 0 }}/150</mat-hint>
                 <mat-error>
                     Last Name is required
                 </mat-error>
@@ -50,7 +54,8 @@
             </mat-form-field>
 
             <mat-form-field fxFlex>
-                <input matInput placeholder="Place of Birth" formControlName="placeOfBirth" required>
+                <input matInput #pob maxlength="150" placeholder="Place of Birth" formControlName="placeOfBirth" required>
+                <mat-hint align="end">{{ pob.value?.length || 0 }}/150</mat-hint>
                 <mat-error>
                     Place of Birth is required
                 </mat-error>
@@ -70,14 +75,16 @@
             </mat-form-field>
 
             <mat-form-field fxFlex>
-                <input matInput placeholder="Citizenship" formControlName="citizenship" required>
+                <input matInput #cit maxlength="50" placeholder="Citizenship" formControlName="citizenship" required>
+                <mat-hint align="end">{{ cit.value?.length || 0 }}/50</mat-hint>
                 <mat-error>
                     Citizenship is required
                 </mat-error>
             </mat-form-field>
     
             <mat-form-field fxFlex>
-                <input matInput placeholder="Religion" formControlName="religion" required>
+                <input matInput #rel maxlength="150" placeholder="Religion" formControlName="religion" required>
+                <mat-hint align="end">{{ rel.value?.length || 0 }}/150</mat-hint>
                 <mat-error>
                     Religion is required
                 </mat-error>
@@ -91,3 +98,4 @@
 
 
 </form>
+</mat-card>

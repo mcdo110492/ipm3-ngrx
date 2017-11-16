@@ -1,4 +1,14 @@
 .select {
     width: 150px;
-    padding-left: 30px;
+    flex: 1;
+    margin-top: 5px;
+}
+
+.project-select-container {
+    position: relative;
+    width: 180px;
+    height: 26px;
+    margin-left:40px;
+    display: flex;
+    flex-direction: row;
 }

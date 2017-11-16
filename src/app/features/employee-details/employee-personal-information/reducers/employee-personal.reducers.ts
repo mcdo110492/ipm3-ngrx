@@ -8,7 +8,7 @@ export interface State {
 }
 
 export const initialState: State = {
-    personal    :   undefined,
+    personal    :   null,
     error       :   null
 }
 

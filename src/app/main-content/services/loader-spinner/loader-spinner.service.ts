@@ -16,8 +16,8 @@ export class LoaderSpinnerService {
     return  this.dialogRef = this._dialog.open(LoaderSpinnerComponent, { 
       id: 'loader-spinner' ,
       disableClose: true,
-      height : '70px',
-      width  : '70px' 
+      height : 'auto',
+      width  : 'auto' 
     });
     
   }

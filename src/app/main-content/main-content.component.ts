@@ -9,13 +9,14 @@ import { Subscription } from "rxjs/Subscription";
 
 import { ObservableMedia, MediaChange } from "@angular/flex-layout";
 
-import { fadeInAnimation } from "./../animations/fade.animations";
+import { routeAnimation } from "./../animations/route.animations";
+import { fadeAnimation } from "./../animations/fade.animations";
 
 @Component({
   selector: 'app-main-content',
   templateUrl: './main-content.component.html',
   styleUrls: ['./main-content.component.scss'],
-  animations:[fadeInAnimation]
+  animations:[fadeAnimation]
 })
 export class MainContentComponent implements OnInit, OnDestroy {
 
@@ -29,7 +30,7 @@ export class MainContentComponent implements OnInit, OnDestroy {
 
   constructor(private _media : ObservableMedia, private _store : Store<fromMain.State>) {
     /**
-     * Get the slices of state of mainContent from ngrx-store
+     * Get the slices of state of mainContent from store
      */
     this.isSidenavOpen$ = this._store.select(fromMain.getIsSidenavOpen);
     this.sidenavMode$   = this._store.select(fromMain.getSidenavMode);
@@ -69,7 +70,8 @@ export class MainContentComponent implements OnInit, OnDestroy {
    * @param outlet 
    */
   prepRouteState(outlet : any){
-    return outlet.activatedRouteData.animation;
+    return outlet.isActivated ? outlet.activatedRoute : '';
+    //return outlet.activatedRouteData.animation;
   }
 
   /**

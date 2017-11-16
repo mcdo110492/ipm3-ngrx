@@ -38,6 +38,7 @@ export class EmploymentStatusFormComponent implements OnInit, OnDestroy {
 
         this.employmentStatusForm.setValue({
           employmentStatusId           : response.employmentStatusId,
+          employmentStatusCode         : response.employmentStatusCode,
           employmentStatusName         : response.employmentStatusName
         });
 
@@ -46,19 +47,20 @@ export class EmploymentStatusFormComponent implements OnInit, OnDestroy {
 
   }
   
-  get currentId() { return this.employmentStatusForm.get('employmentStatusId').value };
-
+  getCurrentId() {
+    return this.employmentStatusForm.get('employmentStatusId').value;
+  }
 
   createForm() {
     this.employmentStatusForm = this._fb.group({
       employmentStatusId    :  [0,Validators.required],
-      employmentStatusName  :  [null,Validators.required]
+      employmentStatusCode  :  [null,[Validators.required, Validators.maxLength(20)]],
+      employmentStatusName  :  [null,[Validators.required, Validators.maxLength(150)]]
     });
   }
 
   submitForm(){
 
-    this._store$.dispatch( new Actions.SelectEmploymentStatus(this.employmentStatusForm.value) );
     this._store$.dispatch( new Actions.SaveEmploymentStatus(this.employmentStatusForm.value) );
     this._dialogRef.close();
     

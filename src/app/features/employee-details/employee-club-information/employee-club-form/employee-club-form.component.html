@@ -1,16 +1,18 @@
 <form [formGroup]="clubForm" fxLayout="column" fxLayoutGap="20px">
   
     <h2 align="center" mat-dialog-title>Club</h2>
-    <mat-dialog-content>
+
       <mat-form-field fxFlex>
-        <input matInput placeholder="Club Name" formControlName="clubName" required>
+        <input matInput #name maxlength="150" placeholder="Club Name" formControlName="clubName" required>
+        <mat-hint align="end">{{ name.value?.length || 0 }}/150</mat-hint>
         <mat-error >
               Club Name  is required
           </mat-error>
       </mat-form-field>
   
       <mat-form-field fxFlex>
-        <input matInput placeholder="Position" formControlName="clubPosition" required>
+        <input matInput #pos maxlength="150" placeholder="Position" formControlName="clubPosition" required>
+        <mat-hint align="end">{{ pos.value?.length || 0 }}/150</mat-hint>
         <mat-error>
           Position is required
         </mat-error>
@@ -26,14 +28,9 @@
         </mat-error>
       </mat-form-field>
   
-  
-  </mat-dialog-content>
-  
-  <mat-dialog-actions align="end">
-      
+
       <button mat-raised-button [disabled]="clubForm.invalid || clubForm.pristine" (click)="saveForm()" color="accent">Save</button>
       <button mat-raised-button (click)="closeDialog()" color="warn">Cancel</button>
-  
-  </mat-dialog-actions>
+
   
   </form>

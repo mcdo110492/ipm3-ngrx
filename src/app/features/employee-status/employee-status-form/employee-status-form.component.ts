@@ -39,6 +39,7 @@ export class EmployeeStatusFormComponent implements OnInit, OnDestroy {
 
         this.employeeStatusForm.setValue({
           employeeStatusId           : response.employeeStatusId,
+          employeeStatusCode         : response.employeeStatusCode,
           employeeStatusName         : response.employeeStatusName
         });
 
@@ -46,20 +47,21 @@ export class EmployeeStatusFormComponent implements OnInit, OnDestroy {
     });
 
   }
-  
-  get currentId() { return this.employeeStatusForm.get('employeeStatusId').value };
 
+  getCurrentId() {
+    return this.employeeStatusForm.get('employeeStatusId').value;
+  }
 
   createForm() {
     this.employeeStatusForm = this._fb.group({
       employeeStatusId    :  [0,Validators.required],
-      employeeStatusName  :  [null,Validators.required]
+      employeeStatusCode  :  [null,[Validators.required, Validators.maxLength(20)]],
+      employeeStatusName  :  [null,[Validators.required, Validators.maxLength(150)]]
     });
   }
 
   submitForm(){
 
-    this._store$.dispatch( new Actions.SelectEmployeeStatus(this.employeeStatusForm.value) );
     this._store$.dispatch( new Actions.SaveEmployeeStatus(this.employeeStatusForm.value) );
     this._dialogRef.close();
     

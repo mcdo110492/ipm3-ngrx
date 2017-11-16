@@ -6,17 +6,14 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class NoopInterceptor implements HttpInterceptor {
 
-  
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    //Parse the json string in the localstorage to json object
+    //Parse the json string in the localstorage to json object or null
     const obj = JSON.parse(localStorage.presence || null);
 
     //get the token in the obj if it exist or not pass the empty value
     const authHeader = (obj) ? obj.token : '';
-
-
 
 
     //set the header to authorization header in every request
@@ -27,4 +24,5 @@ export class NoopInterceptor implements HttpInterceptor {
             .handle(authRequest);
 
   }
+  
 }

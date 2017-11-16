@@ -1,5 +1,7 @@
 import { Action } from '@ngrx/store';
 import { EmployeeStatus } from "./../models/employee-status.model";
+import { UPDATE } from '@ngrx/store/src/reducer_manager';
+import { UpdateProject } from '../../../master-data/actions/master-data.actions';
 
 export const LOAD                               =   '[EMPLOYEESTATUS] Load';
 export const LOAD_SUCCESS                       =   '[EMPLOYEESTATUS] LoadSuccess';
@@ -11,6 +13,7 @@ export const SELECT_EMPLOYEE_STATUS             =   '[EMPLOYEESTATUS] SelectEmpl
 export const CLEAR_SELECT_EMPLOYEE_STATUS       =   '[EMPLOYEESTATUS] ClearSelectEmployeeStatus';
 export const SAVE_EMPLOYEE_STATUS               =   '[EMPLOYEESTATUS] SaveEmployeeStatus';
 export const SAVE_SUCCESS                       =   '[EMPLOYEESTATUS] SaveSuccess';
+export const UPDATE_SUCCESS                     =   '[EMPLOYEESTATUS] UpdateSuccess';
 
 
 export class Load implements Action {
@@ -71,6 +74,12 @@ export class SaveSuccess implements Action {
     constructor(public payload : any){}
 }
 
+export class UpdateSuccess implements Action {
+    readonly type = UPDATE_SUCCESS;
+
+    constructor(public payload : { id : number, updatedData : EmployeeStatus }){}
+}
+
 /**
  * Export a type alias of all actions in this action group
  * so that reducers can easily compose action types
@@ -85,4 +94,5 @@ export type Actions
 | SelectEmployeeStatus
 | ClearSelectEmployeeStatus
 | SaveEmployeeStatus
-| SaveSuccess;
+| SaveSuccess
+| UpdateSuccess;

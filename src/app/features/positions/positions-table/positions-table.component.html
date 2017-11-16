@@ -24,6 +24,12 @@
                   The actual rendered columns are set as a property on the row definition" -->
 
             <!-- Project Name Column -->
+            <ng-container matColumnDef="positionCode">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Code</mat-header-cell>
+              <mat-cell *matCellDef="let row"> {{row.positionCode}} </mat-cell>
+            </ng-container>
+
+            <!-- Project Name Column -->
             <ng-container matColumnDef="positionName">
               <mat-header-cell *matHeaderCellDef mat-sort-header>Position</mat-header-cell>
               <mat-cell *matCellDef="let row"> {{row.positionName}} </mat-cell>

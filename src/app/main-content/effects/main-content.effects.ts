@@ -4,11 +4,9 @@ import { Action } from "@ngrx/store";
 import { Actions, Effect } from '@ngrx/effects';
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/do';
-
+import { tap } from "rxjs/operators";
 
 import * as mainActions from './../actions/main-content.actions';
-
 
 import { LoaderSpinnerService } from "./../services/loader-spinner/loader-spinner.service";
 
@@ -20,10 +18,13 @@ export class MainContentEffects {
     @Effect({dispatch : false})
         changeProject$ = this._actions$
         .ofType<mainActions.ChangeProject>(mainActions.CHANGE_PROJECT)
-        .map((action) => {
-            localStorage.setItem('projectId',action.payload.toString());
-            this._router.navigateByUrl('/projects');
-        });
+        .pipe(
+            tap((action) => {
+                localStorage.setItem('projectId',action.payload.toString());
+                this._router.navigateByUrl('/projects');
+            })
+        )
+        
  
    
 

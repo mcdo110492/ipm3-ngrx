@@ -11,6 +11,7 @@ export const SELECT_POSITION        =   '[POSITION] SelectPosition';
 export const CLEAR_SELECT_POSITION  =   '[POSITION] ClearSelectPosition';
 export const SAVE_POSITION          =   '[POSITION] SavePosition';
 export const SAVE_SUCCESS           =   '[POSITION] SaveSuccess';
+export const UPDATE_SUCCESS         =   '[POSITION] UpdateSuccess';
 
 
 export class Load implements Action {
@@ -71,6 +72,13 @@ export class SaveSuccess implements Action {
     constructor(public payload : any){}
 }
 
+export class UpdateSuccess implements Action {
+    readonly type = UPDATE_SUCCESS;
+
+    constructor(public payload : { id : number, updatedData : Position }){}
+}
+
+
 
 /**
  * Export a type alias of all actions in this action group
@@ -86,4 +94,5 @@ export type Actions
 | SelectPosition
 | ClearSelectPosition
 | SavePosition
-| SaveSuccess;
+| SaveSuccess
+| UpdateSuccess;

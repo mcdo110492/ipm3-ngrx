@@ -20,7 +20,7 @@ import { MomentService } from "./services/moment.service";
 
 
 /* Only Import Some Global/Core Services that will be use in the entire applications */
-/* CoreModule must only be import once in the root AppModule in order to avoid some difficult bug */
+/* CoreModule must only be import once in the root module in order to avoid some difficult unknown bug */
 @NgModule({
   imports: [
     CommonModule
@@ -36,11 +36,11 @@ import { MomentService } from "./services/moment.service";
 })
 export class CoreModule {
 
-  /* Check if the CoreModule Already been added in the AppModule */
+  /* Check if the CoreModule Already been added in the root app module */
   constructor(@Optional() @SkipSelf() parentModule : CoreModule){
     if(parentModule){
       throw new Error(
-        'CoreModule is already loaded. Import it in the AppModule only.'
+        'CoreModule is already loaded. Import it in your Root App Module only.'
       );
     }
   }

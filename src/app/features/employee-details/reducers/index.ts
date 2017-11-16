@@ -14,6 +14,7 @@ import * as fromLicense from './../employee-licenses/reducers/employee-license.r
 import * as fromEducational from './../employee-educational/reducers/employee-educational.reducers';
 import * as fromTraining from './../employee-training-information/reducers/employee-training.reducers';
 import * as fromClub from './../employee-club-information/reducers/employee-club.reducers';
+import * as fromAccount from './../employee-account-settings/reducers/employee-account-settings.reducers';
 
 export interface EmployeeDetailsState {
     employeeDetails : fromEmp.State;
@@ -26,6 +27,7 @@ export interface EmployeeDetailsState {
     educational     : fromEducational.State;
     training        : fromTraining.State;
     club            : fromClub.State;
+    account         : fromAccount.State;
 }
 
 export interface State extends fromRoot.State {
@@ -43,7 +45,8 @@ export const reducers : ActionReducerMap<EmployeeDetailsState> = {
     licenses        : fromLicense.reducer,
     educational     : fromEducational.reducer,
     training        : fromTraining.reducer,
-    club            : fromClub.reducer
+    club            : fromClub.reducer,
+    account         : fromAccount.reducer
 }
 
 export const getState = createFeatureSelector<EmployeeDetailsState>('featureEmployeeDetails');
@@ -105,3 +108,12 @@ export const getClubState = createSelector(getState, (state : EmployeeDetailsSta
 export const getClub = createSelector(getClubState, fromClub.getCollections);
 
 export const getSelectedClub = createSelector(getClubState, fromClub.getSelected);
+
+
+export const getAccountState = createSelector(getState, (state : EmployeeDetailsState) => state.account);
+
+export const getAccountId = createSelector(getAccountState, fromAccount.getEmployeeAccountId);
+
+export const getAccountStatus = createSelector(getAccountState, fromAccount.getStatus);
+
+export const getAccountUsername = createSelector(getAccountState, fromAccount.getUserame);

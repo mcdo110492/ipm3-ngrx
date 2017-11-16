@@ -1,43 +1,49 @@
-<form [formGroup]="governmentForm" fxLayout="column" fxLayoutGap="20px">
+<mat-card>
+    <form [formGroup]="governmentForm" fxLayout="column" fxLayoutGap="20px">
+        
+        <div fxFlex >
+            <div fxLayout="row" fxLayout.xs="column">
+                <mat-form-field fxFlex>
+                    <input matInput #sss maxlength="20" placeholder="SSS Number" formControlName="sssNumber" required>
+                    <mat-hint align="end">{{ sss.value?.length || 0 }}/20</mat-hint>
+                    <mat-error>
+                        SSS Number is required
+                    </mat-error>
+                </mat-form-field>
     
-      <div fxFlex >
-          <div fxLayout="row" fxLayout.xs="column">
-              <mat-form-field fxFlex>
-                  <input matInput placeholder="SSS Number" formControlName="sssNumber" required>
-                  <mat-error>
-                      SSS Number is required
-                  </mat-error>
-              </mat-form-field>
-  
-              <mat-form-field fxFlex>
-                  <input matInput placeholder="PAG-IBIG Number" formControlName="pagIbigNumber" required>
-                  <mat-error>
-                      PAG-IBIG Number is required
-                  </mat-error>
-              </mat-form-field>
-          </div>
-      </div>
+                <mat-form-field fxFlex>
+                    <input matInput #pagibig maxlength="20" placeholder="PAG-IBIG Number" formControlName="pagIbigNumber" required>
+                    <mat-hint align="end">{{ pagibig.value?.length || 0 }}/20</mat-hint>
+                    <mat-error>
+                        PAG-IBIG Number is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
 
 
-      <div fxFlex >
-          <div fxLayout="row" fxLayout.xs="column">
-              <mat-form-field fxFlex>
-                  <input matInput placeholder="PHILHEALTH Number" formControlName="philHealthNumber" required>
-                  <mat-error>
-                      PHILHEALTH Number is required
-                  </mat-error>
-              </mat-form-field>
-  
-              <mat-form-field fxFlex>
-                  <input matInput placeholder="TIN Number" formControlName="tinNumber" required>
-                  <mat-error>
-                      TIN Number is required
-                  </mat-error>
-              </mat-form-field>
-          </div>
-      </div>
-  
-      <div fxFlex fxLayoutAlign="center center">
-          <button [disabled]="governmentForm.invalid || governmentForm.pristine" (click)="save()" mat-raised-button color="accent" type="button">Save Changes</button>
-      </div>
-  </form>
+        <div fxFlex >
+            <div fxLayout="row" fxLayout.xs="column">
+                <mat-form-field fxFlex>
+                    <input matInput #philh maxlength="20" placeholder="PHILHEALTH Number" formControlName="philHealthNumber" required>
+                    <mat-hint align="end">{{ philh.value?.length || 0 }}/20</mat-hint>
+                    <mat-error>
+                        PHILHEALTH Number is required
+                    </mat-error>
+                </mat-form-field>
+    
+                <mat-form-field fxFlex>
+                    <input matInput #tin maxlength="20" placeholder="TIN Number" formControlName="tinNumber" required>
+                    <mat-hint align="end">{{ tin.value?.length || 0 }}/20</mat-hint>
+                    <mat-error>
+                        TIN Number is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    
+        <div fxFlex fxLayoutAlign="center center">
+            <button [disabled]="governmentForm.invalid || governmentForm.pristine" (click)="save()" mat-raised-button color="accent" type="button">Save Changes</button>
+        </div>
+    </form>
+</mat-card>

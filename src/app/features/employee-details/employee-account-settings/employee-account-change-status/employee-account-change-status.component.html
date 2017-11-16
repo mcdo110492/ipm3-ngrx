@@ -1,0 +1,3 @@
+<label>Account Status : </label>
+<button *ngIf="status == 0" type="button" mat-raised-button color="warn" (click)="change(1)"  >Locked</button>
+<button *ngIf="status == 1" type="button" mat-raised-button color="accent" (click)="change(0)"  >Active</button>

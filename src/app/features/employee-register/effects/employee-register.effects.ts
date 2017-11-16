@@ -5,12 +5,8 @@ import { Action, Store } from '@ngrx/store';
 import { Actions, Effect } from '@ngrx/effects';
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/withLatestFrom';
+import { of } from "rxjs/observable/of";
+import { map, catchError, tap, switchMap, withLatestFrom } from "rxjs/operators";
 
 import * as empActions from './../actions/employee-register.actions';
 import * as fromEmp from './../reducers';
@@ -38,29 +34,43 @@ export class EmployeeRegisterEffects {
     @Effect()
         submit$ : Observable<Action> = this._actions$
         .ofType<empActions.Submit>(empActions.SUBMIT)
-        .withLatestFrom(
-            this._store.select(fromEmp.getEmployeeRegister),
-            this._mainStore.select(fromMain.getCurrentProject)
-        )
-        .switchMap( ([action,formData,project]) => {
-            this._loader.openDialog();
-            return this._service.submitForm(formData,project)
-                    .map(() => new empActions.SubmitSuccess() )
-                    .catch((err) => Observable.of( new empActions.SubmitError(err) ))
-                    .do(() => this._loader.closeDialog())
-        });
+        .pipe(
+            withLatestFrom(
+                this._store.select(fromEmp.getEmployeeRegister),
+                this._mainStore.select(fromMain.getCurrentProject)
+            ),
+            switchMap( ([action,formData,project]) => {
+                this._loader.openDialog();
+                return this._service.submitForm(formData,project)
+                        .pipe(
+                            map(() => new empActions.SubmitSuccess() ),
+                            catchError((err) => of( new empActions.SubmitError(err) )),
+                            tap(() => this._loader.closeDialog())
+                        )
+            })
+        );
+       
 
     @Effect()
         submitSuccess$ : Observable<Action> = this._actions$
         .ofType<empActions.SubmitSuccess>(empActions.SUBMIT_SUCCESS)
-        .do(() => { this._toastr.saveSuccess(); this._router.navigateByUrl('/employee/list'); })
-        .map(() => new empActions.Save(null) );
+        .pipe(
+            tap(() => { 
+                this._toastr.saveSuccess(); 
+                this._router.navigateByUrl('/employee/list'); 
+            }),
+            map(() => new empActions.Save(null) )
+        );
+        
 
     @Effect({dispatch : false})
         submitError$ : Observable<Action> = this._actions$
         .ofType<empActions.SubmitError>(empActions.SUBMIT_ERROR)
-        .map((action) => action.payload)
-        .do((payload) => this._toastr.errorHandler(payload))
+        .pipe(
+            map((action) => action.payload),
+            tap((payload) => this._toastr.errorHandler(payload))
+        );
+        
 
     
 }

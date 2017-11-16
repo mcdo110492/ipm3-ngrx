@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 import { MatDialogRef } from "@angular/material";
@@ -8,13 +8,14 @@ import * as fromRoot from './../../reducers';
 import * as educational from './../actions/employee-educational.actions';
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/take';
+import { take } from "rxjs/operators";
 
 import { EmployeeEducational } from "./../models/employee-educational.model";
 
 @Component({
   selector: 'app-employee-educational-form',
-  templateUrl: './employee-educational-form.component.html'
+  templateUrl: './employee-educational-form.component.html',
+  changeDetection : ChangeDetectionStrategy.OnPush
 })
 export class EmployeeEducationalFormComponent implements OnInit {
 
@@ -31,7 +32,10 @@ export class EmployeeEducationalFormComponent implements OnInit {
 
   ngOnInit() {
 
-    this.selectedEducational.take(1)
+    this.selectedEducational
+    .pipe(
+      take(1)
+    )
     .subscribe((data : EmployeeEducational) => {
       if(data != null){
         this.educationalForm.patchValue(data);
@@ -45,13 +49,13 @@ export class EmployeeEducationalFormComponent implements OnInit {
 
     this.educationalForm = this._fb.group({
       employeeEducationId     : [0,Validators.required],
-      schoolName              : [null,Validators.required],
-      schoolAddress           : [null,Validators.required],
-      schoolYear              : [null,Validators.required],
-      degree                  : [null,Validators.required],
-      major                   : [null,Validators.required],
-      minor                   : [null,Validators.required],
-      awards                  : [null,Validators.required]
+      schoolName              : [null,[Validators.required, Validators.maxLength(150)]],
+      schoolAddress           : [null,[Validators.required, Validators.maxLength(150)]],
+      schoolYear              : [null,[Validators.required, Validators.maxLength(50)]],
+      degree                  : [null,[Validators.required, Validators.maxLength(150)]],
+      major                   : [null,[Validators.required, Validators.maxLength(150)]],
+      minor                   : [null,[Validators.required, Validators.maxLength(150)]],
+      awards                  : [null,[Validators.required, Validators.maxLength(150)]]
     });
 
   }

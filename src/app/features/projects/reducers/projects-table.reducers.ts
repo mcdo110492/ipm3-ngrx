@@ -69,6 +69,24 @@ export function reducer(state: State = initialState, action: projectActions.Acti
 
         }
 
+        case projectActions.UPDATE_SUCCESS : {
+
+            const updatedData = state.collections.map((item) => {
+
+                if(item.projectId == action.payload.id){
+                    return {
+                        ...item,
+                        ...action.payload.updatedData
+                    };
+                }
+
+                return item;
+            });
+
+            return { ...state, collections: updatedData };
+
+        }
+
         case projectActions.CLEAR_SELECT_PROJECT : {
 
             return { ...state, selectedProject : null };

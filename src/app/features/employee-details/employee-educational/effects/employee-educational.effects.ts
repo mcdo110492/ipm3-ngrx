@@ -3,14 +3,8 @@ import { Injectable } from '@angular/core';
 import { Action, Store } from "@ngrx/store";
 import { Effect, Actions } from "@ngrx/effects";
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/withLatestFrom';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/filter';
+import { of } from "rxjs/observable/of";
+import { map, switchMap, mergeMap, catchError, withLatestFrom, tap, filter } from "rxjs/operators";
 
 import * as educational from './../actions/employee-educational.actions';
 import * as fromRoot from './../../reducers';
@@ -33,66 +27,80 @@ export class EmployeeEducationalEffects {
     @Effect()
         loadLicenses$ : Observable<Action> = this._actions$
         .ofType(educational.LOAD)
-        .withLatestFrom(
-            this._store$.select(fromRoot.getEmployeeId),
-        )
-        .switchMap( ([action, employeeId]) => {
-            return this._service.getEducational(employeeId)
-            .map((response) => new educational.LoadSuccess(response.data) )
-            .catch(err => Observable.of(new educational.EducationalError(err) ))
-
-        });
+        .pipe(
+            withLatestFrom(
+                this._store$.select(fromRoot.getEmployeeId),
+            ),
+            switchMap( ([action, employeeId]) => {
+                return this._service.getEducational(employeeId)
+                .pipe(
+                    map((response) => new educational.LoadSuccess(response.data) ),
+                    catchError(err => of(new educational.EducationalError(err) ))
+                )
+            })
+        );
+        
 
 
 
     @Effect()
         save$ : Observable<Action> = this._actions$
         .ofType<educational.SaveEducational>(educational.SAVE_EDUCATIONAL)
-        .map( (action) => action.payload)
-        .withLatestFrom(
-            this._store$.select(fromRoot.getEmployeeId),
-        )
-        .switchMap(([payload, employeeId]) => {
-
-            this._loader.openDialog();
-            if(payload. employeeEducationId == 0){
-            
+        .pipe(
+            map( (action) => action.payload),
+            withLatestFrom(
+                this._store$.select(fromRoot.getEmployeeId),
+            ),
+            switchMap(([payload, employeeId]) => {
+    
+                this._loader.openDialog();
+                if(payload. employeeEducationId == 0){
                 
-                return this._service.saveEducational(payload,employeeId)
-                    .map((response) =>  new educational.SaveEducationalSuccess() )
-                    .catch((err) => Observable.of( new educational.EducationalError(err) ))
-                    .do(() => this._loader.closeDialog())
-                
-            }
-            else {
-
-                return this._service.updateEducational(payload)
-                .map((response) => new educational.SaveEducationalSuccess() )
-                .catch((err) => Observable.of( new educational.EducationalError(err) ))
-                .do(() => this._loader.closeDialog())
-            }
-
-            
-        })
+                    
+                    return this._service.saveEducational(payload,employeeId)
+                    .pipe(
+                        map((response) =>  new educational.SaveEducationalSuccess() ),
+                        catchError((err) => of( new educational.EducationalError(err) )),
+                        tap(() => this._loader.closeDialog())
+                    )
+                        
+                }
+                else {
+    
+                    return this._service.updateEducational(payload)
+                    .pipe(
+                        map((response) =>  new educational.SaveEducationalSuccess() ),
+                        catchError((err) => of( new educational.EducationalError(err) )),
+                        tap(() => this._loader.closeDialog())
+                    )
+                }
+    
+            })
+        );
+        
 
     @Effect()
         saveSuccess$  = this._actions$
         .ofType(educational.SAVE_EDUCATIONAL_SUCCESS)
-        .do(() => { this._toastr.saveSuccess(); })
-        .mergeMap(() => {
-            return [
-            new educational.Load(),
-            new educational.ClearSelected()
-            ];
-        })
+        .pipe(
+            tap(() => { this._toastr.saveSuccess(); }),
+            mergeMap(() => {
+                return [
+                    new educational.Load(),
+                    new educational.ClearSelected()
+                ];
+            })
+        );
+        
 
     @Effect()
         error$ = this._actions$
                  .ofType<educational.EducationalError>(educational.EDUCATIONAL_ERROR)
-                 .map((action) => action.payload)
-                 .do((payload) => { this._toastr.errorHandler(payload)})
-                 .filter( payload => payload.status == 422)
-                 .map(() => new educational.ClearSelected() )
-                       
+                 .pipe(
+                    map((action) => action.payload),
+                    tap((payload) => { this._toastr.errorHandler(payload)}),
+                    filter( payload => payload.status == 422),
+                    map(() => new educational.ClearSelected() )
+                 );                 
                                  
 }

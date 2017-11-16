@@ -20,7 +20,7 @@ import { EmploymentStatusService } from "./../employment-status.service";
 })
 export class EmploymentStatusTableComponent implements OnInit {
 
-  displayedColumns = ['employmentStatusName','actions'];
+  displayedColumns = ['employmentStatusCode','employmentStatusName','actions'];
   dataSource : EmploymentStatusTableDatasource | null;
   collections$ : Observable<EmploymentStatus[]>;
 

@@ -1,36 +1,45 @@
 <mat-toolbar color="primary" class="app-toolbar" >
-   <div fxLayout="row" fxFlex fxLayoutWrap>
-        <button mat-icon-button (click)="toggleSidenav()">
-            <mat-icon>menu</mat-icon>
-        </button>
 
-       
-        <span fxFlex="1 1 auto"></span>
+    <mat-toolbar-row>
 
-       <button mat-icon-button >
-           <mat-icon>notifications</mat-icon>
-       </button>
+        <div fxLayout="row" fxFlex fxLayoutWrap>
+                <button mat-icon-button (click)="toggleSidenav()">
+                    <mat-icon>menu</mat-icon>
+                </button>
 
-        <button mat-icon-button class="profile-button profile-image" [matMenuTriggerFor]="menu">
-            <img [src]="profileImage | async" alt="">
-        </button>
-    </div>
-    <mat-menu #menu="matMenu">
+            
+                <span fxFlex="1 1 auto"></span>
+
+                <button mat-icon-button >
+                    <mat-icon>notifications</mat-icon>
+                </button>
+
+                <button mat-icon-button class="profile-button profile-image" [matMenuTriggerFor]="menu">
+                    <img [src]="profileImage | async" alt="">
+                </button>
+
+            </div>
+
+    </mat-toolbar-row>
+
+</mat-toolbar>
+
+<!-- The Dropdown menu of Profile -->
+<mat-menu #menu="matMenu">
         <button mat-menu-item>
-          <mat-icon>person</mat-icon>
-          <span>{{ profileName | async }}</span>
+        <mat-icon>person</mat-icon>
+        <span>{{ profileName | async }}</span>
         </button>
         <mat-divider></mat-divider>
         <button mat-menu-item >
-          <mat-icon>settings</mat-icon>
-          <span>Profile Settings</span>
+        <mat-icon>settings</mat-icon>
+        <span>Profile Settings</span>
         </button>
         <button mat-menu-item (click)="logout()" >
-          <mat-icon>input</mat-icon>
-          <span>Logout</span>
+        <mat-icon>input</mat-icon>
+        <span>Logout</span>
         </button>
-    </mat-menu>
-</mat-toolbar>
+</mat-menu>
 
 
 

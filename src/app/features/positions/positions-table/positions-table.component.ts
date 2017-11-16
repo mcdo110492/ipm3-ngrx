@@ -20,7 +20,7 @@ import { PositionsService } from "./../positions.service";
 })
 export class PositionsTableComponent implements OnInit {
 
-  displayedColumns = ['positionName','actions'];
+  displayedColumns = ['positionCode','positionName','actions'];
   dataSource : PositionsTableDatasource | null;
   collections$ : Observable<Position[]>;
 

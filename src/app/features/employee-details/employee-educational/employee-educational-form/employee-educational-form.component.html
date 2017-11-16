@@ -1,31 +1,34 @@
 <form [formGroup]="educationalForm" fxLayout="column" fxLayoutGap="20px">
   
     <h2 align="center" mat-dialog-title>Educational Background</h2>
-    <mat-dialog-content>
-  
+
       <mat-form-field fxFlex>
-        <input matInput placeholder="School Name" formControlName="schoolName" required>
+        <input matInput #sn maxlength="150" placeholder="School Name" formControlName="schoolName" required>
+        <mat-hint align="end">{{ sn.value?.length || 0}}/150</mat-hint>
         <mat-error>
           School Name is required
         </mat-error>
       </mat-form-field>
 
       <mat-form-field fxFlex>
-        <input matInput placeholder="School Address" formControlName="schoolAddress" required>
+        <input matInput #sa maxlength="150" placeholder="School Address" formControlName="schoolAddress" required>
+        <mat-hint align="end">{{ sa.value?.length || 0}}/150</mat-hint>
         <mat-error>
           School Address is required
         </mat-error>
       </mat-form-field>
 
       <mat-form-field fxFlex>
-        <input matInput placeholder="School Year" formControlName="schoolYear" required>
+        <input matInput #sy maxlength="20" placeholder="School Year" formControlName="schoolYear" required>
+        <mat-hint align="end">{{ sy.value?.length || 0}}/20</mat-hint>
         <mat-error>
           School Year is required
         </mat-error>
       </mat-form-field>
 
       <mat-form-field fxFlex>
-        <input matInput placeholder="Degree" formControlName="degree" required>
+        <input matInput #deg maxlength="150" placeholder="Degree" formControlName="degree" required>
+        <mat-hint align="end">{{ deg.value?.length || 0}}/150</mat-hint>
         <mat-error>
           Degree is required
         </mat-error>
@@ -35,14 +38,16 @@
         <div fxLayout="row" fxLayout.xs="column">
   
           <mat-form-field fxFlex>
-            <input matInput placeholder="Major" formControlName="major" required>
+            <input matInput #maj maxlength="150" placeholder="Major" formControlName="major" required>
+            <mat-hint align="end">{{ maj.value?.length || 0}}/150</mat-hint>
             <mat-error>
               Major is required
             </mat-error>
           </mat-form-field>
 
           <mat-form-field fxFlex>
-            <input matInput placeholder="Minor" formControlName="minor" required>
+            <input matInput #minor maxlength="150" placeholder="Minor" formControlName="minor" required>
+            <mat-hint align="end">{{ minor.value?.length || 0}}/150</mat-hint>
             <mat-error>
               Minor is required
             </mat-error>
@@ -53,19 +58,18 @@
       </div>
 
       <mat-form-field fxFlex>
-        <input matInput placeholder="Awards" formControlName="awards" required>
+        <input matInput #awards maxlength="150" placeholder="Awards" formControlName="awards" required>
+        <mat-hint align="end">{{ awards.value?.length || 0}}/150</mat-hint>
         <mat-error>
           Awards is required
         </mat-error>
       </mat-form-field>
 
-  </mat-dialog-content>
-  
-  <mat-dialog-actions align="center">
+
       
       <button mat-raised-button [disabled]="educationalForm.invalid || educationalForm.pristine" (click)="saveForm()" color="accent">Save</button>
       <button mat-raised-button (click)="closeDialog()" color="warn">Cancel</button>
   
-  </mat-dialog-actions>
+
   
   </form>

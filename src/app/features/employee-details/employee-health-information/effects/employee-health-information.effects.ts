@@ -4,12 +4,8 @@ import { Router } from "@angular/router";
 import { Action, Store } from "@ngrx/store";
 import { Effect, Actions } from "@ngrx/effects";
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/withLatestFrom';
-import 'rxjs/add/operator/do';
+import { of } from "rxjs/observable/of";
+import { map, switchMap, catchError, withLatestFrom, tap } from "rxjs/operators";
 
 import * as health from './../actions/employee-health.actions';
 import * as fromRoot from './../../reducers';
@@ -33,41 +29,53 @@ export class EmployeeHealthInformationEffects {
     @Effect()
         getHealth$ : Observable<Action> = this._actions$
         .ofType(health.GET_HEALTH)
-        .withLatestFrom(
-            this._store$.select(fromRoot.getEmployeeId),
-        )
-        .switchMap( ([action, employeeId]) => {
-            return this._service.getHealth(employeeId)
-            .map((response) => new health.GetHealthSuccess(response.data) )
-            .catch(err => Observable.of(new health.GetHealthError(err) ))
-
-        });
+        .pipe(
+            withLatestFrom(
+                this._store$.select(fromRoot.getEmployeeId)
+            ),
+            switchMap( ([action, employeeId]) => {
+                return this._service.getHealth(employeeId)
+                .pipe(
+                    map((response) => new health.GetHealthSuccess(response.data) ),
+                    catchError(err => of(new health.GetHealthError(err) ))
+                )
+            })
+        );
+        
     @Effect({dispatch : false})
         error$ = this._actions$
                  .ofType<health.GetHealthError>(health.GET_HEALTH_ERROR)
-                 .map((action) => action.payload)
-                 .do((payload) => { this._toastr.errorHandler(payload)})
-
+                 .pipe(
+                    map((action) => action.payload),
+                    tap((payload) => { this._toastr.errorHandler(payload)})
+                 );
+                 
 
     @Effect()
         save$ : Observable<Action> = this._actions$
         .ofType<health.SaveHealth>(health.SAVE_HEALTH)
-        .map( (action) => action.payload)
-        .switchMap((payload) => {
-
-            this._loader.openDialog();
-            
-            return this._service.updateHealth(payload)
-                .map((response) =>  new health.SaveHealthSuccess(payload) )
-                .catch((err) => Observable.of( new health.GetHealthError(err) ))
-                .do(() => this._loader.closeDialog())
-
-        })
+        .pipe(
+            map( (action) => action.payload),
+            switchMap((payload) => {
+    
+                this._loader.openDialog();
+                
+                return this._service.updateHealth(payload)
+                .pipe(
+                    map((response) =>  new health.SaveHealthSuccess(payload) ),
+                    catchError((err) => of( new health.GetHealthError(err) )),
+                    tap(() => this._loader.closeDialog())
+                )
+            })
+        );
+        
 
     @Effect({dispatch : false})
         saveSuccess$  = this._actions$
                        .ofType(health.SAVE_HEALTH_SUCCESS)
-                       .do(() => { this._toastr.saveSuccess(); })
+                       .pipe(
+                            tap(() => { this._toastr.saveSuccess(); })
+                       );
                        
                                  
 }

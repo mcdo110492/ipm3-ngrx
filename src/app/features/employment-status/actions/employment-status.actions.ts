@@ -11,6 +11,7 @@ export const SELECT_EMPLOYMENT_STATUS           =   '[EMPLOYMENTSTATUS] SelectEm
 export const CLEAR_SELECT_EMPLOYMENT_STATUS     =   '[EMPLOYMENTSTATUS] ClearSelectEmploymentStatus';
 export const SAVE_EMPLOYMENT_STATUS             =   '[EMPLOYMENTSTATUS] SaveEmploymentStatus';
 export const SAVE_SUCCESS                       =   '[EMPLOYMENTSTATUS] SaveSuccess';
+export const UPDATE_SUCCESS                     =   '[EMPLOYMENTSTATUS] UpdateSuccess';
 
 
 export class Load implements Action {
@@ -71,6 +72,12 @@ export class SaveSuccess implements Action {
     constructor(public payload : any){}
 }
 
+export class UpdateSuccess implements Action {
+    readonly type = UPDATE_SUCCESS;
+
+    constructor(public payload : { id: number, updatedData : EmploymentStatus}){}
+}
+
 /**
  * Export a type alias of all actions in this action group
  * so that reducers can easily compose action types
@@ -85,4 +92,5 @@ export type Actions
 | SelectEmploymentStatus
 | ClearSelectEmploymentStatus
 | SaveEmploymentStatus
-| SaveSuccess;
+| SaveSuccess
+| UpdateSuccess;

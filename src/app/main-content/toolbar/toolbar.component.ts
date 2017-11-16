@@ -15,18 +15,23 @@ import * as fromLogin from './../../features/login/reducers/login.reducers';
   styleUrls: ['./toolbar.component.scss']
 })
 export class ToolbarComponent {
-
+  /**
+   * Observable of profileName and image
+   */
   profileName   : Observable<string>;
   profileImage  : Observable<string>;
+
   constructor(private _mainStore : Store<fromMain.State>, private _loginStore : Store<fromLogin.State> , private _router : Router) {
     this.profileName  = this._loginStore.select(fromLogin.getProfileName);
     this.profileImage = this._loginStore.select(fromLogin.getProfileImage);
   }
 
+  //Method that will toggle the sidenav open and close
   toggleSidenav(){
     this._mainStore.dispatch( new mainActions.SidenavToggle() );
   }
 
+  //Method that will logout your current session
   logout() {
     this._loginStore.dispatch( new loginActions.Logout() );
     this._mainStore.dispatch( new mainActions.IsLoginPage(true) );

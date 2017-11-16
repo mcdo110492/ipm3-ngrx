@@ -1,86 +1,88 @@
 
-
-<form [formGroup]="employmentForm" fxLayout="column" fxLayoutGap="20px">
-    
-      <mat-form-field fxFlex>
-        <mat-select placeholder="Position" formControlName="positionId" required>
-            <mat-option *ngFor="let pos of positions | async" [value]="pos.positionId">{{pos.positionName}}</mat-option>
-        </mat-select>
-        <mat-error>
-            Position is required
-        </mat-error>
-      </mat-form-field>
-
-      <div fxFlex>
-        <div fxLayout="row" fxLayout.xs="column">
-
-          <mat-form-field fxFlex>
-            <mat-select placeholder="Employment Status" formControlName="employmentStatusId" required>
-                <mat-option *ngFor="let emp of employmentStatus | async" [value]="emp.employmentStatusId">{{emp.employmentStatusName}}</mat-option>
+<mat-card>
+    <form [formGroup]="employmentForm" fxLayout="column" fxLayoutGap="20px">
+        
+        <mat-form-field fxFlex>
+            <mat-select placeholder="Position" formControlName="positionId" required>
+                <mat-option *ngFor="let pos of positions | async" value="{{pos.positionId}}">{{pos.positionName}}</mat-option>
             </mat-select>
             <mat-error>
-                Employment Status is required
+                Position is required
             </mat-error>
-          </mat-form-field>
+        </mat-form-field>
 
-          <mat-form-field fxFlex>
-              <mat-select placeholder="Employee Status" formControlName="employeeStatusId" required>
-                  <mat-option *ngFor="let es of employeeStatus | async" [value]="es.employeeStatusId">{{es.employeeStatusName}}</mat-option>
-              </mat-select>
-              <mat-error>
-                  Employee Status is required
-              </mat-error>
-          </mat-form-field>
+        <div fxFlex>
+            <div fxLayout="row" fxLayout.xs="column">
 
+            <mat-form-field fxFlex>
+                <mat-select placeholder="Employment Status" formControlName="employmentStatusId" required>
+                    <mat-option *ngFor="let emp of employmentStatus | async" value="{{emp.employmentStatusId}}">{{emp.employmentStatusName}}</mat-option>
+                </mat-select>
+                <mat-error>
+                    Employment Status is required
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field fxFlex>
+                <mat-select placeholder="Employee Status" formControlName="employeeStatusId" required>
+                    <mat-option *ngFor="let es of employeeStatus | async" value="{{es.employeeStatusId}}">{{es.employeeStatusName}}</mat-option>
+                </mat-select>
+                <mat-error>
+                    Employee Status is required
+                </mat-error>
+            </mat-form-field>
+
+            </div>
         </div>
-      </div>
-  
-      <div fxFlex>
-          <div fxLayout="row" fxLayout.xs="column">
-  
-              <mat-form-field fxFlex>
-                  <input matInput [matDatepicker]="picker" placeholder="Contract Start" formControlName="contractStart" required>
-                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                  <mat-datepicker #picker></mat-datepicker>
-                  <mat-error>
-                      Contract Start is required
-                  </mat-error>
-              </mat-form-field>
+    
+        <div fxFlex>
+            <div fxLayout="row" fxLayout.xs="column">
+    
+                <mat-form-field fxFlex>
+                    <input matInput [matDatepicker]="picker" placeholder="Contract Start" formControlName="contractStart" required>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error>
+                        Contract Start is required
+                    </mat-error>
+                </mat-form-field>
 
-              <mat-form-field fxFlex>
-                  <input matInput [matDatepicker]="picker2" placeholder="Contract End" formControlName="contractEnd" required>
-                  <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                  <mat-datepicker #picker2></mat-datepicker>
-                  <mat-error>
-                      Contract End is required
-                  </mat-error>
-              </mat-form-field>
-  
-     
-          </div>
-      </div>
-  
-      <div fxFlex >
-          <div fxLayout="row" fxLayout.xs="column">
-              <mat-form-field fxFlex>
-                  <input type="number" matInput placeholder="Salary" formControlName="salary" required>
-                  <mat-error>
-                      Salary is required
-                  </mat-error>
-              </mat-form-field>
-      
-              <mat-form-field fxFlex>
-                  <input matInput placeholder="Remarks" formControlName="remarks" required>
-                  <mat-error>
-                      Remarks is required
-                  </mat-error>
-              </mat-form-field>
-          </div>
-      </div>
-  
-      <div fxFlex fxLayoutAlign="center center">
-          <button [disabled]="employmentForm.invalid || employmentForm.pristine" (click)="save()" mat-raised-button color="accent" type="button">Save Changes</button>
-      </div>
-  
-  
-  </form>
+                <mat-form-field fxFlex>
+                    <input matInput [matDatepicker]="picker2" placeholder="Contract End" formControlName="contractEnd" required>
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                    <mat-error>
+                        Contract End is required
+                    </mat-error>
+                </mat-form-field>
+    
+        
+            </div>
+        </div>
+    
+        <div fxFlex >
+            <div fxLayout="row" fxLayout.xs="column">
+                <mat-form-field fxFlex>
+                    <input type="number" matInput placeholder="Salary" formControlName="salary" required>
+                    <mat-error>
+                        Salary is required
+                    </mat-error>
+                </mat-form-field>
+        
+                <mat-form-field fxFlex>
+                    <input matInput #rem maxlength="150" placeholder="Remarks" formControlName="remarks" required>
+                    <mat-hint align="end">{{ rem.value?.length || 0 }}/150</mat-hint>
+                    <mat-error>
+                        Remarks is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    
+        <div fxFlex fxLayoutAlign="center center">
+            <button [disabled]="employmentForm.invalid || employmentForm.pristine" (click)="save()" mat-raised-button color="accent" type="button">Save Changes</button>
+        </div>
+    
+    
+    </form>
+</mat-card>

@@ -5,9 +5,8 @@ import { HttpClient } from "@angular/common/http";
 import { Store } from "@ngrx/store";
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/catch';
+import { of } from "rxjs/observable/of";
+import { switchMap, catchError } from "rxjs/operators";
 
 import { environment } from "./../../../environments/environment";
 
@@ -24,17 +23,22 @@ export class AuthenticationService {
 
   constructor(private _http : HttpClient, private _router : Router, private _store : Store<fromLogin.State>, private _mainStore : Store<fromMain.State>) { }
 
+  /**
+   * Method that will communicate to the server for authentication of current user per route in routeGuard
+   */
   authenticateGuard() : Observable<boolean>{
 
     return this._http.get(`${this._restEndPoint}/routeAuthenticate`)
-            .switchMap((response) => { return Observable.of(true)})
-            .catch(() => { 
-              this._store.dispatch( new loginActions.Logout() ); 
-              this._mainStore.dispatch(new mainContentActions.IsLoginPage(true));
-              this._router.navigateByUrl('/login');
-              return Observable.of(false); 
-            });
-
+            .pipe(
+              switchMap((response) => { return of(true)}),
+              catchError(() => { 
+                this._store.dispatch( new loginActions.Logout() ); 
+                this._mainStore.dispatch(new mainContentActions.IsLoginPage(true));
+                this._router.navigateByUrl('/login');
+                return of(false); 
+              })
+            );
+            
   }
 
 }

@@ -20,10 +20,9 @@ import { EmployeeLicensesComponent, EmployeeLicensesTableComponent, EmployeeLice
 import { EmployeeEducationalComponent, EmployeeEducationalService, EmployeeEducationalFormComponent, EmployeeEducationalTableComponent, EmployeeEducationalEffects } from './employee-educational';
 import { EmployeeTrainingInformationComponent, EmployeeTrainingFormComponent, EmployeeTrainingTableComponent, EmployeeTrainingInformationService, EmployeeTrainingInformationEffects } from './employee-training-information';
 import { EmployeeClubInformationComponent, EmployeeClubFormComponent, EmployeeClubInformationEffects, EmployeeClubInformationService, EmployeeClubTableComponent } from './employee-club-information';
+import { EmployeeAccountSettingsComponent, EmployeeAccountChangePasswordComponent, EmployeeAccountChangeStatusComponent, EmployeeAccountChangeUsernameComponent, EmployeeAccountSettingsService } from './employee-account-settings';
 
 import { reducers } from "./reducers";
-
-
 
 
 @NgModule({
@@ -61,7 +60,11 @@ import { reducers } from "./reducers";
                   EmployeeTrainingFormComponent, 
                   EmployeeClubInformationComponent, 
                   EmployeeClubTableComponent, 
-                  EmployeeClubFormComponent
+                  EmployeeClubFormComponent, 
+                  EmployeeAccountSettingsComponent, 
+                  EmployeeAccountChangePasswordComponent, 
+                  EmployeeAccountChangeUsernameComponent, 
+                  EmployeeAccountChangeStatusComponent
                 ],
   entryComponents : [
                   EmployeeLicensesFormComponent,
@@ -78,7 +81,8 @@ import { reducers } from "./reducers";
                 EmployeeLicensesService,
                 EmployeeEducationalService,
                 EmployeeTrainingInformationService,
-                EmployeeClubInformationService
+                EmployeeClubInformationService,
+                EmployeeAccountSettingsService
              ]
 })
 export class EmployeeDetailsModule { }
