@@ -1,5 +1,9 @@
 
-import { ActionReducerMap , ActionReducer, MetaReducer } from '@ngrx/store';
+/**
+ * This is the root reducers of your entire application
+ * The feature reducers state extends this reducers state
+ */
+import { ActionReducerMap , ActionReducer, MetaReducer, Action } from '@ngrx/store';
 import { environment } from './../../environments/environment';
 
 import { RouterStateUrl } from "./../shared/utils";
@@ -21,6 +25,7 @@ import * as fromMainContent   from './../main-content/reducers/main-content.redu
 import * as fromRouterLinks   from './../main-content/reducers/router-links.reducers';
 import * as fromMasterData    from './../master-data/reducers/master-data.reducers';
 import * as fromLoginPresence from './../features/login/reducers/login.reducers';
+
 /**
  * As mentioned, we treat each reducer like a table in a database. This means
  * our top level state interface is just a map of keys to inner state types.
@@ -50,13 +55,27 @@ export const reducers   :   ActionReducerMap<State> = {
   };
 
 
+export function clearState(reducer : ActionReducer<State>) : ActionReducer<State> {
+
+  return function (state : State, action : Action) : State {
+
+    if(action.type === '[LOGIN] Logout'){
+      state = undefined;
+    }
+
+    return reducer(state,action);
+  }
+
+} 
+
+
 /**
  * By default, @ngrx/store uses combineReducers with the reducer map to compose
  * the root meta-reducer. To add more meta-reducers, provide an array of meta-reducers
  * that will be composed to form the root meta-reducer.
  */
 export const metaReducers: MetaReducer<State>[] = !environment.production
-? [storeFreeze]
-: [];
+? [storeFreeze,clearState]
+: [clearState];
 
 

@@ -40,7 +40,7 @@ export class EmployeePersonalInformationComponent implements OnInit {
       take(2)
     )
     .subscribe((data : EmployeePersonal) => {
-      if(data !== undefined){
+      if(data != null){
         this.personalForm.patchValue(data)
         this.currentId = data.employeeId;
       }
