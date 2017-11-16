@@ -15,8 +15,9 @@ export interface DataResponse {
 }
 
 export interface StatusResponse {
-  status  : number;
-  message : string;
+  status        : number;
+  message       : string;
+  createdData?  : Projects
 }
 
 @Injectable()

@@ -69,6 +69,22 @@ export function reducer(state: State = initialState, action: employmentStatusAct
 
         }
 
+        case employmentStatusActions.UPDATE_SUCCESS : {
+
+            const updatedData = state.collections.map((item) => {
+                if(item.employmentStatusId == action.payload.id){
+                    return {
+                        ...item,
+                        ...action.payload.updatedData
+                    };
+                }
+
+                return item;
+            });
+
+            return { ...state, collections: updatedData };
+        }
+
         case employmentStatusActions.CLEAR_SELECT_EMPLOYMENT_STATUS : {
 
             return { ...state, selectedEmploymentStatus : null };

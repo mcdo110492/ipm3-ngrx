@@ -7,6 +7,8 @@ import { EmployeeStatus } from "./../../features/employee-status/models/employee
 
 export const GET_ALL_PROJECTS                       = '[MASTER_DATA] GetAllProjects';
 export const GET_ALL_PROJECTS_SUCCESS               = '[MASTER_DATA] GetAllProjectsSuccess';
+export const ADD_NEW_PROJECT                        = '[MASTER_DATA] AddNewProject';
+export const UPDATE_PROJECT                         = '[MASTER_DATA] UpdateProject';
 export const GET_ALL_POSITIONS                      = '[MASTER_DATA] GetAllPositions';
 export const GET_ALL_POSITIONS_SUCCESS              = '[MASTER_DATA] GetAllPositionsSuccess';
 export const GET_ALL_EMPLOYMENT_STATUS              = '[MASTER_DATA] GetAllEmploymentStatus';
@@ -24,6 +26,18 @@ export class GetAllProjectsSuccess implements Action {
     readonly type = GET_ALL_PROJECTS_SUCCESS;
   
     constructor(public payload: Projects[]) { }
+}
+
+export class AddNewProject implements Action {
+    readonly type = ADD_NEW_PROJECT;
+
+    constructor(public payload : Projects){}
+}
+
+export class UpdateProject implements Action {
+    readonly type = UPDATE_PROJECT;
+
+    constructor(public payload : { id : number, updatedData : Projects }){}
 }
 
 export class GetAllPositions implements Action {
@@ -69,6 +83,8 @@ export class MasterDataError implements Action {
 export type Actions
 = GetAllProjects
 | GetAllProjectsSuccess
+| AddNewProject
+| UpdateProject
 | GetAllPositions
 | GetAllPositionsSuccess
 | GetAllEmploymentStatus

@@ -6,6 +6,7 @@ import { Position } from "./../../features/positions/models/positions.model";
 import { EmploymentStatus } from "./../../features/employment-status/models/employment-status.model";
 import { EmployeeStatus } from "./../../features/employee-status/models/employee-status.model";
 
+
 export interface State {
     projects            : Projects[],
     positions           : Position[],
@@ -32,11 +33,35 @@ export function reducer(state: State = initialState, action: masterData.Actions)
 
         }
 
+        case masterData.ADD_NEW_PROJECT : {
+
+           return { ...state, projects : [ ...state.projects, action.payload ] };
+
+        }
+
+        case masterData.UPDATE_PROJECT : {
+            // Map the collections and then return the new item if the condition is true and return the current item if false
+            const updatedProjects = state.projects.map( (item) => { 
+                if(item.projectId == action.payload.id){
+                    return {
+                        ...item,
+                        ...action.payload.updatedData
+                    };
+                }
+
+                return item;
+            });
+
+            return { ...state, projects : updatedProjects };
+
+        }
+
         case masterData.GET_ALL_POSITIONS_SUCCESS : {
 
             return { ...state, positions : action.payload};
 
         }
+        
 
         case masterData.GET_ALL_EMPLOYMENT_STATUS_SUCCESS : {
 
@@ -58,6 +83,7 @@ export function reducer(state: State = initialState, action: masterData.Actions)
             return state;
     }
 }
+
 
 
 /* 

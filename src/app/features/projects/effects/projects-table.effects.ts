@@ -15,10 +15,18 @@ import { ProjectsService } from "./../projects.service";
 import { LoaderSpinnerService } from "./../../../main-content/services/loader-spinner/loader-spinner.service";
 import { ToastrService } from "./../../../main-content/services/toastr.service";
 
+import * as fromMasterData from './../../../master-data/reducers/master-data.reducers';
+import * as masterDataActions from './../../../master-data/actions/master-data.actions';
+
 @Injectable()
 export class ProjectsTableEffects {
 
-    constructor(private _service : ProjectsService, private _actions$ : Actions, private _store$ : Store<fromRootProjects.State>, private _loader : LoaderSpinnerService, private _toastr : ToastrService){}
+    constructor(private _service : ProjectsService, 
+                private _actions$ : Actions, 
+                private _store$ : Store<fromRootProjects.State>, 
+                private _masterStore$ : Store<fromMasterData.State>,
+                private _loader : LoaderSpinnerService, 
+                private _toastr : ToastrService){}
 
     @Effect()
         loadData$ : Observable<Action> = this._actions$
@@ -75,7 +83,13 @@ export class ProjectsTableEffects {
                 
                     return this._service.save(payload)
                         .pipe(
-                            map((response) =>  new projectActions.SaveSuccess(response.status) ),
+                            mergeMap((response) => {
+                                return [
+                                    new projectActions.SaveSuccess(response.status),
+                                    new projectActions.Load(),
+                                    new masterDataActions.AddNewProject(response.createdData)         
+                                ];
+                            }),
                             catchError((err) => of( new projectActions.LoadError(err) )),
                             tap(() => this._loader.closeDialog())
                         )
@@ -85,7 +99,13 @@ export class ProjectsTableEffects {
     
                     return this._service.update(payload)
                         .pipe(
-                            map((response) =>  new projectActions.SaveSuccess(response.status) ),
+                            mergeMap((response) => {
+                                return [
+                                    new projectActions.SaveSuccess(response.status),
+                                    new projectActions.UpdateSuccess({ id: payload.projectId, updatedData: payload  }),
+                                    new masterDataActions.UpdateProject({ id: payload.projectId, updatedData: payload  })
+                                ];
+                            }),
                             catchError((err) => of( new projectActions.LoadError(err) )),
                             tap(() => this._loader.closeDialog())
                         )
@@ -95,23 +115,19 @@ export class ProjectsTableEffects {
         );
         
     @Effect()
-        saveSuccess$  = this._actions$
+        saveSuccess$ : Observable<Action>  = this._actions$
                        .ofType(projectActions.SAVE_SUCCESS)
                        .pipe(
                             tap(() => { this._toastr.saveSuccess(); }),
-                            mergeMap(() => {
-                                return [
-                                    new projectActions.Load(),
-                                    new projectActions.ClearSelectProject()
-                                ];
-                            })
+                            map(() =>  new projectActions.ClearSelectProject())
+                           
                        );
                        
 
                        
 
     @Effect()
-        error$ = this._actions$
+        error$ : Observable<Action> = this._actions$
                  .ofType<projectActions.LoadError>(projectActions.LOAD_ERROR)
                  .pipe(
                     map((action) => action.payload),

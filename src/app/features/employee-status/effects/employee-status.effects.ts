@@ -75,7 +75,12 @@ export class EmploymentStatusEffects {
                 
                     return this._service.save(payload)
                     .pipe(
-                        map((response) =>  new employeeStatusAction.SaveSuccess(response.status) ),
+                        mergeMap((response) => {
+                            return [
+                                new employeeStatusAction.SaveSuccess(response.status),
+                                new employeeStatusAction.Load()
+                            ];
+                        }),
                         catchError((err) => of( new employeeStatusAction.LoadError(err) )),
                         tap(() => this._loader.closeDialog())
                     )
@@ -85,7 +90,12 @@ export class EmploymentStatusEffects {
     
                     return this._service.update(payload)
                     .pipe(
-                        map((response) =>  new employeeStatusAction.SaveSuccess(response.status) ),
+                        mergeMap((response) => {
+                            return [
+                                new employeeStatusAction.SaveSuccess(response.status),
+                                new employeeStatusAction.UpdateSuccess({ id: payload.employeeStatusId, updatedData: payload })
+                            ];
+                        }),
                         catchError((err) => of( new employeeStatusAction.LoadError(err) )),
                         tap(() => this._loader.closeDialog())
                     )
@@ -100,12 +110,7 @@ export class EmploymentStatusEffects {
                        .ofType(employeeStatusAction.SAVE_SUCCESS)
                        .pipe(
                             tap(() => { this._toastr.saveSuccess(); }),
-                            mergeMap(() => {
-                                return [
-                                new employeeStatusAction.Load(),
-                                new employeeStatusAction.ClearSelectEmployeeStatus()
-                                ];
-                            })
+                            map(() => new employeeStatusAction.ClearSelectEmployeeStatus())
                        );
                        
                        

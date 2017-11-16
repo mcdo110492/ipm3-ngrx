@@ -11,6 +11,7 @@ export const SELECT_PROJECT         =   '[PROJECTS] SelectProject';
 export const CLEAR_SELECT_PROJECT   =   '[PROJECTS] ClearSelectProject';
 export const SAVE_PROJECT           =   '[PROJECTS] SaveProject';
 export const SAVE_SUCCESS           =   '[PROJECTS] SaveSuccess';
+export const UPDATE_SUCCESS         =   '[PROJECTS] UpdateSuccess';
 
 
 export class Load implements Action {
@@ -71,6 +72,12 @@ export class SaveSuccess implements Action {
     constructor(public payload : any){}
 }
 
+export class UpdateSuccess implements Action {
+    readonly type = UPDATE_SUCCESS;
+    
+    constructor(public payload : { id : number, updatedData : Projects }){}
+}
+
 /**
  * Export a type alias of all actions in this action group
  * so that reducers can easily compose action types
@@ -85,4 +92,5 @@ export type Actions
 | SelectProject
 | ClearSelectProject
 | SaveProject
-| SaveSuccess;
+| SaveSuccess
+| UpdateSuccess;

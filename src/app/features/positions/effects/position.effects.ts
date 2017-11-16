@@ -88,7 +88,12 @@ export class PositionTableEffects {
                 
                     return this._service.save(payload)
                     .pipe(
-                        map((response) =>  new positionActions.SaveSuccess(response.status) ),
+                        mergeMap((response) => {
+                            return [
+                                new positionActions.SaveSuccess(response.status),
+                                new positionActions.Load()
+                            ];
+                        }),
                         catchError((err) => of( new positionActions.LoadError(err) )),
                         tap(() => this._loader.closeDialog())
                     )
@@ -97,7 +102,12 @@ export class PositionTableEffects {
     
                     return this._service.update(payload)
                         .pipe(
-                            map((response) => new positionActions.SaveSuccess(response.status) ),
+                            mergeMap((response) => {
+                                return [   
+                                    new positionActions.SaveSuccess(response.status),
+                                    new positionActions.UpdateSuccess({ id: payload.positionId, updatedData : payload })
+                                ];
+                            }),
                             catchError((err) => of( new positionActions.LoadError(err) )),
                             tap(() => this._loader.closeDialog())
                         )
@@ -116,12 +126,7 @@ export class PositionTableEffects {
                        .ofType(positionActions.SAVE_SUCCESS)
                        .pipe(
                             tap(() => { this._toastr.saveSuccess(); }),
-                            mergeMap(() => {
-                                return [
-                                    new positionActions.Load(),
-                                    new positionActions.ClearSelectPosition()
-                                ];
-                            })
+                            map(() =>  new positionActions.ClearSelectPosition())
                        );
                        
     /**
