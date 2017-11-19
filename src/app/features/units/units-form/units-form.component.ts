@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 import { MatDialogRef } from "@angular/material";
@@ -14,8 +14,7 @@ import { Units } from "./../models/units.model";
 
 @Component({
   selector: 'app-units-form',
-  templateUrl: './units-form.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  templateUrl: './units-form.component.html'
 })
 export class UnitsFormComponent implements OnInit, OnDestroy {
 

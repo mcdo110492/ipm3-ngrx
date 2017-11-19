@@ -15,6 +15,7 @@ const routes: Routes = [
   { path: 'employment/status', loadChildren: 'app/features/employment-status/employment-status.module#EmploymentStatusModule', data : { animation : 'employmentStatus' },canLoad :[AuthenticationGuard] },
   { path: 'employee/status', loadChildren: 'app/features/employee-status/employee-status.module#EmployeeStatusModule', data : { animation : 'employeeStatus' },canLoad :[AuthenticationGuard] },
   { path: 'units', loadChildren: 'app/features/units/units.module#UnitsModule', data : { animation : 'units' },canLoad :[AuthenticationGuard] },
+  { path: 'collection/schedules', loadChildren: 'app/features/collection-schedules/collection-schedules.module#CollectionSchedulesModule', data : { animation : 'collection/schedules' },canLoad :[AuthenticationGuard] },
 
 
   { path: 'employee/register', loadChildren: 'app/features/employee-register/employee-register.module#EmployeeRegisterModule', data : { animation : 'employee' },canLoad :[AuthenticationGuard] },

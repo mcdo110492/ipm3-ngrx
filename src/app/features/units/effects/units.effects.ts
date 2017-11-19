@@ -15,8 +15,6 @@ import { UnitsService } from "./../units.service";
 import { LoaderSpinnerService } from "./../../../main-content/services/loader-spinner/loader-spinner.service";
 import { ToastrService } from "./../../../main-content/services/toastr.service";
 
-import * as fromMasterData from './../../../master-data/reducers/master-data.reducers';
-import * as masterDataActions from './../../../master-data/actions/master-data.actions';
 
 @Injectable()
 export class UnitsEffects {
@@ -24,7 +22,6 @@ export class UnitsEffects {
     constructor(private _service : UnitsService, 
                 private _actions$ : Actions, 
                 private _store$ : Store<fromRootUnits.State>, 
-                private _masterStore$ : Store<fromMasterData.State>,
                 private _loader : LoaderSpinnerService, 
                 private _toastr : ToastrService){}
 
