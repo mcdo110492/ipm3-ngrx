@@ -24,17 +24,24 @@ export class EmploymentStatusEffects {
         loadData$ : Observable<Action> = this._actions$
         .ofType(employmentStatusAction.LOAD)
         .pipe(
+            tap(() => new employmentStatusAction.IsLoading(true)),
             withLatestFrom(
                 this._store$.select(fromRootEmploymentStatus.getPageIndex),
                 this._store$.select(fromRootEmploymentStatus.getPageSize),
                 this._store$.select(fromRootEmploymentStatus.getSortField),
                 this._store$.select(fromRootEmploymentStatus.getSortDirection),
-                this._store$.select(fromRootEmploymentStatus.getSearchQuery)
+                this._store$.select(fromRootEmploymentStatus.getSearchQuery),
+                this._store$.select(fromRootEmploymentStatus.getIsLoaded)
             ),
-            switchMap( ([action, pageIndex, pageSize, sortField, sortDirection,searchQuery]) => {
+            switchMap( ([action, pageIndex, pageSize, sortField, sortDirection,searchQuery, isLoaded]) => {
+
+                if(isLoaded){
+                    return of( new employmentStatusAction.IsLoading(false) );
+                }
 
                 return this._service.loadData(pageIndex,pageSize,sortField,sortDirection,searchQuery)
                 .pipe(
+                    tap(() => new employmentStatusAction.IsLoading(false)),
                     map((response) => new employmentStatusAction.LoadSuccess(response.data,response.count) ),
                     catchError(err => of(new employmentStatusAction.LoadError(err) ))
                 )
@@ -47,6 +54,7 @@ export class EmploymentStatusEffects {
         search$ : Observable<Action> = this._actions$
         .ofType(employmentStatusAction.SEARCH)
         .pipe(
+            tap(() => new employmentStatusAction.IsLoading(true)),
             withLatestFrom(
                 this._store$.select(fromRootEmploymentStatus.getPageIndex),
                 this._store$.select(fromRootEmploymentStatus.getPageSize),
@@ -59,6 +67,7 @@ export class EmploymentStatusEffects {
             switchMap( ([action, pageIndex, pageSize, sortField, sortDirection,searchQuery]) => {
                 return this._service.loadData(pageIndex,pageSize,sortField,sortDirection,searchQuery)
                 .pipe(
+                    tap(() => new employmentStatusAction.IsLoading(false)),
                     map((response) => new employmentStatusAction.LoadSuccess(response.data,response.count) ),
                     catchError(err => of(new employmentStatusAction.LoadError(err) ))
                 )
@@ -80,6 +89,7 @@ export class EmploymentStatusEffects {
                     .pipe(
                         mergeMap((response) => {
                             return [
+                                new employmentStatusAction.CreateEmploymentStatus(),
                                 new employmentStatusAction.SaveSuccess(response.status),
                                 new employmentStatusAction.Load()
                             ];

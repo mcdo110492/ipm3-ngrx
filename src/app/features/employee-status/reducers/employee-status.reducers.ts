@@ -12,6 +12,7 @@ export interface State {
  selectedCollection             : EmployeeStatus; 
  error                          : any;  
  isLoading                      : boolean;
+ isLoaded                       : boolean;
 }
 
 export const initialState: State = {
@@ -24,30 +25,31 @@ export const initialState: State = {
     collections                 : null,
     selectedCollection          : null,
     error                       : null,
-    isLoading                   : false
+    isLoading                   : false,
+    isLoaded                    : false
 }
 
 
 export function reducer(state: State = initialState, action: employeeStatusActions.Actions): State {
     switch (action.type) {
 
-        case employeeStatusActions.LOAD : {
-            return { ...state, isLoading : true };
+        case employeeStatusActions.IS_LOADING : {
+            return { ...state, isLoading : action.payload };
         }
 
         case employeeStatusActions.LOAD_SUCCESS : {
 
-            return { ...state, collections : action.payload, pageLength : action.count, isLoading : false };
+            return { ...state, collections : action.payload, pageLength : action.count, isLoaded: true };
         }
 
         case employeeStatusActions.LOAD_ERROR : {
             
-            return { ...state, error : action.payload, isLoading: false};
+            return { ...state, error : action.payload, isLoaded: false};
         }
 
         case employeeStatusActions.SEARCH : {
 
-            return { ...state, searchQuery : action.payload, isLoading : true };
+            return { ...state, searchQuery : action.payload };
 
         }
 
@@ -123,3 +125,5 @@ export const getError = (state: State) => state.error;
 export const getIsLoading = (state : State) => state.isLoading;
 
 export const getSelectedCollection = (state : State) => state.selectedCollection;
+
+export const getIsLoaded = (state : State) => state.isLoaded;

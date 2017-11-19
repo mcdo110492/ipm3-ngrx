@@ -39,3 +39,5 @@ export const getError = createSelector(getPositionState, fromPosition.getError);
 export const getIsLoading = createSelector(getPositionState, fromPosition.getIsLoading);
 
 export const getSelectedPosition = createSelector(getPositionState, fromPosition.getSelectedPosition);
+
+export const getIsLoaded = createSelector(getPositionState, fromPosition.getIsLoaded);

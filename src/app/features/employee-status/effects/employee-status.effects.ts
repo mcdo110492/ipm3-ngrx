@@ -24,16 +24,24 @@ export class EmploymentStatusEffects {
         loadData$ : Observable<Action> = this._actions$
         .ofType(employeeStatusAction.LOAD)
         .pipe(
+            tap(() => new employeeStatusAction.IsLoading(true)),
             withLatestFrom(
                 this._store$.select(fromRootEmployeeStatus.getPageIndex),
                 this._store$.select(fromRootEmployeeStatus.getPageSize),
                 this._store$.select(fromRootEmployeeStatus.getSortField),
                 this._store$.select(fromRootEmployeeStatus.getSortDirection),
-                this._store$.select(fromRootEmployeeStatus.getSearchQuery)
+                this._store$.select(fromRootEmployeeStatus.getSearchQuery),
+                this._store$.select(fromRootEmployeeStatus.getIsLoaded)
             ),
-            switchMap( ([action, pageIndex, pageSize, sortField, sortDirection,searchQuery]) => {
+            switchMap( ([action, pageIndex, pageSize, sortField, sortDirection,searchQuery, IsLoaded]) => {
+
+                if(IsLoaded){
+                    return of(new employeeStatusAction.IsLoading(false));
+                }
+
                 return this._service.loadData(pageIndex,pageSize,sortField,sortDirection,searchQuery)
                 .pipe(
+                    tap(() => new employeeStatusAction.IsLoading(false)),
                     map((response) => new employeeStatusAction.LoadSuccess(response.data,response.count) ),
                     catchError(err => of(new employeeStatusAction.LoadError(err) ))
                 )
@@ -45,6 +53,7 @@ export class EmploymentStatusEffects {
         search$ : Observable<Action> = this._actions$
         .ofType(employeeStatusAction.SEARCH)
         .pipe(
+            tap(() => new employeeStatusAction.IsLoading(true)),
             withLatestFrom(
                 this._store$.select(fromRootEmployeeStatus.getPageIndex),
                 this._store$.select(fromRootEmployeeStatus.getPageSize),
@@ -57,6 +66,7 @@ export class EmploymentStatusEffects {
             switchMap( ([action, pageIndex, pageSize, sortField, sortDirection,searchQuery]) => {
                 return this._service.loadData(pageIndex,pageSize,sortField,sortDirection,searchQuery)
                 .pipe(
+                    tap(() => new employeeStatusAction.IsLoading(false)),
                     map((response) => new employeeStatusAction.LoadSuccess(response.data,response.count) ),
                     catchError(err => of(new employeeStatusAction.LoadError(err) ))
                 )
@@ -77,6 +87,7 @@ export class EmploymentStatusEffects {
                     .pipe(
                         mergeMap((response) => {
                             return [
+                                new employeeStatusAction.CreateEmployeeStatus(),
                                 new employeeStatusAction.SaveSuccess(response.status),
                                 new employeeStatusAction.Load()
                             ];

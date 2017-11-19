@@ -2,6 +2,7 @@ import { Action } from '@ngrx/store';
 import { Position } from "./../models/positions.model";
 
 export const LOAD                   =   '[POSITION] Load';
+export const IS_LOADING             =   '[POSITION] IsLoading';
 export const LOAD_SUCCESS           =   '[POSITION] LoadSuccess';
 export const LOAD_ERROR             =   '[POSITION] LoadError';
 export const SEARCH                 =   '[POSITION] Search';
@@ -9,6 +10,7 @@ export const PAGINATE               =   '[POSITION] Paginate';
 export const SORT                   =   '[POSITION] Sort';
 export const SELECT_POSITION        =   '[POSITION] SelectPosition';
 export const CLEAR_SELECT_POSITION  =   '[POSITION] ClearSelectPosition';
+export const CREATE_POSITION        =   '[POSITION] CreatePosition';
 export const SAVE_POSITION          =   '[POSITION] SavePosition';
 export const SAVE_SUCCESS           =   '[POSITION] SaveSuccess';
 export const UPDATE_SUCCESS         =   '[POSITION] UpdateSuccess';
@@ -17,6 +19,12 @@ export const UPDATE_SUCCESS         =   '[POSITION] UpdateSuccess';
 export class Load implements Action {
   readonly type = LOAD;
 
+}
+
+export class IsLoading implements Action {
+    readonly type = IS_LOADING;
+
+    constructor(public payload : boolean){}
 }
 
 export class LoadSuccess implements Action {
@@ -59,6 +67,10 @@ export class ClearSelectPosition implements Action {
     readonly type = CLEAR_SELECT_POSITION;
 }
 
+export class CreatePosition implements Action {
+    readonly type = CREATE_POSITION;
+}
+
 export class SavePosition implements Action {
     readonly type = SAVE_POSITION;
 
@@ -86,6 +98,7 @@ export class UpdateSuccess implements Action {
  */
 export type Actions
 = Load
+| IsLoading
 | LoadSuccess
 | LoadError
 | Search
@@ -93,6 +106,7 @@ export type Actions
 | Sort
 | SelectPosition
 | ClearSelectPosition
+| CreatePosition
 | SavePosition
 | SaveSuccess
 | UpdateSuccess;

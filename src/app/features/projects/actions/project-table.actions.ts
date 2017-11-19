@@ -2,6 +2,7 @@ import { Action } from '@ngrx/store';
 import { Projects } from "./../models/projects.model";
 
 export const LOAD                   =   '[PROJECTS] Load';
+export const IS_LOADING             =   '[PROJECTS] IsLoading';
 export const LOAD_SUCCESS           =   '[PROJECTS] LoadSuccess';
 export const LOAD_ERROR             =   '[PROJECTS] LoadError';
 export const SEARCH                 =   '[PROJECTS] Search';
@@ -9,6 +10,7 @@ export const PAGINATE               =   '[PROJECTS] Paginate';
 export const SORT                   =   '[PROJECTS] Sort';
 export const SELECT_PROJECT         =   '[PROJECTS] SelectProject';
 export const CLEAR_SELECT_PROJECT   =   '[PROJECTS] ClearSelectProject';
+export const CREATE_PROJECT         =   '[PROJECTS] CreateProject';
 export const SAVE_PROJECT           =   '[PROJECTS] SaveProject';
 export const SAVE_SUCCESS           =   '[PROJECTS] SaveSuccess';
 export const UPDATE_SUCCESS         =   '[PROJECTS] UpdateSuccess';
@@ -17,6 +19,12 @@ export const UPDATE_SUCCESS         =   '[PROJECTS] UpdateSuccess';
 export class Load implements Action {
   readonly type = LOAD;
 
+}
+
+export class IsLoading implements Action {
+    readonly type = IS_LOADING;
+
+    constructor(public payload : boolean){}
 }
 
 export class LoadSuccess implements Action {
@@ -59,6 +67,10 @@ export class ClearSelectProject implements Action {
     readonly type = CLEAR_SELECT_PROJECT;
 }
 
+export class CreateProject implements Action {
+    readonly type = CREATE_PROJECT;
+}
+
 export class SaveProject implements Action {
     readonly type = SAVE_PROJECT;
 
@@ -84,6 +96,7 @@ export class UpdateSuccess implements Action {
  */
 export type Actions
 = Load
+| IsLoading
 | LoadSuccess
 | LoadError
 | Search
@@ -91,6 +104,7 @@ export type Actions
 | Sort
 | SelectProject
 | ClearSelectProject
+| CreateProject
 | SaveProject
 | SaveSuccess
 | UpdateSuccess;

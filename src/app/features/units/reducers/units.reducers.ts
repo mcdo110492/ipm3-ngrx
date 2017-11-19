@@ -1,5 +1,5 @@
-import { Position } from "./../models/positions.model";
-import * as positionActions from './../actions/position.actions';
+import { Units } from "./../models/units.model";
+import * as units from './../actions/units.actions';
 
 export interface State {
  pageLength     : number;
@@ -8,8 +8,8 @@ export interface State {
  sortField      : string;
  sortDirection  : string;
  searchQuery    : string;
- collections    : Position[];
- selectedPosition: Position; 
+ collections    : Units[];
+ selectedUnits  : Units; 
  error          : any;  
  isLoading      : boolean;
  isLoaded       : boolean;
@@ -19,69 +19,71 @@ export const initialState: State = {
     pageLength      : 0,
     pageSize        : 5,
     pageIndex       : 0,
-    sortField       : 'positionName',
+    sortField       : 'unitCode',
     sortDirection   : 'asc',
     searchQuery     : '',  
     collections     : null,
-    selectedPosition : null,
+    selectedUnits   : null,
     error           : null,
     isLoading       : false,
     isLoaded        : false
 }
 
 
-export function reducer(state: State = initialState, action: positionActions.Actions): State {
+export function reducer(state: State = initialState, action: units.Actions): State {
     switch (action.type) {
 
-        case positionActions.IS_LOADING : {
+        case units.IS_LOADING : {
+
             return { ...state, isLoading : action.payload };
+
         }
 
-        case positionActions.LOAD_SUCCESS : {
+        case units.LOAD_SUCCESS : {
 
-            return { ...state, collections : action.payload, pageLength : action.count, isLoaded: true};
+            return { ...state, collections : action.payload, pageLength : action.count, isLoaded : true };
         }
 
-        case positionActions.LOAD_ERROR : {
+        case units.LOAD_ERROR : {
             
-            return { ...state, error : action.payload, isLoaded : false};
+            return { ...state, error : action.payload,  isLoaded : false};
         }
 
-        case positionActions.SEARCH : {
+        case units.SEARCH : {
 
-            return { ...state, searchQuery : action.payload};
+            return { ...state, searchQuery : action.payload };
 
         }
 
-        case positionActions.PAGINATE : {
+        case units.PAGINATE : {
 
             return { ...state, pageSize : action.pageSize, pageIndex : action.pageIndex };
 
         }
 
-        case positionActions.SORT : {
+        case units.SORT : {
 
             return { ...state, sortField : action.sortField, sortDirection : action.sortDirection };
 
         }
 
-        case positionActions.SELECT_POSITION : {
+        case units.SELECT_UNITS : {
 
-            return { ...state, selectedPosition : action.payload };
-
-        }
-
-        case positionActions.CREATE_POSITION : {
-
-            return { ...state, isLoaded : false };
+            return { ...state, selectedUnits : action.payload };
 
         }
 
-        case positionActions.UPDATE_SUCCESS : {
-            
+        case units.CREATE_UNITS : {
+
+            return {...state, isLoaded : false};
+
+        }
+
+        case units.UPDATE_SUCCESS : {
+
             const updatedData = state.collections.map((item) => {
 
-                if(item.positionId == action.payload.id){
+                if(item.unitId == action.payload.id){
                     return {
                         ...item,
                         ...action.payload.updatedData
@@ -92,11 +94,12 @@ export function reducer(state: State = initialState, action: positionActions.Act
             });
 
             return { ...state, collections: updatedData };
+
         }
 
-        case positionActions.CLEAR_SELECT_POSITION : {
+        case units.CLEAR_SELECT_UNITS : {
 
-            return { ...state, selectedPosition : null };
+            return { ...state, selectedUnits : null };
         }
 
 
@@ -129,6 +132,6 @@ export const getError = (state: State) => state.error;
 
 export const getIsLoading = (state : State) => state.isLoading;
 
-export const getSelectedPosition = (state : State) => state.selectedPosition;
+export const getSelectedUnits = (state : State) => state.selectedUnits;
 
 export const getIsLoaded = (state : State) => state.isLoaded;

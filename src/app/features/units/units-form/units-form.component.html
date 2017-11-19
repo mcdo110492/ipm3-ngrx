@@ -1,0 +1,39 @@
+
+<form [formGroup]="unitsForm">
+  
+      <h2 align="center" mat-dialog-title>Project</h2>
+      <mat-dialog-content>
+  
+          <mat-form-field>
+          <input matInput #code  placeholder="Code" maxlength="20" formControlName="unitCode" appUniqueValidators keyUrl="units/verify" keyField="unitCode" keyId="{{ getCurrentId() }}" required>
+          <mat-hint align="end">{{code.value?.length || 0}}/20</mat-hint>
+          <mat-error *ngIf="unitsForm.get('unitCode').hasError('asyncInvalid')">
+              Unit Code must be unique
+          </mat-error>
+          <mat-error *ngIf="unitsForm.get('unitCode').hasError('required')">
+              Unit Code is required
+          </mat-error>
+          </mat-form-field>
+  
+          <mat-form-field>
+              <input matInput #name maxlength="150" formControlName="unitName" placeholder="Name" appUniqueValidators keyUrl="units/verify" keyField="unitName" keyId="{{ getCurrentId() }}"  required>
+              <mat-hint align="end">{{name.value?.length || 0}}/150</mat-hint>
+              <mat-error *ngIf="unitsForm.get('unitName').hasError('asyncInvalid')">
+                Unit Name must be unique
+              </mat-error>
+              <mat-error *ngIf="unitsForm.get('unitName').hasError('required')">
+                Unit Name is required
+              </mat-error>
+          </mat-form-field>
+      </mat-dialog-content>
+  
+      <mat-dialog-actions align="end">
+          
+          <button mat-raised-button [disabled]="unitsForm.invalid || unitsForm.pristine" (click)="submitForm()" color="accent">Save</button>
+          <button mat-raised-button (click)="closeDialog()" color="warn">Cancel</button>
+      
+      </mat-dialog-actions>
+  
+  </form>
+  
+  

@@ -29,16 +29,24 @@ export class PositionTableEffects {
         loadData$ : Observable<Action> = this._actions$
         .ofType(positionActions.LOAD)
         .pipe(
+            tap(() => new positionActions.IsLoading(true)),
             withLatestFrom(
                 this._store$.select(fromRootPosition.getPageIndex),
                 this._store$.select(fromRootPosition.getPageSize),
                 this._store$.select(fromRootPosition.getSortField),
                 this._store$.select(fromRootPosition.getSortDirection),
-                this._store$.select(fromRootPosition.getSearchQuery)
+                this._store$.select(fromRootPosition.getSearchQuery),
+                this._store$.select(fromRootPosition.getIsLoaded)
             ),
-            switchMap( ([action, pageIndex, pageSize, sortField, sortDirection,searchQuery]) => {
+            switchMap( ([action, pageIndex, pageSize, sortField, sortDirection,searchQuery, IsLoaded]) => {
+
+                if(IsLoaded){
+                    return of(new positionActions.IsLoading(false));
+                }
+
                 return this._service.loadData(pageIndex,pageSize,sortField,sortDirection,searchQuery)
                 .pipe(
+                    tap(() => new positionActions.IsLoading(false)),
                     map((response) => new positionActions.LoadSuccess(response.data,response.count) ),
                     catchError(err => of(new positionActions.LoadError(err) ))
                 )
@@ -54,7 +62,7 @@ export class PositionTableEffects {
         search$ : Observable<Action> = this._actions$
         .ofType(positionActions.SEARCH)
         .pipe(
-
+            tap(() => new positionActions.IsLoading(true)),
             withLatestFrom(
                 this._store$.select(fromRootPosition.getPageIndex),
                 this._store$.select(fromRootPosition.getPageSize),
@@ -67,6 +75,7 @@ export class PositionTableEffects {
             switchMap( ([action, pageIndex, pageSize, sortField, sortDirection,searchQuery]) => {
                 return this._service.loadData(pageIndex,pageSize,sortField,sortDirection,searchQuery)
                     .pipe(
+                        tap(() => new positionActions.IsLoading(false)),
                         map((response) => new positionActions.LoadSuccess(response.data,response.count) ),
                         catchError(err => of(new positionActions.LoadError(err) ))
                     )
@@ -90,6 +99,7 @@ export class PositionTableEffects {
                     .pipe(
                         mergeMap((response) => {
                             return [
+                                new positionActions.CreatePosition(),
                                 new positionActions.SaveSuccess(response.status),
                                 new positionActions.Load()
                             ];
