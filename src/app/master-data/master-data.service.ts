@@ -1,33 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 
-import { Projects } from "./../features/projects/models/projects.model";
-import { Position } from "./../features/positions/models/positions.model";
-import { EmploymentStatus } from "./../features/employment-status/models/employment-status.model";
-import { EmployeeStatus } from "./../features/employee-status/models/employee-status.model";
-
 import { environment } from "./../../environments/environment";
 
-export interface ProjectResponse {
-  status : number;
-  data   : Projects[];
-}
-
-export interface PositionResponse {
-  status : number;
-  data   : Position[];
-}
-
-export interface EmploymentStatusResponse {
-  status : number;
-  data   : EmploymentStatus[];
-}
-
-export interface EmployeeStatusResponse {
-  status : number;
-  data   : EmployeeStatus[];
-}
-
+import { ProjectResponse, PositionResponse, EmployeeStatusResponse, EmploymentStatusResponse, UnitsResponse } from "./models/master-data.models";
 
 @Injectable()
 export class MasterDataService {
@@ -49,6 +25,10 @@ export class MasterDataService {
 
   getAllEmployeeStatus() {
     return this._http.get<EmployeeStatusResponse>(`${this.restEndPoint}/employeeStatus/all`);
+  }
+
+  getAllUnits() {
+    return this._http.get<UnitsResponse>(`${this.restEndPoint}/units/all`);
   }
 
 }
