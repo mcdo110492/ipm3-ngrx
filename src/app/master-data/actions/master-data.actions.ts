@@ -4,6 +4,7 @@ import { Projects } from "./../../features/projects/models/projects.model";
 import { Position } from "./../../features/positions/models/positions.model";
 import { EmploymentStatus } from "./../../features/employment-status/models/employment-status.model";
 import { EmployeeStatus } from "./../../features/employee-status/models/employee-status.model";
+import { Units } from "../../features/units/models/units.model";
 
 export const GET_ALL_PROJECTS                       = '[MASTER_DATA] GetAllProjects';
 export const GET_ALL_PROJECTS_SUCCESS               = '[MASTER_DATA] GetAllProjectsSuccess';
@@ -15,6 +16,8 @@ export const GET_ALL_EMPLOYMENT_STATUS              = '[MASTER_DATA] GetAllEmplo
 export const GET_ALL_EMPLOYMENT_STATUS_SUCCESS      = '[MASTER_DATA] GetAllEmploymentStatusSuccess';
 export const GET_EMPLOYEE_STATUS                    = '[MASTER_DATA] GetAllEmployeeStatus';
 export const GET_EMPLOYEE_STATUS_SUCCESS            = '[MASTER_DATA] GetAllEmployeeStatusSuccess';
+export const GET_ALL_UNITS                          = '[MASTER_DATA] GetAllUnits';
+export const GET_ALL_UNITS_SUCCESS                  = '[MASTER_DATA] GetAllUnitsSuccess';
 export const MASTER_DATA_ERROR                      = '[MASTER_DATA] MasterDataError';
 
 
@@ -70,6 +73,16 @@ export class GetAllEmployeeStatusSuccess implements Action {
     constructor(public payload : EmployeeStatus[]){}
 }
 
+export class GetAllUnits implements Action {
+    readonly type = GET_ALL_UNITS;
+}
+
+export class GetAllUnitsSuccess implements Action {
+    readonly type = GET_ALL_UNITS_SUCCESS;
+
+    constructor(public payload : Units[]){}
+}
+
 export class MasterDataError implements Action {
     readonly type = MASTER_DATA_ERROR;
 
@@ -91,4 +104,6 @@ export type Actions
 | GetAllEmploymentStatusSuccess
 | GetAllEmployeeStatus
 | GetAllEmployeeStatusSuccess
+| GetAllUnits
+| GetAllUnitsSuccess
 | MasterDataError;

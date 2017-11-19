@@ -5,14 +5,16 @@ import { Projects } from "./../../features/projects/models/projects.model";
 import { Position } from "./../../features/positions/models/positions.model";
 import { EmploymentStatus } from "./../../features/employment-status/models/employment-status.model";
 import { EmployeeStatus } from "./../../features/employee-status/models/employee-status.model";
+import { Units } from "../../features/units/models/units.model";
 
 
 export interface State {
-    projects            : Projects[],
-    positions           : Position[],
-    employmentStatus    : EmploymentStatus[],
-    employeeStatus      : EmployeeStatus[],
-    error               : any
+    projects            : Projects[];
+    positions           : Position[];
+    employmentStatus    : EmploymentStatus[];
+    employeeStatus      : EmployeeStatus[];
+    units               : Units[];
+    error               : any;
 }
 
 export const initialState: State = {
@@ -20,6 +22,7 @@ export const initialState: State = {
     positions           :   [],
     employeeStatus      :   [],
     employmentStatus    :   [],
+    units               :   [],
     error               :   null
 }
 
@@ -75,6 +78,11 @@ export function reducer(state: State = initialState, action: masterData.Actions)
 
         }
 
+        case masterData.GET_ALL_UNITS_SUCCESS : {
+            
+            return { ...state, units: action.payload };
+        }
+
         case masterData.MASTER_DATA_ERROR : {
             return { ...state, error : action.payload};
         }
@@ -100,5 +108,7 @@ export const getPositions = createSelector(getState, (state: State) => state.pos
 export const getEmploymentStatus = createSelector(getState, (state : State) => state.employmentStatus);
 
 export const getEmployeeStatus = createSelector(getState, (state : State) => state.employeeStatus);
+
+export const getUnits       = createSelector(getState, (state : State) => state.units);
 
 

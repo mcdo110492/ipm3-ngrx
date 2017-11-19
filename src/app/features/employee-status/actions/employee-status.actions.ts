@@ -4,6 +4,7 @@ import { UPDATE } from '@ngrx/store/src/reducer_manager';
 import { UpdateProject } from '../../../master-data/actions/master-data.actions';
 
 export const LOAD                               =   '[EMPLOYEESTATUS] Load';
+export const IS_LOADING                         =   '[EMPLOYEESTATUS] IsLoading';
 export const LOAD_SUCCESS                       =   '[EMPLOYEESTATUS] LoadSuccess';
 export const LOAD_ERROR                         =   '[EMPLOYEESTATUS] LoadError';
 export const SEARCH                             =   '[EMPLOYEESTATUS] Search';
@@ -11,6 +12,7 @@ export const PAGINATE                           =   '[EMPLOYEESTATUS] Paginate';
 export const SORT                               =   '[EMPLOYEESTATUS] Sort';
 export const SELECT_EMPLOYEE_STATUS             =   '[EMPLOYEESTATUS] SelectEmployeeStatus';
 export const CLEAR_SELECT_EMPLOYEE_STATUS       =   '[EMPLOYEESTATUS] ClearSelectEmployeeStatus';
+export const CREATE_EMPLOYEE_STATUS             =   '[EMPLOYEESTATUS] CreateEmployeeStatus';
 export const SAVE_EMPLOYEE_STATUS               =   '[EMPLOYEESTATUS] SaveEmployeeStatus';
 export const SAVE_SUCCESS                       =   '[EMPLOYEESTATUS] SaveSuccess';
 export const UPDATE_SUCCESS                     =   '[EMPLOYEESTATUS] UpdateSuccess';
@@ -19,6 +21,12 @@ export const UPDATE_SUCCESS                     =   '[EMPLOYEESTATUS] UpdateSucc
 export class Load implements Action {
   readonly type = LOAD;
 
+}
+
+export class IsLoading implements Action {
+    readonly type = IS_LOADING;
+
+    constructor(public payload : boolean){}
 }
 
 export class LoadSuccess implements Action {
@@ -61,6 +69,10 @@ export class ClearSelectEmployeeStatus implements Action {
     readonly type = CLEAR_SELECT_EMPLOYEE_STATUS;
 }
 
+export class CreateEmployeeStatus implements Action {
+    readonly type = CREATE_EMPLOYEE_STATUS;
+}
+
 export class SaveEmployeeStatus implements Action {
     readonly type = SAVE_EMPLOYEE_STATUS;
 
@@ -86,6 +98,7 @@ export class UpdateSuccess implements Action {
  */
 export type Actions
 = Load
+| IsLoading
 | LoadSuccess
 | LoadError
 | Search
@@ -93,6 +106,7 @@ export type Actions
 | Sort
 | SelectEmployeeStatus
 | ClearSelectEmployeeStatus
+| CreateEmployeeStatus
 | SaveEmployeeStatus
 | SaveSuccess
 | UpdateSuccess;

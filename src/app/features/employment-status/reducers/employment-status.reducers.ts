@@ -12,6 +12,7 @@ export interface State {
  selectedEmploymentStatus       : EmploymentStatus; 
  error                          : any;  
  isLoading                      : boolean;
+ isLoaded                       : boolean;
 }
 
 export const initialState: State = {
@@ -24,30 +25,31 @@ export const initialState: State = {
     collections                 : null,
     selectedEmploymentStatus    : null,
     error                       : null,
-    isLoading                   : false
+    isLoading                   : false,
+    isLoaded                    : false
 }
 
 
 export function reducer(state: State = initialState, action: employmentStatusActions.Actions): State {
     switch (action.type) {
 
-        case employmentStatusActions.LOAD : {
-            return { ...state, isLoading : true };
+        case employmentStatusActions.IS_LOADING : {
+            return { ...state, isLoading : action.payload };
         }
 
         case employmentStatusActions.LOAD_SUCCESS : {
 
-            return { ...state, collections : action.payload, pageLength : action.count, isLoading : false };
+            return { ...state, collections : action.payload, pageLength : action.count, isLoaded : true };
         }
 
         case employmentStatusActions.LOAD_ERROR : {
             
-            return { ...state, error : action.payload, isLoading: false};
+            return { ...state, error : action.payload, isLoaded: false};
         }
 
         case employmentStatusActions.SEARCH : {
 
-            return { ...state, searchQuery : action.payload, isLoading : true };
+            return { ...state, searchQuery : action.payload };
 
         }
 
@@ -66,6 +68,12 @@ export function reducer(state: State = initialState, action: employmentStatusAct
         case employmentStatusActions.SELECT_EMPLOYMENT_STATUS : {
 
             return { ...state, selectedEmploymentStatus : action.payload };
+
+        }
+
+        case employmentStatusActions.CREATE_EMPLOYMENT_STATUS : {
+
+            return { ...state, isLoaded : false };
 
         }
 
@@ -121,3 +129,5 @@ export const getError = (state: State) => state.error;
 export const getIsLoading = (state : State) => state.isLoading;
 
 export const getSelectedEmploymentStatus = (state : State) => state.selectedEmploymentStatus;
+
+export const getIsLoaded = (state : State) => state.isLoaded;

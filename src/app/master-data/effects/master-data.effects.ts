@@ -30,7 +30,7 @@ export class MasterDataEffects {
                     catchError(err => of(new masterDataActions.MasterDataError(err) ))
                 )              
             })
-        )
+        );
         
 
     @Effect()
@@ -44,7 +44,7 @@ export class MasterDataEffects {
                     catchError(err => of(new masterDataActions.MasterDataError(err) ))
                 )
             })
-        )
+        );
 
     @Effect()
         loadEmploymentStatus$ : Observable<Action> = this._actions$
@@ -57,7 +57,7 @@ export class MasterDataEffects {
                     catchError(err => of(new masterDataActions.MasterDataError(err) ))
                 )
             })
-        )
+        );
         
 
     @Effect()
@@ -71,8 +71,20 @@ export class MasterDataEffects {
                     catchError(err => of(new masterDataActions.MasterDataError(err) ))
                 )
             })
-        )
-
+        );
+    
+    @Effect()
+        loadUnits$ : Observable<Action> = this._actions$
+        .ofType(masterDataActions.GET_ALL_UNITS)
+        .pipe(
+            switchMap(() => {
+                return this._service.getAllUnits()
+                .pipe(
+                    map((response) => new masterDataActions.GetAllUnitsSuccess(response.data)),
+                    catchError(err => of(new masterDataActions.MasterDataError(err)))
+                )
+            })
+        );
 
                        
 
@@ -82,6 +94,6 @@ export class MasterDataEffects {
                  .pipe(
                     map((action) => action.payload),
                     tap((payload) => { this._toastr.errorHandler(payload)})
-                 )
+                 );
                  
 }

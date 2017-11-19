@@ -12,6 +12,7 @@ export interface State {
  selectedProject: Projects; 
  error          : any;  
  isLoading      : boolean;
+ isLoaded       : boolean;
 }
 
 export const initialState: State = {
@@ -24,30 +25,33 @@ export const initialState: State = {
     collections     : null,
     selectedProject : null,
     error           : null,
-    isLoading       : false
+    isLoading       : false,
+    isLoaded        : false
 }
 
 
 export function reducer(state: State = initialState, action: projectActions.Actions): State {
     switch (action.type) {
 
-        case projectActions.LOAD : {
-            return { ...state, isLoading : true };
+        case projectActions.IS_LOADING : {
+
+            return { ...state, isLoading : action.payload };
+
         }
 
         case projectActions.LOAD_SUCCESS : {
 
-            return { ...state, collections : action.payload, pageLength : action.count, isLoading : false };
+            return { ...state, collections : action.payload, pageLength : action.count, isLoaded : true };
         }
 
         case projectActions.LOAD_ERROR : {
             
-            return { ...state, error : action.payload, isLoading: false};
+            return { ...state, error : action.payload,  isLoaded : false};
         }
 
         case projectActions.SEARCH : {
 
-            return { ...state, searchQuery : action.payload, isLoading : true };
+            return { ...state, searchQuery : action.payload };
 
         }
 
@@ -67,6 +71,12 @@ export function reducer(state: State = initialState, action: projectActions.Acti
 
             return { ...state, selectedProject : action.payload };
 
+        }
+
+        case projectActions.CREATE_PROJECT : {
+
+            return { ...state, isLoaded: false };
+            
         }
 
         case projectActions.UPDATE_SUCCESS : {
@@ -123,3 +133,5 @@ export const getError = (state: State) => state.error;
 export const getIsLoading = (state : State) => state.isLoading;
 
 export const getSelectedProject = (state : State) => state.selectedProject;
+
+export const getIsLoaded = (state : State) => state.isLoaded;

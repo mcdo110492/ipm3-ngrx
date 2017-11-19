@@ -39,3 +39,5 @@ export const getError = createSelector(getEmploymentStatusState, fromEmploymentS
 export const getIsLoading = createSelector(getEmploymentStatusState, fromEmploymentStatus.getIsLoading);
 
 export const getSelectedEmploymentStatus = createSelector(getEmploymentStatusState, fromEmploymentStatus.getSelectedEmploymentStatus);
+
+export const getIsLoaded = createSelector(getEmploymentStatusState, fromEmploymentStatus.getIsLoaded);

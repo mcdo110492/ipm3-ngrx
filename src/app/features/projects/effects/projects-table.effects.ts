@@ -32,14 +32,21 @@ export class ProjectsTableEffects {
         loadData$ : Observable<Action> = this._actions$
         .ofType(projectActions.LOAD)
         .pipe(
+            tap(() => new projectActions.IsLoading(true) ),
             withLatestFrom(
                 this._store$.select(fromRootProjects.getCollectionPageIndex),
                 this._store$.select(fromRootProjects.getCollectionPageSize),
                 this._store$.select(fromRootProjects.getCollectionSortField),
                 this._store$.select(fromRootProjects.getCollectionSortDirection),
-                this._store$.select(fromRootProjects.getCollectionSearchQuery)
+                this._store$.select(fromRootProjects.getCollectionSearchQuery),
+                this._store$.select(fromRootProjects.getCollectionIsLoaded)
             ),
-            switchMap( ([action, pageIndex, pageSize, sortField, sortDirection,searchQuery]) => {
+            switchMap( ([action, pageIndex, pageSize, sortField, sortDirection,searchQuery,isLoaded]) => {
+
+                if(isLoaded){
+                    return of(new projectActions.IsLoading(false));
+                }
+
                 return this._service.loadData(pageIndex,pageSize,sortField,sortDirection,searchQuery)
                     .pipe(
                         map((response) => new projectActions.LoadSuccess(response.data,response.count) ),
@@ -52,6 +59,7 @@ export class ProjectsTableEffects {
         search$ : Observable<Action> = this._actions$
         .ofType(projectActions.SEARCH)
         .pipe(
+            tap(() => new projectActions.IsLoading(true)),
             withLatestFrom(
                 this._store$.select(fromRootProjects.getCollectionPageIndex),
                 this._store$.select(fromRootProjects.getCollectionPageSize),
@@ -64,6 +72,7 @@ export class ProjectsTableEffects {
             switchMap( ([action, pageIndex, pageSize, sortField, sortDirection,searchQuery]) => {
                 return this._service.loadData(pageIndex,pageSize,sortField,sortDirection,searchQuery)
                     .pipe(
+                        tap(() => new projectActions.IsLoading(false)),
                         map((response) => new projectActions.LoadSuccess(response.data,response.count) ),
                         catchError(err => of(new projectActions.LoadError(err) ))
                     )
@@ -85,6 +94,7 @@ export class ProjectsTableEffects {
                         .pipe(
                             mergeMap((response) => {
                                 return [
+                                    new projectActions.CreateProject(),
                                     new projectActions.SaveSuccess(response.status),
                                     new projectActions.Load(),
                                     new masterDataActions.AddNewProject(response.createdData)         
