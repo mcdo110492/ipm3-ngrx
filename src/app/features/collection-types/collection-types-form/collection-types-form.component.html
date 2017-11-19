@@ -1,0 +1,39 @@
+
+<form [formGroup]="collectionTypesForm">
+  
+      <h2 align="center" mat-dialog-title>Collection Schedule</h2>
+      <mat-dialog-content>
+  
+          <mat-form-field>
+          <input matInput #code  placeholder="Code" maxlength="20" formControlName="collectionTypeCode" appUniqueValidators keyUrl="collection/types/verify" keyField="collectionTypeCode" keyId="{{ getCurrentId() }}" required>
+          <mat-hint align="end">{{code.value?.length || 0}}/20</mat-hint>
+          <mat-error *ngIf="collectionTypesForm.get('collectionTypeCode').hasError('asyncInvalid')">
+              Collection Type Code must be unique
+          </mat-error>
+          <mat-error *ngIf="collectionTypesForm.get('collectionTypeCode').hasError('required')">
+              Collection Type Code is required
+          </mat-error>
+          </mat-form-field>
+  
+          <mat-form-field>
+              <input matInput #name maxlength="150" formControlName="collectionTypeName" placeholder="Name" appUniqueValidators keyUrl="collection/types/verify" keyField="collectionTypeName" keyId="{{ getCurrentId() }}"  required>
+              <mat-hint align="end">{{name.value?.length || 0}}/150</mat-hint>
+              <mat-error *ngIf="collectionTypesForm.get('collectionTypeName').hasError('asyncInvalid')">
+                Collection Type Name must be unique
+              </mat-error>
+              <mat-error *ngIf="collectionTypesForm.get('collectionTypeName').hasError('required')">
+                Collection Type Name is required
+              </mat-error>
+          </mat-form-field>
+      </mat-dialog-content>
+  
+      <mat-dialog-actions align="end">
+          
+          <button mat-raised-button [disabled]="collectionTypesForm.invalid || collectionTypesForm.pristine" (click)="submitForm()" color="accent">Save</button>
+          <button mat-raised-button (click)="closeDialog()" color="warn">Cancel</button>
+      
+      </mat-dialog-actions>
+  
+  </form>
+  
+  
