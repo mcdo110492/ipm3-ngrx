@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: 'units', loadChildren: 'app/features/units/units.module#UnitsModule', data : { animation : 'units' },canLoad :[AuthenticationGuard] },
   { path: 'collection/schedules', loadChildren: 'app/features/collection-schedules/collection-schedules.module#CollectionSchedulesModule', data : { animation : 'collection/schedules' },canLoad :[AuthenticationGuard] },
   { path: 'collection/types', loadChildren: 'app/features/collection-types/collection-types.module#CollectionTypesModule', data : { animation : 'collection/types' },canLoad :[AuthenticationGuard] },
+  { path: 'equipments', loadChildren: 'app/features/equipments/equipments.module#EquipmentsModule', data : { animation : 'equipments' },canLoad :[AuthenticationGuard] },
 
 
   { path: 'employee/register', loadChildren: 'app/features/employee-register/employee-register.module#EmployeeRegisterModule', data : { animation : 'employee' },canLoad :[AuthenticationGuard] },
