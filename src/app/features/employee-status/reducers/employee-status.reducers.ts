@@ -89,6 +89,12 @@ export function reducer(state: State = initialState, action: employeeStatusActio
 
         }
 
+        case employeeStatusActions.CREATE_EMPLOYEE_STATUS : {
+
+            return {...state , isLoaded : false};
+
+        }
+
         case employeeStatusActions.CLEAR_SELECT_EMPLOYEE_STATUS : {
 
             return { ...state, selectedCollection : null };
