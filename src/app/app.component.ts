@@ -72,12 +72,15 @@ export class AppComponent  implements OnInit, OnDestroy {
         // Check of the response is not undefined to avoid errors when accessing the response object
           if(route != undefined){
             //Check if the router state url is /login and dispatch the mainAction.IsLoginPage to hide the toolbar and sidenav for login page layout
-            if(route.state.url === '/login'){
-              this._store.dispatch( new mainAction.IsLoginPage(true) );
+            if(route.state != undefined){
+              if(route.state.url === '/login'){
+                this._store.dispatch( new mainAction.IsLoginPage(true) );
+              }
+              else{
+                this._store.dispatch( new mainAction.IsLoginPage(false) );
+              }
             }
-            else{
-              this._store.dispatch( new mainAction.IsLoginPage(false) );
-            }
+            
           }
       })
 
