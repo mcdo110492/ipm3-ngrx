@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 
 import { environment } from "./../../environments/environment";
 
-import { ProjectResponse, PositionResponse, EmployeeStatusResponse, EmploymentStatusResponse, UnitsResponse } from "./models/master-data.models";
+import { ProjectResponse, PositionResponse, EmployeeStatusResponse, EmploymentStatusResponse, UnitsResponse, EquipmentResponse, CollectionScheduleResponse, CollectionTypeResponse } from "./models/master-data.models";
 
 @Injectable()
 export class MasterDataService {
@@ -29,6 +29,22 @@ export class MasterDataService {
 
   getAllUnits() {
     return this._http.get<UnitsResponse>(`${this.restEndPoint}/units/all`);
+  }
+
+  getAllEquipments(projectId : number) {
+
+    const params = new HttpParams()
+    .set('projectId',projectId.toString());
+    
+    return this._http.get<EquipmentResponse>(`${this.restEndPoint}/equipments/all`, { params: params });
+  }
+
+  getAllCollectionSchedules() {
+    return this._http.get<CollectionScheduleResponse>(`${this.restEndPoint}/collection/schedules/all`);
+  }
+
+  getAllCollectionTypes() {
+    return this._http.get<CollectionTypeResponse>(`${this.restEndPoint}/collection/types/all`);
   }
 
 }

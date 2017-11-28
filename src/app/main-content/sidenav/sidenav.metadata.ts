@@ -20,7 +20,9 @@ export const superAdminLinks : RouterLinks[]  = [
     { title : 'Register Employee' , link : 'employee/register', icon : 'book', isHeader : false },
     { title : 'Employee List' , link : 'employee/list', icon : 'people', isHeader : false },
     { title : 'Equipments' , isHeader : true},
-    { title : 'Equipments' , link : 'equipments', icon : 'directions_bus', isHeader : false }
+    { title : 'Equipments' , link : 'equipments', icon : 'directions_bus', isHeader : false },
+    { title : 'GPS' , isHeader : true},
+    { title : 'Shifts' , link : 'shifts', icon : 'place', isHeader : false },
 ];
 
 

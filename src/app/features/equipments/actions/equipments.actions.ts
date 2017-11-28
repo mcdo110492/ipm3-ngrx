@@ -1,7 +1,6 @@
 
 import { Action } from '@ngrx/store';
 import { Equipment } from "./../models/equipments.model";
-import { CHANGE_STATUS_SUCCESS } from '../../employee-details/employee-account-settings/actions/employee-account-settings.actions';
 
 export const LOAD                                 =   '[EQUIPMENTS] Load';
 export const IS_LOADING                           =   '[EQUIPMENTS] IsLoading';
