@@ -57,13 +57,13 @@ export function reducer(state: State = initialState, action: equipments.Actions)
 
         case equipments.PAGINATE : {
 
-            return { ...state, pageSize : action.pageSize, pageIndex : action.pageIndex };
+            return { ...state, pageSize : action.pageSize, pageIndex : action.pageIndex, isLoaded : false };
 
         }
 
         case equipments.SORT : {
 
-            return { ...state, sortField : action.sortField, sortDirection : action.sortDirection };
+            return { ...state, sortField : action.sortField, sortDirection : action.sortDirection, isLoaded : false };
 
         }
 
