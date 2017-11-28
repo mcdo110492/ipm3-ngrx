@@ -55,13 +55,13 @@ export function reducer(state: State = initialState, action: employeeStatusActio
 
         case employeeStatusActions.PAGINATE : {
 
-            return { ...state, pageSize : action.pageSize, pageIndex : action.pageIndex };
+            return { ...state, pageSize : action.pageSize, pageIndex : action.pageIndex, isLoaded : false };
 
         }
 
         case employeeStatusActions.SORT : {
 
-            return { ...state, sortField : action.sortField, sortDirection : action.sortDirection };
+            return { ...state, sortField : action.sortField, sortDirection : action.sortDirection, isLoaded : false };
 
         }
 
