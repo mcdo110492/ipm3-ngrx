@@ -115,6 +115,15 @@
                           Position is required
                         </mat-error>
                     </mat-form-field>
+
+                    <mat-form-field fxFlex>
+                      <input matInput [matDatepicker]="dateh" placeholder="Date Hired" formControlName="dateHired" required>
+                      <mat-datepicker-toggle matSuffix [for]="dateh"></mat-datepicker-toggle>
+                      <mat-datepicker #dateh></mat-datepicker>
+                      <mat-error>
+                        Date Hired is required
+                      </mat-error>
+                    </mat-form-field>
                 </div>
 
                 <div fxLayout="row">

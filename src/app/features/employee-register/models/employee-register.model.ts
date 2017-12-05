@@ -22,6 +22,7 @@ export interface Employment {
     positionId          :   number;
     employeeStatusId     :   number;
     employmentStatusId  :   number;
+    dateHired           :   Date;
     contractStart       :   Date;
     contractEnd         :   Date;
 }

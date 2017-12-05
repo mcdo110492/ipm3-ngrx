@@ -34,6 +34,7 @@ export class EmployeeEmploymentInformationService {
         positionId              : data.positionId,
         employmentStatusId      : data.employmentStatusId,
         employeeStatusId        : data.employeeStatusId,
+        dateHired               : this._moment.parseDateToMoment(data.dateHired),
         contractStart           : this._moment.parseDateToMoment(data.contractStart),
         contractEnd             : this._moment.parseDateToMoment(data.contractEnd),
         salary                  : data.salary,
