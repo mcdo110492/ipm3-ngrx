@@ -115,6 +115,7 @@ export class EmployeeRegisterFormComponent implements OnInit ,OnDestroy {
       positionId              : [null,Validators.required],
       employeeStatusId        : [null,Validators.required],
       employmentStatusId      : [null,Validators.required],
+      dateHired               : [null,Validators.required],
       contractStart           : [null,Validators.required],
       contractEnd             : [null,Validators.required]
     });

@@ -23,6 +23,9 @@ const routes: Routes = [
   { path: 'employee/register', loadChildren: 'app/features/employee-register/employee-register.module#EmployeeRegisterModule', data : { animation : 'employee' },canLoad :[AuthenticationGuard] },
   { path: 'employee/list', loadChildren: 'app/features/employee-list/employee-list.module#EmployeeListModule', data : { animation : 'employee/list' },canLoad :[AuthenticationGuard] },
   { path: 'employee/details/:empNum/:id', loadChildren: 'app/features/employee-details/employee-details.module#EmployeeDetailsModule', data : { animation : 'employee/detail' },canLoad :[AuthenticationGuard] },
+
+  { path: 'shifts', loadChildren: 'app/features/shifts/shifts.module#ShiftsModule', data : { animation : 'shifts' },canLoad :[AuthenticationGuard] },
+
   {path : '404/page-not-found', component : PageNotFoundComponent, data: { animation : 'page-not-found' } },
   { path: '**', pathMatch: 'full', redirectTo : '404/page-not-found'  },
 ];

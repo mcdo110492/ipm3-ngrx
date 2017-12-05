@@ -6,6 +6,9 @@ import { Position } from "./../../features/positions/models/positions.model";
 import { EmploymentStatus } from "./../../features/employment-status/models/employment-status.model";
 import { EmployeeStatus } from "./../../features/employee-status/models/employee-status.model";
 import { Units } from "../../features/units/models/units.model";
+import { Equipment } from "../../features/equipments/models/equipments.model";
+import { CollectionSchedules } from "../../features/collection-schedules/models/collection-schedules.model";
+import { CollectionTypes } from "../../features/collection-types/models/collection-types.model";
 
 
 export interface State {
@@ -13,7 +16,10 @@ export interface State {
     positions           : Position[];
     employmentStatus    : EmploymentStatus[];
     employeeStatus      : EmployeeStatus[];
+    collectionSchedules : CollectionSchedules[];
+    collectionTypes     : CollectionTypes[];
     units               : Units[];
+    equipments          : Equipment[];
     error               : any;
 }
 
@@ -22,7 +28,10 @@ export const initialState: State = {
     positions           :   [],
     employeeStatus      :   [],
     employmentStatus    :   [],
+    collectionSchedules :   [],
+    collectionTypes     :   [],
     units               :   [],
+    equipments          :   [],
     error               :   null
 }
 
@@ -83,9 +92,25 @@ export function reducer(state: State = initialState, action: masterData.Actions)
             return { ...state, units: action.payload };
         }
 
+        case masterData.GET_ALL_EQUIPMENTS_SUCCESS : {
+
+            return { ...state, equipments: action.payload };
+        }
+
+        case masterData.GET_ALL_COLLECTION_SCHEDULE_SUCCESS : {
+            
+            return { ...state, collectionSchedules : action.payload };
+        }
+
+        case masterData.GET_ALL_COLLECTION_TYPE_SUCCESS : {
+            
+            return { ...state, collectionTypes : action.payload };
+        }
+
         case masterData.MASTER_DATA_ERROR : {
             return { ...state, error : action.payload};
         }
+
 
         default:
             return state;
@@ -110,5 +135,11 @@ export const getEmploymentStatus = createSelector(getState, (state : State) => s
 export const getEmployeeStatus = createSelector(getState, (state : State) => state.employeeStatus);
 
 export const getUnits       = createSelector(getState, (state : State) => state.units);
+
+export const getEquipments = createSelector(getState, (state : State) => state.equipments);
+
+export const getCollectionSchedules = createSelector(getState, (state : State) => state.collectionSchedules);
+
+export const getCollectionTypes = createSelector(getState , (state : State) => state.collectionTypes);
 
 

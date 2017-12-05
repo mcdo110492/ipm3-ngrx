@@ -6,6 +6,7 @@ export interface EmployeeEmployment {
     positionId                  :   number;
     employeeStatusId            :   number;
     employmentStatusId          :   number;
+    dateHired                   :   Date | string;
     contractStart               :   Date | string;
     contractEnd                 :   Date | string;
     salary                      :   number;

@@ -29,6 +29,7 @@ export class EmployeeRegisterService {
       positionId          : data.employment.positionId,
       employeeStatusId    : data.employment.employeeStatusId,
       employmentStatusId  : data.employment.employmentStatusId,
+      dateHired           : this._moment.parseDateToMoment(data.employment.dateHired),
       contractStart       : this._moment.parseDateToMoment(data.employment.contractStart),
       contractEnd         : this._moment.parseDateToMoment(data.employment.contractEnd),
       projectId           : project

@@ -24,50 +24,37 @@
                   The actual rendered columns are set as a property on the row definition" -->
 
             <!-- Project Name Column -->
-            <ng-container matColumnDef="equipmentCode">
-              <mat-header-cell *matHeaderCellDef mat-sort-header>Code</mat-header-cell>
-              <mat-cell *matCellDef="let row"> {{row.equipmentCode}} </mat-cell>
-            </ng-container>
-        
-            <!-- Project Name Column -->
             <ng-container matColumnDef="bodyNumber">
               <mat-header-cell *matHeaderCellDef mat-sort-header>Body Number</mat-header-cell>
               <mat-cell *matCellDef="let row"> {{row.bodyNumber}} </mat-cell>
             </ng-container>
 
             <!-- Project Name Column -->
-            <ng-container matColumnDef="unitId">
-              <mat-header-cell *matHeaderCellDef mat-sort-header>Unit</mat-header-cell>
-              <mat-cell *matCellDef="let row"> {{row.unitCode}} </mat-cell>
+            <ng-container matColumnDef="collectionScheduleName">
+              <mat-header-cell *matHeaderCellDef >Collection Schedule</mat-header-cell>
+              <mat-cell *matCellDef="let row"> {{row.collectionScheduleName}} </mat-cell>
             </ng-container>
 
             <!-- Project Name Column -->
-            <ng-container matColumnDef="model">
-              <mat-header-cell *matHeaderCellDef mat-sort-header>Model</mat-header-cell>
-              <mat-cell *matCellDef="let row"> {{row.model}} </mat-cell>
+            <ng-container matColumnDef="collectionTypeName">
+              <mat-header-cell *matHeaderCellDef >Collection Type</mat-header-cell>
+              <mat-cell *matCellDef="let row"> {{row.collectionTypeName}} </mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="capacity">
-              <mat-header-cell *matHeaderCellDef mat-sort-header>Capacity</mat-header-cell>
-              <mat-cell *matCellDef="let row"> {{row.capacity}} </mat-cell>
+            <ng-container matColumnDef="geofenceName">
+              <mat-header-cell *matHeaderCellDef>Geofence Name</mat-header-cell>
+              <mat-cell *matCellDef="let row"> {{row.geofenceName}} </mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="plateNo">
-              <mat-header-cell *matHeaderCellDef mat-sort-header>Plate Number</mat-header-cell>
-              <mat-cell *matCellDef="let row"> {{row.plateNo}} </mat-cell>
+            <ng-container matColumnDef="sectors">
+              <mat-header-cell *matHeaderCellDef>Sectors</mat-header-cell>
+              <mat-cell *matCellDef="let row"> {{row.sectors}} </mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="status">
-              <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
-              <mat-cell *matCellDef="let row">
-                <button matTooltip="Click to Change the status to Inactive" matTooltipPosition="above" *ngIf="row.status == 1" mat-raised-button color="primary" (click)="changeStatus(row.equipmentId,0)" >Active</button>
-                <button matTooltip="Click to Change the status to Active" matTooltipPosition="above" *ngIf="row.status == 0" mat-raised-button color="warn" (click)="changeStatus(row.equipmentId,1)" >Inactive</button>
-              </mat-cell>
-            </ng-container>
 
-            <ng-container matColumnDef="remarks">
-              <mat-header-cell *matHeaderCellDef mat-sort-header>Remarks</mat-header-cell>
-              <mat-cell *matCellDef="let row"> {{row.remarks}} </mat-cell>
+            <ng-container matColumnDef="shiftTime">
+              <mat-header-cell *matHeaderCellDef>Time</mat-header-cell>
+              <mat-cell *matCellDef="let row"> {{row.shiftTime}} </mat-cell>
             </ng-container>
         
         

@@ -5,7 +5,7 @@ import { MatDialogRef } from "@angular/material";
 
 import { Store } from "@ngrx/store";
 import * as fromRootEquipments from './../reducers';
-import * as collectionSchedulesActions from './../actions/equipments.actions';
+import * as equipmentsActions from './../actions/equipments.actions';
 
 import * as masterDataActions from './../../../master-data/actions/master-data.actions';
 import * as fromMasterData from './../../../master-data/reducers/master-data.reducers';
@@ -14,7 +14,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from "rxjs/Subscription";
 
 import { Equipment } from "./../models/equipments.model";
-import { Units } from '../../units/models/units.model';
+import { Units } from './../../units/models/units.model';
 
 @Component({
   selector: 'app-equipments-form',
@@ -77,13 +77,13 @@ export class EquipmentsFormComponent implements OnInit, OnDestroy {
   }
 
   submitForm(){
-    this._store$.dispatch( new collectionSchedulesActions.SaveEquipments(this.equipmentsForm.value) );
+    this._store$.dispatch( new equipmentsActions.SaveEquipments(this.equipmentsForm.value) );
     this._dialogRef.close();
     
   }
 
   closeDialog(){
-    this._store$.dispatch( new collectionSchedulesActions.ClearSelectEquipments() );
+    this._store$.dispatch( new equipmentsActions.ClearSelectEquipments() );
     this._dialogRef.close();
 
   }

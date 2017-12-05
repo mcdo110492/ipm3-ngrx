@@ -5,6 +5,9 @@ import { Position } from "./../../features/positions/models/positions.model";
 import { EmploymentStatus } from "./../../features/employment-status/models/employment-status.model";
 import { EmployeeStatus } from "./../../features/employee-status/models/employee-status.model";
 import { Units } from "../../features/units/models/units.model";
+import { Equipment } from "../../features/equipments/models/equipments.model";
+import { CollectionSchedules } from "../../features/collection-schedules/models/collection-schedules.model";
+import { CollectionTypes } from "../../features/collection-types/models/collection-types.model";
 
 export const GET_ALL_PROJECTS                       = '[MASTER_DATA] GetAllProjects';
 export const GET_ALL_PROJECTS_SUCCESS               = '[MASTER_DATA] GetAllProjectsSuccess';
@@ -18,6 +21,12 @@ export const GET_EMPLOYEE_STATUS                    = '[MASTER_DATA] GetAllEmplo
 export const GET_EMPLOYEE_STATUS_SUCCESS            = '[MASTER_DATA] GetAllEmployeeStatusSuccess';
 export const GET_ALL_UNITS                          = '[MASTER_DATA] GetAllUnits';
 export const GET_ALL_UNITS_SUCCESS                  = '[MASTER_DATA] GetAllUnitsSuccess';
+export const GET_ALL_EQUIPMENTS                     = '[MASTER_DATA] GetAllEquipments';
+export const GET_ALL_EQUIPMENTS_SUCCESS             = '[MASTER_DATA] GetAllEquipmentsSuccess';
+export const GET_ALL_COLLECTION_SCHEDULE            = '[MASTER_DATA] GetAllCollectionSchedule';
+export const GET_ALL_COLLECTION_SCHEDULE_SUCCESS    = '[MASTER_DATA] GetAllCollectionScheduleSuccess';
+export const GET_ALL_COLLECTION_TYPE                = '[MASTER_DATA] GetAllCollectionType';
+export const GET_ALL_COLLECTION_TYPE_SUCCESS        = '[MASTER_DATA] GetAllCollectionTypeSuccess';
 export const MASTER_DATA_ERROR                      = '[MASTER_DATA] MasterDataError';
 
 
@@ -83,6 +92,36 @@ export class GetAllUnitsSuccess implements Action {
     constructor(public payload : Units[]){}
 }
 
+export class GetAllEquipments implements Action {
+    readonly type = GET_ALL_EQUIPMENTS;
+}
+
+export class GetAllEquipmentsSuccess implements Action {
+    readonly type = GET_ALL_EQUIPMENTS_SUCCESS;
+
+    constructor(public payload : Equipment[]){}
+}
+
+export class GetAllCollectionSchedule implements Action {
+    readonly type = GET_ALL_COLLECTION_SCHEDULE;
+}
+
+export class GetAllCollectionScheduleSuccess implements Action {
+    readonly type = GET_ALL_COLLECTION_SCHEDULE_SUCCESS;
+
+    constructor(public payload : CollectionSchedules[]){}
+}
+
+export class GetAllCollectionType implements Action {
+    readonly type = GET_ALL_COLLECTION_TYPE;
+}
+
+export class GetAllCollectionTypeSuccess implements Action {
+    readonly type = GET_ALL_COLLECTION_TYPE_SUCCESS;
+
+    constructor(public payload : CollectionTypes[]){}
+}
+
 export class MasterDataError implements Action {
     readonly type = MASTER_DATA_ERROR;
 
@@ -106,4 +145,10 @@ export type Actions
 | GetAllEmployeeStatusSuccess
 | GetAllUnits
 | GetAllUnitsSuccess
+| GetAllEquipments
+| GetAllEquipmentsSuccess
+| GetAllCollectionSchedule
+| GetAllCollectionScheduleSuccess
+| GetAllCollectionType
+| GetAllCollectionTypeSuccess
 | MasterDataError;

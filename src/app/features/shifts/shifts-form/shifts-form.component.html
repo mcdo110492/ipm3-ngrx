@@ -1,0 +1,76 @@
+
+<form [formGroup]="shiftsForm">
+  
+      <h2 align="center" mat-dialog-title>Shift</h2>
+      <mat-dialog-content>
+
+          <div fxLayout="column">
+              <label>Shift Time *</label>
+              <p-calendar formControlName="shiftTime" [timeOnly]="true" hourFormat="24" ></p-calendar>
+          </div>
+
+          <br>
+          <mat-form-field >
+              <mat-select placeholder="Equipment Body Number" formControlName="equipmentId" required>
+                <mat-option *ngFor="let eq of equipments$ | async" [value]="eq.equipmentId">{{eq.bodyNumber}}</mat-option>
+              </mat-select>
+              <mat-error>
+                Equipment Body Number is required
+              </mat-error>
+          </mat-form-field>
+
+          <div fxLayout="row">
+
+              <mat-form-field fxFlex>
+                <mat-select placeholder="Collection Schedule" formControlName="collectionScheduleId" required>
+                  <mat-option *ngFor="let cs of collectionSchedules$ | async" [value]="cs.collectionScheduleId">{{cs.collectionScheduleName}}</mat-option>
+                </mat-select>
+                <mat-error>
+                  Collection Schedule is required
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field fxFlex>
+                <mat-select placeholder="Collection Type" formControlName="collectionTypeId" required>
+                  <mat-option *ngFor="let ct of collectionTypes$ | async" [value]="ct.collectionTypeId">{{ct.collectionTypeName}}</mat-option>
+                </mat-select>
+                <mat-error>
+                  Collection Type is required
+                </mat-error>
+            </mat-form-field>
+
+          </div>
+
+          <div fxlayout="row">
+
+              <mat-form-field fxFlex>
+                  <input matInput #geo  placeholder="Geofence Name" maxlength="150" formControlName="geofenceName" required>
+                  <mat-hint align="end">{{geo.value?.length || 0}}/150</mat-hint>
+                  <mat-error>
+                      Geofence Name is required
+                  </mat-error>
+              </mat-form-field>
+
+              <mat-form-field fxFlex>
+                  <input matInput #sec  placeholder="Sectors" maxlength="150" formControlName="sectors" required>
+                  <mat-hint align="end">{{sec.value?.length || 0}}/150</mat-hint>
+                  <mat-error>
+                      Sectors is required
+                  </mat-error>
+              </mat-form-field>
+
+          </div>
+
+     
+      </mat-dialog-content>
+  
+      <mat-dialog-actions align="center">
+          
+          <button mat-raised-button [disabled]="shiftsForm.invalid || shiftsForm.pristine" (click)="submitForm()" color="accent">Save</button>
+          <button mat-raised-button (click)="closeDialog()" color="warn">Cancel</button>
+      
+      </mat-dialog-actions>
+  
+  </form>
+  
+  
