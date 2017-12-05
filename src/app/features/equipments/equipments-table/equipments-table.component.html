@@ -60,7 +60,7 @@
             <ng-container matColumnDef="status">
               <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
               <mat-cell *matCellDef="let row">
-                <button matTooltip="Click to Change the status to Inactive" matTooltipPosition="above" *ngIf="row.status == 1" mat-raised-button color="accent" (click)="changeStatus(row.equipmentId,0)" >Active</button>
+                <button matTooltip="Click to Change the status to Inactive" matTooltipPosition="above" *ngIf="row.status == 1" mat-raised-button color="primary" (click)="changeStatus(row.equipmentId,0)" >Active</button>
                 <button matTooltip="Click to Change the status to Active" matTooltipPosition="above" *ngIf="row.status == 0" mat-raised-button color="warn" (click)="changeStatus(row.equipmentId,1)" >Inactive</button>
               </mat-cell>
             </ng-container>
